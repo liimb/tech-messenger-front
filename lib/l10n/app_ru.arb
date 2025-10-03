@@ -1,0 +1,12 @@
+{
+    "auth": "Вход",
+    "registration": "Регистрация",
+    "yourNickname": "Никнейм",
+    "yourPassword": "Пароль",
+    "repeatYourPassword": "Повторите пароль",
+    "login": "Войти",
+    "noAccount": "Нет аккаунта?",
+    "hasAccount": "Есть аккаунт?",
+    "doLogin": "Войдите",
+    "register": "Зарегистрироваться"
+}

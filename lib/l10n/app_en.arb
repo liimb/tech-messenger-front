@@ -1,0 +1,12 @@
+{
+    "auth": "Login",
+    "registration": "Registration",
+    "yourNickname": "Nickname",
+    "yourPassword": "Password",
+    "repeatYourPassword": "Repeat password",
+    "login": "Login",
+    "noAccount": "No account?",
+    "hasAccount": "Do you have an account?",
+    "doLogin": "Login",
+    "register": "Register"
+}
