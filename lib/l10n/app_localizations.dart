@@ -157,6 +157,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Зарегистрироваться'**
   String get register;
+
+  /// No description provided for @allChats.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все чаты'**
+  String get allChats;
+
+  /// No description provided for @settings.
+  ///
+  /// In ru, this message translates to:
+  /// **'Настройки'**
+  String get settings;
 }
 
 class _AppLocalizationsDelegate

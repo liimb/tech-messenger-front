@@ -37,4 +37,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get register => 'Register';
+
+  @override
+  String get allChats => 'All chats';
+
+  @override
+  String get settings => 'Settings';
 }

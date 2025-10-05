@@ -8,5 +8,7 @@
     "noAccount": "No account?",
     "hasAccount": "Do you have an account?",
     "doLogin": "Login",
-    "register": "Register"
+    "register": "Register",
+    "allChats": "All chats",
+    "settings": "Settings"
 }
