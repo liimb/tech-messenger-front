@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tech_messenger/app/messenger_app.dart';
 
@@ -7,7 +9,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   HttpOverrides.global = MyHttpOverrides();
-  runApp(MessengerApp());
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(const MessengerApp());
 }
 
 class MyHttpOverrides extends HttpOverrides {
@@ -16,5 +20,16 @@ class MyHttpOverrides extends HttpOverrides {
     return super.createHttpClient(context)
       ..badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
+  }
+
+  Dio dio() {
+    final dio = Dio(
+      BaseOptions(
+        connectTimeout: Duration(seconds: 10),
+        receiveTimeout: Duration(seconds: 10),
+        headers: {'Content-Type': 'application/json'},
+      ),
+    );
+    return dio;
   }
 }

@@ -19,7 +19,7 @@ class MessengerApp extends StatelessWidget {
       supportedLocales: const [Locale('ru')],
       locale: const Locale('ru'),
       routerConfig: router,
-      theme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
     );
   }
 }

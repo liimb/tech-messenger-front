@@ -16,6 +16,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   late final TextEditingController nicknameController;
   late final TextEditingController passwordController;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -33,45 +34,51 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: p32, horizontal: p32),
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(context.l10n.auth, style: context.appTextTheme.large),
-              SizedBox(height: p32),
-              InputWidget(
-                controller: nicknameController,
-                hintText: context.l10n.yourNickname,
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.symmetric(vertical: p32, horizontal: p32),
+          child: Center(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(context.l10n.auth, style: context.appTextTheme.large),
+                  SizedBox(height: p32),
+                  InputWidget(
+                    controller: nicknameController,
+                    hintText: context.l10n.yourNickname,
+                  ),
+                  SizedBox(height: p16),
+                  InputWidget(
+                    controller: passwordController,
+                    obscureText: true,
+                    hintText: context.l10n.yourPassword,
+                  ),
+                  SizedBox(height: p16),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.5,
+                    child: PrimaryButton(
+                      text: context.l10n.login,
+                      isEnabled: true,
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: p16),
-              InputWidget(
-                controller: passwordController,
-                obscureText: true,
-                hintText: context.l10n.yourPassword,
-              ),
-              SizedBox(height: p16),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: PrimaryButton(
-                  text: context.l10n.login,
-                  isEnabled: true,
-                  onPressed: () {},
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(bottom: p32),
-        child: TextButtonWidget(
-          onPressed: () => context.go("/registration"),
-          text: context.l10n.noAccount,
-          buttonText: context.l10n.register,
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(bottom: p32),
+          child: TextButtonWidget(
+            onPressed: () => context.go("/registration"),
+            text: context.l10n.noAccount,
+            buttonText: context.l10n.register,
+          ),
         ),
       ),
     );

@@ -116,17 +116,41 @@ abstract class AppLocalizations {
   /// **'Никнейм'**
   String get yourNickname;
 
+  /// No description provided for @errorUncorrectNickname.
+  ///
+  /// In ru, this message translates to:
+  /// **'Никнейм должен быть не менее 3 символов'**
+  String get errorUncorrectNickname;
+
+  /// No description provided for @fieldMustNotEmpty.
+  ///
+  /// In ru, this message translates to:
+  /// **'Обязательное поле!'**
+  String get fieldMustNotEmpty;
+
   /// No description provided for @yourPassword.
   ///
   /// In ru, this message translates to:
   /// **'Пароль'**
   String get yourPassword;
 
+  /// No description provided for @errorUncorrectPassword.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пароль должен быть не менее 8 символов и \nсодержать\n●заглавные буквы\n●цифры\n●специальные символы'**
+  String get errorUncorrectPassword;
+
   /// No description provided for @repeatYourPassword.
   ///
   /// In ru, this message translates to:
   /// **'Повторите пароль'**
   String get repeatYourPassword;
+
+  /// No description provided for @errorPasswordsDoNotMatch.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пароли должны совпадать'**
+  String get errorPasswordsDoNotMatch;
 
   /// No description provided for @login.
   ///
