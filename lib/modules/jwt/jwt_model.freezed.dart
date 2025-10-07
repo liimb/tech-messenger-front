@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,191 +9,266 @@ part of 'jwt_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-JwtModel _$JwtModelFromJson(Map<String, dynamic> json) {
-  return _JwtModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$JwtModel {
-  @JsonKey(name: 'access_token')
-  String get accessToken => throw _privateConstructorUsedError;
-  @JsonKey(name: 'refresh_token')
-  String get refreshToken => throw _privateConstructorUsedError;
+
+@JsonKey(name: 'access_token') String get accessToken;@JsonKey(name: 'refresh_token') String get refreshToken;
+/// Create a copy of JwtModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$JwtModelCopyWith<JwtModel> get copyWith => _$JwtModelCopyWithImpl<JwtModel>(this as JwtModel, _$identity);
 
   /// Serializes this JwtModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of JwtModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $JwtModelCopyWith<JwtModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JwtModel&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,accessToken,refreshToken);
+
+@override
+String toString() {
+  return 'JwtModel(accessToken: $accessToken, refreshToken: $refreshToken)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $JwtModelCopyWith<$Res> {
-  factory $JwtModelCopyWith(JwtModel value, $Res Function(JwtModel) then) =
-      _$JwtModelCopyWithImpl<$Res, JwtModel>;
-  @useResult
-  $Res call({
-    @JsonKey(name: 'access_token') String accessToken,
-    @JsonKey(name: 'refresh_token') String refreshToken,
-  });
-}
+abstract mixin class $JwtModelCopyWith<$Res>  {
+  factory $JwtModelCopyWith(JwtModel value, $Res Function(JwtModel) _then) = _$JwtModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'access_token') String accessToken,@JsonKey(name: 'refresh_token') String refreshToken
+});
 
+
+
+
+}
 /// @nodoc
-class _$JwtModelCopyWithImpl<$Res, $Val extends JwtModel>
+class _$JwtModelCopyWithImpl<$Res>
     implements $JwtModelCopyWith<$Res> {
-  _$JwtModelCopyWithImpl(this._value, this._then);
+  _$JwtModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final JwtModel _self;
+  final $Res Function(JwtModel) _then;
 
-  /// Create a copy of JwtModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? accessToken = null, Object? refreshToken = null}) {
-    return _then(
-      _value.copyWith(
-            accessToken: null == accessToken
-                ? _value.accessToken
-                : accessToken // ignore: cast_nullable_to_non_nullable
-                      as String,
-            refreshToken: null == refreshToken
-                ? _value.refreshToken
-                : refreshToken // ignore: cast_nullable_to_non_nullable
-                      as String,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of JwtModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? refreshToken = null,}) {
+  return _then(_self.copyWith(
+accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$JwtModelImplCopyWith<$Res>
-    implements $JwtModelCopyWith<$Res> {
-  factory _$$JwtModelImplCopyWith(
-    _$JwtModelImpl value,
-    $Res Function(_$JwtModelImpl) then,
-  ) = __$$JwtModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    @JsonKey(name: 'access_token') String accessToken,
-    @JsonKey(name: 'refresh_token') String refreshToken,
-  });
 }
 
-/// @nodoc
-class __$$JwtModelImplCopyWithImpl<$Res>
-    extends _$JwtModelCopyWithImpl<$Res, _$JwtModelImpl>
-    implements _$$JwtModelImplCopyWith<$Res> {
-  __$$JwtModelImplCopyWithImpl(
-    _$JwtModelImpl _value,
-    $Res Function(_$JwtModelImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of JwtModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? accessToken = null, Object? refreshToken = null}) {
-    return _then(
-      _$JwtModelImpl(
-        accessToken: null == accessToken
-            ? _value.accessToken
-            : accessToken // ignore: cast_nullable_to_non_nullable
-                  as String,
-        refreshToken: null == refreshToken
-            ? _value.refreshToken
-            : refreshToken // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [JwtModel].
+extension JwtModelPatterns on JwtModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _JwtModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _JwtModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _JwtModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _JwtModel():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _JwtModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _JwtModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'refresh_token')  String refreshToken)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _JwtModel() when $default != null:
+return $default(_that.accessToken,_that.refreshToken);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'refresh_token')  String refreshToken)  $default,) {final _that = this;
+switch (_that) {
+case _JwtModel():
+return $default(_that.accessToken,_that.refreshToken);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'refresh_token')  String refreshToken)?  $default,) {final _that = this;
+switch (_that) {
+case _JwtModel() when $default != null:
+return $default(_that.accessToken,_that.refreshToken);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$JwtModelImpl implements _JwtModel {
-  const _$JwtModelImpl({
-    @JsonKey(name: 'access_token') required this.accessToken,
-    @JsonKey(name: 'refresh_token') required this.refreshToken,
-  });
 
-  factory _$JwtModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$JwtModelImplFromJson(json);
+class _JwtModel implements JwtModel {
+  const _JwtModel({@JsonKey(name: 'access_token') required this.accessToken, @JsonKey(name: 'refresh_token') required this.refreshToken});
+  factory _JwtModel.fromJson(Map<String, dynamic> json) => _$JwtModelFromJson(json);
 
-  @override
-  @JsonKey(name: 'access_token')
-  final String accessToken;
-  @override
-  @JsonKey(name: 'refresh_token')
-  final String refreshToken;
+@override@JsonKey(name: 'access_token') final  String accessToken;
+@override@JsonKey(name: 'refresh_token') final  String refreshToken;
 
-  @override
-  String toString() {
-    return 'JwtModel(accessToken: $accessToken, refreshToken: $refreshToken)';
-  }
+/// Create a copy of JwtModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$JwtModelCopyWith<_JwtModel> get copyWith => __$JwtModelCopyWithImpl<_JwtModel>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$JwtModelImpl &&
-            (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken) &&
-            (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken);
-
-  /// Create a copy of JwtModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$JwtModelImplCopyWith<_$JwtModelImpl> get copyWith =>
-      __$$JwtModelImplCopyWithImpl<_$JwtModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$JwtModelImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$JwtModelToJson(this, );
 }
 
-abstract class _JwtModel implements JwtModel {
-  const factory _JwtModel({
-    @JsonKey(name: 'access_token') required final String accessToken,
-    @JsonKey(name: 'refresh_token') required final String refreshToken,
-  }) = _$JwtModelImpl;
-
-  factory _JwtModel.fromJson(Map<String, dynamic> json) =
-      _$JwtModelImpl.fromJson;
-
-  @override
-  @JsonKey(name: 'access_token')
-  String get accessToken;
-  @override
-  @JsonKey(name: 'refresh_token')
-  String get refreshToken;
-
-  /// Create a copy of JwtModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$JwtModelImplCopyWith<_$JwtModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JwtModel&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,accessToken,refreshToken);
+
+@override
+String toString() {
+  return 'JwtModel(accessToken: $accessToken, refreshToken: $refreshToken)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$JwtModelCopyWith<$Res> implements $JwtModelCopyWith<$Res> {
+  factory _$JwtModelCopyWith(_JwtModel value, $Res Function(_JwtModel) _then) = __$JwtModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'access_token') String accessToken,@JsonKey(name: 'refresh_token') String refreshToken
+});
+
+
+
+
+}
+/// @nodoc
+class __$JwtModelCopyWithImpl<$Res>
+    implements _$JwtModelCopyWith<$Res> {
+  __$JwtModelCopyWithImpl(this._self, this._then);
+
+  final _JwtModel _self;
+  final $Res Function(_JwtModel) _then;
+
+/// Create a copy of JwtModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = null,Object? refreshToken = null,}) {
+  return _then(_JwtModel(
+accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

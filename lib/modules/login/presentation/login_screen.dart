@@ -4,16 +4,17 @@ import 'package:tech_messenger/core/common/presentation/widget/input_widget.dart
 import 'package:tech_messenger/core/common/presentation/widget/primary_button.dart';
 import 'package:tech_messenger/core/common/presentation/widget/text_button_widget.dart';
 import 'package:tech_messenger/core/constant/app_padding.dart';
+import 'package:tech_messenger/core/routing/app_routing.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 
-class AuthScreen extends StatefulWidget {
-  const AuthScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<AuthScreen> createState() => _AuthScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   late final TextEditingController nicknameController;
   late final TextEditingController passwordController;
   final _formKey = GlobalKey<FormState>();
@@ -73,9 +74,9 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(bottom: p32),
+          padding: EdgeInsets.only(bottom: p16),
           child: TextButtonWidget(
-            onPressed: () => context.go("/registration"),
+            onPressed: () => context.go(AppRoutes.registration.routePath),
             text: context.l10n.noAccount,
             buttonText: context.l10n.register,
           ),

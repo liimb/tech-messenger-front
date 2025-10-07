@@ -6,8 +6,8 @@ part of 'error_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ErrorModelImpl _$$ErrorModelImplFromJson(Map<String, dynamic> json) =>
-    _$ErrorModelImpl(message: json['message'] as String);
+_ErrorModel _$ErrorModelFromJson(Map<String, dynamic> json) =>
+    _ErrorModel(message: json['message'] as String);
 
-Map<String, dynamic> _$$ErrorModelImplToJson(_$ErrorModelImpl instance) =>
+Map<String, dynamic> _$ErrorModelToJson(_ErrorModel instance) =>
     <String, dynamic>{'message': instance.message};

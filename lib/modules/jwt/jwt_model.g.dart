@@ -6,14 +6,12 @@ part of 'jwt_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$JwtModelImpl _$$JwtModelImplFromJson(Map<String, dynamic> json) =>
-    _$JwtModelImpl(
-      accessToken: json['access_token'] as String,
-      refreshToken: json['refresh_token'] as String,
-    );
+_JwtModel _$JwtModelFromJson(Map<String, dynamic> json) => _JwtModel(
+  accessToken: json['access_token'] as String,
+  refreshToken: json['refresh_token'] as String,
+);
 
-Map<String, dynamic> _$$JwtModelImplToJson(_$JwtModelImpl instance) =>
-    <String, dynamic>{
-      'access_token': instance.accessToken,
-      'refresh_token': instance.refreshToken,
-    };
+Map<String, dynamic> _$JwtModelToJson(_JwtModel instance) => <String, dynamic>{
+  'access_token': instance.accessToken,
+  'refresh_token': instance.refreshToken,
+};

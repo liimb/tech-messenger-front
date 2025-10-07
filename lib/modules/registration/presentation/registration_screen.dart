@@ -6,6 +6,7 @@ import 'package:tech_messenger/core/common/presentation/widget/my_snack_bar.dart
 import 'package:tech_messenger/core/common/presentation/widget/primary_button.dart';
 import 'package:tech_messenger/core/common/presentation/widget/text_button_widget.dart';
 import 'package:tech_messenger/core/constant/app_padding.dart';
+import 'package:tech_messenger/core/routing/app_routing.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 import 'package:tech_messenger/core/util/validators.dart';
 import 'package:tech_messenger/modules/registration/presentation/bloc/registration_bloc.dart';
@@ -143,7 +144,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           bottomNavigationBar: Padding(
             padding: EdgeInsets.only(bottom: p16),
             child: TextButtonWidget(
-              onPressed: () => context.go("/auth"),
+              onPressed: () => context.go(AppRoutes.login.routePath),
               text: context.l10n.hasAccount,
               buttonText: context.l10n.login,
             ),

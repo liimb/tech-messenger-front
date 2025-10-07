@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_request.dart';
+part of 'login_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuthRequestImpl _$$AuthRequestImplFromJson(Map<String, dynamic> json) =>
-    _$AuthRequestImpl(
+_LoginRequest _$LoginRequestFromJson(Map<String, dynamic> json) =>
+    _LoginRequest(
       nickname: json['nickname'] as String,
       password: json['password'] as String,
     );
 
-Map<String, dynamic> _$$AuthRequestImplToJson(_$AuthRequestImpl instance) =>
+Map<String, dynamic> _$LoginRequestToJson(_LoginRequest instance) =>
     <String, dynamic>{
       'nickname': instance.nickname,
       'password': instance.password,
