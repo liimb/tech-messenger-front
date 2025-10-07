@@ -51,4 +51,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get register => 'Register';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get registrationProcess => 'Registering you...';
+
+  @override
+  String get unknownError => 'Unknown error';
+
+  @override
+  String get registrationSuccess => 'Registration is successful';
 }

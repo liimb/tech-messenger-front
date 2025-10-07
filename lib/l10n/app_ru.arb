@@ -12,5 +12,9 @@
     "noAccount": "Нет аккаунта?",
     "hasAccount": "Есть аккаунт?",
     "doLogin": "Войдите",
-    "register": "Зарегистрироваться"
+    "register": "Зарегистрироваться",
+    "ok": "OK",
+    "registrationProcess": "Регистрируем вас...",
+    "unknownError": "Неизвестная ошибка",
+    "registrationSuccess": "Регистрация успешна"
 }

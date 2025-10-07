@@ -51,4 +51,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get register => 'Зарегистрироваться';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get registrationProcess => 'Регистрируем вас...';
+
+  @override
+  String get unknownError => 'Неизвестная ошибка';
+
+  @override
+  String get registrationSuccess => 'Регистрация успешна';
 }

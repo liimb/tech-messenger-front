@@ -1,63 +1,64 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tech_messenger/core/data/repository/auth_repository.dart';
-import 'registration_event.dart';
-import 'registration_state.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tech_messenger/app/app_logger.dart';
+import 'package:tech_messenger/core/common/secure_storage/secure_storage.dart';
+import 'package:tech_messenger/modules/error/error_model.dart';
+import 'package:tech_messenger/modules/jwt/jwt_model.dart';
+import 'package:tech_messenger/modules/registration/domain/model/registration_request.dart';
+import 'package:tech_messenger/modules/registration/domain/repository/registration_repository_interface.dart';
+
+part 'registration_event.dart';
+part 'registration_state.dart';
+part 'registration_bloc.freezed.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
-  final AuthRepository _authRepository;
+  final IRegistrationRepository _registrationRepository;
+  final SecureStorage _secureStorage;
 
-  RegistrationBloc({required AuthRepository authRepository})
-    : _authRepository = authRepository,
-      super(const RegistrationState.initial()) {
-    on<SubmitRegistration>(_onSubmitRegistration);
+  RegistrationBloc({
+    required IRegistrationRepository registrationRepository,
+    required SecureStorage secureStorage,
+  }) : _registrationRepository = registrationRepository,
+       _secureStorage = secureStorage,
+       super(const RegistrationState.initial()) {
+    on<SubmitRegistrationEvent>(_onSubmitRegistration);
   }
 
   Future<void> _onSubmitRegistration(
-    SubmitRegistration event,
+    SubmitRegistrationEvent event,
     Emitter<RegistrationState> emit,
   ) async {
-    if (event.password != event.repeatPassword) {
-      emit(
-        const RegistrationState.passwordMismatchError('Пароли не совпадают'),
-      );
-      return;
-    }
-
-    if (event.nickname.isEmpty || event.password.isEmpty) {
-      emit(const RegistrationState.error('Заполните все поля'));
-      return;
-    }
-
-    emit(const RegistrationState.loading());
-
     try {
-      final nicknameResponse = await _authRepository.checkNicknameExists({
-        'nickname': event.nickname,
-      });
-      if (nicknameResponse.exists) {
-        emit(
-          RegistrationState.nicknameExistsError(
-            'Никнейм "${event.nickname}" уже занят',
-          ),
-        );
-        return;
-      }
+      emit(RegistrationState.loading());
 
-      final registerResponse = await _authRepository.registerUser({
-        'nickname': event.nickname,
-        'password': event.password,
-      });
-      if (registerResponse.success) {
-        emit(const RegistrationState.success());
+      final response = await _registrationRepository.register(
+        RegistrationRequest(
+          nickname: event.nickname,
+          password: event.password,
+          passwordRepeat: event.passwordRepeat,
+        ),
+      );
+
+      if (response.response.statusCode == 200) {
+        final jwt = JwtModel.fromJson(response.response.data);
+        await _secureStorage.saveToken(jwt);
+        emit(RegistrationState.success());
+        AppLogger.error('Успешная регистрация:\n$jwt');
       } else {
-        emit(
-          RegistrationState.error(
-            registerResponse.message ?? 'Ошибка регистрации',
-          ),
-        );
+        try {
+          final error = ErrorModel.fromJson(response.response.data);
+          emit(RegistrationState.error(error.message));
+          AppLogger.error('Ошибка при регистрации:\n$error');
+        } catch (e, st) {
+          emit(RegistrationState.error('Ошибка на сервере'));
+          AppLogger.error('Ошибка при регистрации:\n$e\n$st');
+        }
       }
-    } catch (e) {
-      emit(RegistrationState.error('Сетевая ошибка: $e'));
+    } catch (e, st) {
+      emit(RegistrationState.error('Неизвестная ошибка'));
+      AppLogger.error(
+        'Ошибка при регистрации:${e.toString()}\n${st.toString()}',
+      );
     }
   }
 }

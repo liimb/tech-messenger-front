@@ -1,15 +1,10 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'registration_state.freezed.dart';
+part of 'registration_bloc.dart';
 
 @freezed
 class RegistrationState with _$RegistrationState {
-  const factory RegistrationState.initial() = RegistrationInitial;
-  const factory RegistrationState.loading() = RegistrationLoading;
-  const factory RegistrationState.nicknameExistsError(String message) =
-      NicknameExistsError;
-  const factory RegistrationState.passwordMismatchError(String message) =
-      PasswordMismatchError;
-  const factory RegistrationState.success() = RegistrationSuccess;
-  const factory RegistrationState.error(String message) = RegistrationError;
+  const factory RegistrationState.initial() = RegistrationInitialState;
+  const factory RegistrationState.loading() = RegistrationLoadingState;
+  const factory RegistrationState.success() = RegistrationSuccessState;
+  const factory RegistrationState.error(String message) =
+      RegistrationErrorState;
 }

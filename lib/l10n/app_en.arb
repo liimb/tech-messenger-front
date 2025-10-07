@@ -12,5 +12,9 @@
     "noAccount": "No account?",
     "hasAccount": "Do you have an account?",
     "doLogin": "Login",
-    "register": "Register"
+    "register": "Register",
+    "ok": "OK",
+    "registrationProcess": "Registering you...",
+    "unknownError": "Unknown error",
+    "registrationSuccess": "Registration is successful"
 }

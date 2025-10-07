@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tech_messenger/app/app_config.dart';
+import 'package:tech_messenger/modules/registration/data/datasource/impl/registration_datasource_impl.dart';
+import 'package:tech_messenger/modules/registration/data/repository/registration_repository_impl.dart';
+import 'package:tech_messenger/modules/registration/domain/repository/registration_repository_interface.dart';
+import 'package:tech_messenger/modules/registration/presentation/bloc/registration_bloc.dart';
+
+class AppProviders extends StatelessWidget {
+  const AppProviders({super.key, required this.child, required this.config});
+
+  final Widget child;
+  final AppConfig config;
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<IRegistrationRepository>(
+          create: (context) => RegistrationRepository(
+            ds: RegistrationDatasource(config.dio, baseUrl: config.apiUrl),
+          ),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => RegistrationBloc(
+              registrationRepository: context.read<IRegistrationRepository>(),
+              secureStorage: config.secureStorage,
+            ),
+          ),
+        ],
+        child: child,
+      ),
+    );
+  }
+}

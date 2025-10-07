@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:tech_messenger/app/app_config.dart';
 import 'package:tech_messenger/app/messenger_app.dart';
 
 void main() async {
@@ -11,7 +12,10 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MessengerApp());
+
+  final config = await AppConfig.config();
+
+  runApp(MessengerApp(config: config));
 }
 
 class MyHttpOverrides extends HttpOverrides {

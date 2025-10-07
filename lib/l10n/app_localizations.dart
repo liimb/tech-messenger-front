@@ -181,6 +181,30 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Зарегистрироваться'**
   String get register;
+
+  /// No description provided for @ok.
+  ///
+  /// In ru, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @registrationProcess.
+  ///
+  /// In ru, this message translates to:
+  /// **'Регистрируем вас...'**
+  String get registrationProcess;
+
+  /// No description provided for @unknownError.
+  ///
+  /// In ru, this message translates to:
+  /// **'Неизвестная ошибка'**
+  String get unknownError;
+
+  /// No description provided for @registrationSuccess.
+  ///
+  /// In ru, this message translates to:
+  /// **'Регистрация успешна'**
+  String get registrationSuccess;
 }
 
 class _AppLocalizationsDelegate
