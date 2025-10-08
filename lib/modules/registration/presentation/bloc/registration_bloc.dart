@@ -43,7 +43,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
         final jwt = JwtModel.fromJson(response.response.data);
         await _secureStorage.saveToken(jwt);
         emit(RegistrationState.success());
-        AppLogger.error('Успешная регистрация:\n$jwt');
+        AppLogger.info('Успешная регистрация:\n$jwt');
       } else {
         try {
           final error = ErrorModel.fromJson(response.response.data);

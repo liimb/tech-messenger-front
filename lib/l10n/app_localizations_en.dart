@@ -56,11 +56,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ok => 'OK';
 
   @override
-  String get registrationProcess => 'Registering you...';
+  String get registrationProcess => 'Registration...';
 
   @override
   String get unknownError => 'Unknown error';
 
   @override
   String get registrationSuccess => 'Registration is successful';
+
+  @override
+  String get loginProcess => 'Login...';
+
+  @override
+  String get loginSuccess => 'Login is successful';
 }

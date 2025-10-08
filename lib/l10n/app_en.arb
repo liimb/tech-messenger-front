@@ -14,7 +14,9 @@
     "doLogin": "Login",
     "register": "Register",
     "ok": "OK",
-    "registrationProcess": "Registering you...",
+    "registrationProcess": "Registration...",
     "unknownError": "Unknown error",
-    "registrationSuccess": "Registration is successful"
+    "registrationSuccess": "Registration is successful",
+    "loginProcess": "Login...",
+    "loginSuccess": "Login is successful"
 }

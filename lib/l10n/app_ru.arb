@@ -14,7 +14,9 @@
     "doLogin": "Войдите",
     "register": "Зарегистрироваться",
     "ok": "OK",
-    "registrationProcess": "Регистрируем вас...",
+    "registrationProcess": "Регистрация...",
     "unknownError": "Неизвестная ошибка",
-    "registrationSuccess": "Регистрация успешна"
+    "registrationSuccess": "Регистрация успешна",
+    "loginProcess": "Вход...",
+    "loginSuccess": "Успешный вход"
 }

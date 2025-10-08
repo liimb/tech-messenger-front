@@ -191,7 +191,7 @@ abstract class AppLocalizations {
   /// No description provided for @registrationProcess.
   ///
   /// In ru, this message translates to:
-  /// **'Регистрируем вас...'**
+  /// **'Регистрация...'**
   String get registrationProcess;
 
   /// No description provided for @unknownError.
@@ -205,6 +205,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Регистрация успешна'**
   String get registrationSuccess;
+
+  /// No description provided for @loginProcess.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вход...'**
+  String get loginProcess;
+
+  /// No description provided for @loginSuccess.
+  ///
+  /// In ru, this message translates to:
+  /// **'Успешный вход'**
+  String get loginSuccess;
 }
 
 class _AppLocalizationsDelegate

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tech_messenger/app/app_config.dart';
+import 'package:tech_messenger/modules/login/data/datasource/impl/login_datasource_impl.dart';
+import 'package:tech_messenger/modules/login/data/repository/login_repository_impl.dart';
+import 'package:tech_messenger/modules/login/domain/repository/login_repository_interface.dart';
+import 'package:tech_messenger/modules/login/presentation/bloc/login_bloc.dart';
 import 'package:tech_messenger/modules/registration/data/datasource/impl/registration_datasource_impl.dart';
 import 'package:tech_messenger/modules/registration/data/repository/registration_repository_impl.dart';
 import 'package:tech_messenger/modules/registration/domain/repository/registration_repository_interface.dart';
@@ -21,12 +25,23 @@ class AppProviders extends StatelessWidget {
             ds: RegistrationDatasource(config.dio, baseUrl: config.apiUrl),
           ),
         ),
+        RepositoryProvider<ILoginRepository>(
+          create: (context) => LoginRepository(
+            ds: LoginDatasource(config.dio, baseUrl: config.apiUrl),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => RegistrationBloc(
               registrationRepository: context.read<IRegistrationRepository>(),
+              secureStorage: config.secureStorage,
+            ),
+          ),
+          BlocProvider(
+            create: (context) => LoginBloc(
+              loginRepository: context.read<ILoginRepository>(),
               secureStorage: config.secureStorage,
             ),
           ),
