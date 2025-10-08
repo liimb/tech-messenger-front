@@ -18,10 +18,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get yourNickname => 'Никнейм';
 
   @override
+  String get errorUncorrectNickname =>
+      'Никнейм должен быть не менее 3 символов';
+
+  @override
+  String get fieldMustNotEmpty => 'Обязательное поле!';
+
+  @override
   String get yourPassword => 'Пароль';
 
   @override
+  String get errorUncorrectPassword =>
+      'Пароль должен быть не менее 8 символов и \nсодержать\n●заглавные буквы\n●цифры\n●специальные символы';
+
+  @override
   String get repeatYourPassword => 'Повторите пароль';
+
+  @override
+  String get errorPasswordsDoNotMatch => 'Пароли должны совпадать';
 
   @override
   String get login => 'Войти';
@@ -52,4 +66,20 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get delete => 'Удалить';
+  String get ok => 'OK';
+
+  @override
+  String get registrationProcess => 'Регистрация...';
+
+  @override
+  String get unknownError => 'Неизвестная ошибка';
+
+  @override
+  String get registrationSuccess => 'Регистрация успешна';
+
+  @override
+  String get loginProcess => 'Вход...';
+
+  @override
+  String get loginSuccess => 'Успешный вход';
 }

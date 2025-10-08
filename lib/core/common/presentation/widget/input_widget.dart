@@ -71,7 +71,7 @@ class InputWidget extends StatelessWidget {
                 filled: true,
                 errorBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: context.appColors.errorColor),
-                  borderRadius: BorderRadius.circular(r40),
+                  borderRadius: BorderRadius.circular(r20),
                 ),
                 contentPadding: EdgeInsets.all(p16),
                 suffixIcon: _buildSuffixIcon(
