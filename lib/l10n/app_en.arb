@@ -2,11 +2,21 @@
     "auth": "Login",
     "registration": "Registration",
     "yourNickname": "Nickname",
+    "errorUncorrectNickname": "The nickname must be at least 3 characters long",
+    "fieldMustNotEmpty": "Compulsory field!",
     "yourPassword": "Password",
+    "errorUncorrectPassword": "The password must be at least 8 characters long and\ncontain uppercase letters\n●numbers\n●special characters",
     "repeatYourPassword": "Repeat password",
+    "errorPasswordsDoNotMatch": "Passwords must match",
     "login": "Login",
     "noAccount": "No account?",
     "hasAccount": "Do you have an account?",
     "doLogin": "Login",
-    "register": "Register"
+    "register": "Register",
+    "ok": "OK",
+    "registrationProcess": "Registration...",
+    "unknownError": "Unknown error",
+    "registrationSuccess": "Registration is successful",
+    "loginProcess": "Login...",
+    "loginSuccess": "Login is successful"
 }
