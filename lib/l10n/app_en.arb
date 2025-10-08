@@ -10,5 +10,8 @@
     "doLogin": "Login",
     "register": "Register",
     "allChats": "All chats",
-    "settings": "Settings"
+    "settings": "Settings",
+    "theme": "Theme",
+    "language": "Language",
+    "delete": "Delete"
 }

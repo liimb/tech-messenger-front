@@ -43,4 +43,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settings => 'Настройки';
+
+  @override
+  String get theme => 'Тема';
+
+  @override
+  String get language => 'Язык';
+
+  @override
+  String get delete => 'Удалить';
 }

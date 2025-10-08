@@ -169,6 +169,24 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Настройки'**
   String get settings;
+
+  /// No description provided for @theme.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тема'**
+  String get theme;
+
+  /// No description provided for @language.
+  ///
+  /// In ru, this message translates to:
+  /// **'Язык'**
+  String get language;
+
+  /// No description provided for @delete.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить'**
+  String get delete;
 }
 
 class _AppLocalizationsDelegate

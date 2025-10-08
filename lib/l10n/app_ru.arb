@@ -10,5 +10,8 @@
     "doLogin": "Войдите",
     "register": "Зарегистрироваться",
     "allChats": "Все чаты",
-    "settings": "Настройки"
+    "settings": "Настройки",
+    "theme": "Тема",
+    "language": "Язык",
+    "delete": "Удалить"
 }
