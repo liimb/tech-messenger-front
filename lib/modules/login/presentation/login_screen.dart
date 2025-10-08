@@ -50,12 +50,13 @@ class _LoginScreenState extends State<LoginScreen> {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(getSnackBar(context.l10n.loginSuccess, context));
-          context.go('/home');
+          context.go(AppRoutes.home.routePath);
         },
         failure: (e) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(getSnackBar(e.msg, context));
+          context.go(AppRoutes.home.routePath);
         },
       ),
 

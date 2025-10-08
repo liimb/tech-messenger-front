@@ -17,7 +17,7 @@
     "settings": "Settings",
     "theme": "Theme",
     "language": "Language",
-    "delete": "Delete"
+    "delete": "Delete",
     "ok": "OK",
     "registrationProcess": "Registration...",
     "unknownError": "Unknown error",
