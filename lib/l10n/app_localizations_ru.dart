@@ -53,6 +53,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get register => 'Зарегистрироваться';
 
   @override
+  String get allChats => 'Все чаты';
+
+  @override
+  String get settings => 'Настройки';
+
+  @override
+  String get theme => 'Тема';
+
+  @override
+  String get language => 'Язык';
+
+  @override
+  String get delete => 'Удалить';
   String get ok => 'OK';
 
   @override

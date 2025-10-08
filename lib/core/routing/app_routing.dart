@@ -5,7 +5,8 @@ import 'package:tech_messenger/modules/registration/presentation/registration_sc
 
 enum AppRoutes {
   login('/login'),
-  registration('/registration');
+  registration('/registration'),
+  home("/home");
 
   const AppRoutes(this.routePath);
   final String routePath;
@@ -23,6 +24,10 @@ final router = GoRouter(
       path: AppRoutes.registration.routePath,
       pageBuilder: (context, state) =>
           const MaterialPage(child: RegistrationScreen()),
+    ),
+    GoRoute(
+      path: AppRoutes.home.routePath,
+      pageBuilder: (context, state) => const MaterialPage(child: HomeScreen()),
     ),
   ],
 );
