@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tech_messenger/modules/auth/presentation/auth_screen.dart';
+import 'package:tech_messenger/modules/login/presentation/login_screen.dart';
 import 'package:tech_messenger/modules/registration/presentation/registration_screen.dart';
 
+enum AppRoutes {
+  login('/login'),
+  registration('/registration');
+
+  const AppRoutes(this.routePath);
+  final String routePath;
+}
+
 final router = GoRouter(
-  initialLocation: '/auth',
+  initialLocation: AppRoutes.login.routePath,
   //errorBuilder: (context, state) => const ErrorRouteWidget(),
   routes: [
     GoRoute(
-      path: '/auth',
-      pageBuilder: (context, state) => const MaterialPage(child: AuthScreen()),
+      path: AppRoutes.login.routePath,
+      pageBuilder: (context, state) => const MaterialPage(child: LoginScreen()),
     ),
     GoRoute(
-      path: '/registration',
+      path: AppRoutes.registration.routePath,
       pageBuilder: (context, state) =>
           const MaterialPage(child: RegistrationScreen()),
     ),

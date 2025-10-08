@@ -18,10 +18,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yourNickname => 'Nickname';
 
   @override
+  String get errorUncorrectNickname =>
+      'The nickname must be at least 3 characters long';
+
+  @override
+  String get fieldMustNotEmpty => 'Compulsory field!';
+
+  @override
   String get yourPassword => 'Password';
 
   @override
+  String get errorUncorrectPassword =>
+      'The password must be at least 8 characters long and\ncontain uppercase letters\n●numbers\n●special characters';
+
+  @override
   String get repeatYourPassword => 'Repeat password';
+
+  @override
+  String get errorPasswordsDoNotMatch => 'Passwords must match';
 
   @override
   String get login => 'Login';
@@ -37,4 +51,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get register => 'Register';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get registrationProcess => 'Registration...';
+
+  @override
+  String get unknownError => 'Unknown error';
+
+  @override
+  String get registrationSuccess => 'Registration is successful';
+
+  @override
+  String get loginProcess => 'Login...';
+
+  @override
+  String get loginSuccess => 'Login is successful';
 }
