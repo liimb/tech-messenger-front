@@ -61,74 +61,69 @@ class _LoginScreenState extends State<LoginScreen> {
 
       child: SafeArea(
         top: false,
-        child: SingleChildScrollView(
-          child: Scaffold(
-            body: Padding(
-              padding: EdgeInsets.symmetric(vertical: p32, horizontal: p32),
-              child: Center(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        context.l10n.auth,
-                        style: context.appTextTheme.large,
-                      ),
-                      SizedBox(height: p32),
-                      InputWidget(
-                        controller: nicknameController,
-                        hintText: context.l10n.yourNickname,
-                        validator: (value) =>
-                            AppValidators.correctNicknameValidator(
-                              value,
-                              context,
-                            ),
-                      ),
-                      SizedBox(height: p16),
-                      InputWidget(
-                        controller: passwordController,
-                        obscureText: true,
-                        hintText: context.l10n.yourPassword,
-                        validator: (value) =>
-                            AppValidators.correctPasswordValidator(
-                              value,
-                              context,
-                            ),
-                      ),
-                      SizedBox(height: p16),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.5,
-                        child: BlocBuilder<LoginBloc, LoginState>(
-                          builder: (context, state) => PrimaryButton(
-                            text: context.l10n.login,
-                            isEnabled: state is! LoginLoadingState,
-                            onPressed: () {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                context.read<LoginBloc>().add(
-                                  LoginEvent.tryLogin(
-                                    nickname: nicknameController.text,
-                                    password: passwordController.text,
-                                  ),
-                                );
-                              }
-                            },
+        child: Scaffold(
+          body: Padding(
+            padding: EdgeInsets.symmetric(vertical: p32, horizontal: p32),
+            child: Center(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(context.l10n.auth, style: context.appTextTheme.large),
+                    SizedBox(height: p32),
+                    InputWidget(
+                      controller: nicknameController,
+                      hintText: context.l10n.yourNickname,
+                      validator: (value) =>
+                          AppValidators.correctNicknameValidator(
+                            value,
+                            context,
                           ),
+                    ),
+                    SizedBox(height: p16),
+                    InputWidget(
+                      controller: passwordController,
+                      obscureText: true,
+                      hintText: context.l10n.yourPassword,
+                      validator: (value) =>
+                          AppValidators.correctPasswordValidator(
+                            value,
+                            context,
+                          ),
+                    ),
+                    SizedBox(height: p16),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      child: BlocBuilder<LoginBloc, LoginState>(
+                        builder: (context, state) => PrimaryButton(
+                          text: context.l10n.login,
+                          isEnabled: state is! LoginLoadingState,
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              context.read<LoginBloc>().add(
+                                LoginEvent.tryLogin(
+                                  nickname: nicknameController.text,
+                                  password: passwordController.text,
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            bottomNavigationBar: Padding(
-              padding: EdgeInsets.only(bottom: p16),
-              child: TextButtonWidget(
-                onPressed: () => context.go(AppRoutes.registration.routePath),
-                text: context.l10n.noAccount,
-                buttonText: context.l10n.register,
-              ),
+          ),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.only(bottom: p16),
+            child: TextButtonWidget(
+              onPressed: () => context.go(AppRoutes.registration.routePath),
+              text: context.l10n.noAccount,
+              buttonText: context.l10n.register,
             ),
           ),
         ),
