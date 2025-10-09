@@ -211,6 +211,7 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Удалить'**
   String get delete;
+
   /// No description provided for @ok.
   ///
   /// In ru, this message translates to:

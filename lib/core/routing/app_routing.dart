@@ -7,7 +7,7 @@ import 'package:tech_messenger/modules/registration/presentation/registration_sc
 enum AppRoutes {
   login('/login'),
   registration('/registration'),
-  home("/home");
+  home('/home');
 
   const AppRoutes(this.routePath);
   final String routePath;
