@@ -34,6 +34,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       final response = await _registrationRepository.register(
         RegistrationRequest(
           nickname: event.nickname,
+          name: event.name,
           password: event.password,
           passwordRepeat: event.passwordRepeat,
         ),

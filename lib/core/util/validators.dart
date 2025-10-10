@@ -52,6 +52,13 @@ abstract class AppValidators {
     return null;
   }
 
+  static String? correctNameValidator(String? value, BuildContext context) {
+    if (value == null || value == '') {
+      return context.l10n.fieldMustNotEmpty;
+    }
+    return null;
+  }
+
   // static String? validatorPhone(String? value, BuildContext context) {
   //   {
   //     if (value == null || value.trim().isEmpty) {

@@ -1,18 +1,24 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:tech_messenger/app/jwt_dio_interceptor.dart';
 import 'package:tech_messenger/core/common/secure_storage/secure_storage.dart';
+import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
+import 'package:tech_messenger/modules/jwt/data/datasource/impl/jwt_datasource_impl.dart';
+import 'package:tech_messenger/modules/jwt/data/repository/jwt_repository_impl.dart';
 
 class AppConfig {
   const AppConfig({
     required this.baseUrl,
     required this.dio,
     required this.secureStorage,
+    required this.authBloc,
   });
 
   final String baseUrl;
   final Dio dio;
   final SecureStorage secureStorage;
+  final AuthBloc authBloc;
 
   static Future<AppConfig> config() async {
     try {
@@ -34,21 +40,28 @@ class AppConfig {
       );
 
       // JWT
-      // final jwtDataSource = JwtDataSource(dio, baseUrl: apiUrl);
-      // final jwtRepository = JwtRepository(
-      //   ds: jwtDataSource,
-      //   secureStorage: secureStorage,
-      // );
+      final jwtDataSource = JwtDatasource(dio, baseUrl: apiUrl);
+      final jwtRepository = JwtRepository(ds: jwtDataSource);
 
-      // dio.interceptors.add(
-      //   JwtDioInterceptor(
-      //     storage: secureStorage,
-      //     repository: jwtRepository,
-      //     authBloc: authBloc,
-      //   ),
-      // );
+      final authBloc = AuthBloc(
+        jwtRepository: jwtRepository,
+        secureStorage: secureStorage,
+      );
 
-      return AppConfig(baseUrl: apiUrl, dio: dio, secureStorage: secureStorage);
+      dio.interceptors.add(
+        JwtDioInterceptor(
+          storage: secureStorage,
+          repository: jwtRepository,
+          authBloc: authBloc,
+        ),
+      );
+
+      return AppConfig(
+        baseUrl: apiUrl,
+        dio: dio,
+        secureStorage: secureStorage,
+        authBloc: authBloc,
+      );
     } catch (e, st) {
       throw Exception('Ошибка инициализации конфигурации: $e\n$st');
     }

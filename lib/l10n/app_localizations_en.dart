@@ -18,6 +18,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yourNickname => 'Nickname';
 
   @override
+  String get yourName => 'Your name';
+
+  @override
   String get errorUncorrectNickname =>
       'The nickname must be at least 3 characters long';
 

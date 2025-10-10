@@ -61,11 +61,12 @@ extension AuthEventPatterns on AuthEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuthCheckEvent value)?  checkAuth,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuthCheckEvent value)?  checkAuth,TResult Function( AuthLogoutEvent value)?  logout,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case AuthCheckEvent() when checkAuth != null:
-return checkAuth(_that);case _:
+return checkAuth(_that);case AuthLogoutEvent() when logout != null:
+return logout(_that);case _:
   return orElse();
 
 }
@@ -83,11 +84,12 @@ return checkAuth(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuthCheckEvent value)  checkAuth,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuthCheckEvent value)  checkAuth,required TResult Function( AuthLogoutEvent value)  logout,}){
 final _that = this;
 switch (_that) {
 case AuthCheckEvent():
-return checkAuth(_that);case _:
+return checkAuth(_that);case AuthLogoutEvent():
+return logout(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -104,11 +106,12 @@ return checkAuth(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuthCheckEvent value)?  checkAuth,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuthCheckEvent value)?  checkAuth,TResult? Function( AuthLogoutEvent value)?  logout,}){
 final _that = this;
 switch (_that) {
 case AuthCheckEvent() when checkAuth != null:
-return checkAuth(_that);case _:
+return checkAuth(_that);case AuthLogoutEvent() when logout != null:
+return logout(_that);case _:
   return null;
 
 }
@@ -125,10 +128,11 @@ return checkAuth(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  checkAuth,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  checkAuth,TResult Function()?  logout,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case AuthCheckEvent() when checkAuth != null:
-return checkAuth();case _:
+return checkAuth();case AuthLogoutEvent() when logout != null:
+return logout();case _:
   return orElse();
 
 }
@@ -146,10 +150,11 @@ return checkAuth();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  checkAuth,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  checkAuth,required TResult Function()  logout,}) {final _that = this;
 switch (_that) {
 case AuthCheckEvent():
-return checkAuth();case _:
+return checkAuth();case AuthLogoutEvent():
+return logout();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -166,10 +171,11 @@ return checkAuth();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  checkAuth,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  checkAuth,TResult? Function()?  logout,}) {final _that = this;
 switch (_that) {
 case AuthCheckEvent() when checkAuth != null:
-return checkAuth();case _:
+return checkAuth();case AuthLogoutEvent() when logout != null:
+return logout();case _:
   return null;
 
 }
@@ -207,6 +213,44 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'AuthEvent.checkAuth()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class AuthLogoutEvent with DiagnosticableTreeMixin implements AuthEvent {
+  const AuthLogoutEvent();
+  
+
+
+
+
+
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'AuthEvent.logout'))
+    ;
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthLogoutEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'AuthEvent.logout()';
 }
 
 
@@ -265,13 +309,13 @@ extension AuthStatePatterns on AuthState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( AuthHasState value)?  authenticate,TResult Function( AuthNotState value)?  notAuthenticate,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuthInitialState value)?  initial,TResult Function( AuthHasState value)?  authenticated,TResult Function( AuthNotState value)?  unauthenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case AuthHasState() when authenticate != null:
-return authenticate(_that);case AuthNotState() when notAuthenticate != null:
-return notAuthenticate(_that);case _:
+case AuthInitialState() when initial != null:
+return initial(_that);case AuthHasState() when authenticated != null:
+return authenticated(_that);case AuthNotState() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return orElse();
 
 }
@@ -289,13 +333,13 @@ return notAuthenticate(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( AuthHasState value)  authenticate,required TResult Function( AuthNotState value)  notAuthenticate,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuthInitialState value)  initial,required TResult Function( AuthHasState value)  authenticated,required TResult Function( AuthNotState value)  unauthenticated,}){
 final _that = this;
 switch (_that) {
-case _Initial():
+case AuthInitialState():
 return initial(_that);case AuthHasState():
-return authenticate(_that);case AuthNotState():
-return notAuthenticate(_that);case _:
+return authenticated(_that);case AuthNotState():
+return unauthenticated(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -312,13 +356,13 @@ return notAuthenticate(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( AuthHasState value)?  authenticate,TResult? Function( AuthNotState value)?  notAuthenticate,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuthInitialState value)?  initial,TResult? Function( AuthHasState value)?  authenticated,TResult? Function( AuthNotState value)?  unauthenticated,}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case AuthHasState() when authenticate != null:
-return authenticate(_that);case AuthNotState() when notAuthenticate != null:
-return notAuthenticate(_that);case _:
+case AuthInitialState() when initial != null:
+return initial(_that);case AuthHasState() when authenticated != null:
+return authenticated(_that);case AuthNotState() when unauthenticated != null:
+return unauthenticated(_that);case _:
   return null;
 
 }
@@ -335,12 +379,12 @@ return notAuthenticate(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  authenticate,TResult Function()?  notAuthenticate,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  authenticated,TResult Function()?  unauthenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case AuthHasState() when authenticate != null:
-return authenticate();case AuthNotState() when notAuthenticate != null:
-return notAuthenticate();case _:
+case AuthInitialState() when initial != null:
+return initial();case AuthHasState() when authenticated != null:
+return authenticated();case AuthNotState() when unauthenticated != null:
+return unauthenticated();case _:
   return orElse();
 
 }
@@ -358,12 +402,12 @@ return notAuthenticate();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  authenticate,required TResult Function()  notAuthenticate,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  authenticated,required TResult Function()  unauthenticated,}) {final _that = this;
 switch (_that) {
-case _Initial():
+case AuthInitialState():
 return initial();case AuthHasState():
-return authenticate();case AuthNotState():
-return notAuthenticate();case _:
+return authenticated();case AuthNotState():
+return unauthenticated();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -380,12 +424,12 @@ return notAuthenticate();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  authenticate,TResult? Function()?  notAuthenticate,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  authenticated,TResult? Function()?  unauthenticated,}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case AuthHasState() when authenticate != null:
-return authenticate();case AuthNotState() when notAuthenticate != null:
-return notAuthenticate();case _:
+case AuthInitialState() when initial != null:
+return initial();case AuthHasState() when authenticated != null:
+return authenticated();case AuthNotState() when unauthenticated != null:
+return unauthenticated();case _:
   return null;
 
 }
@@ -396,8 +440,8 @@ return notAuthenticate();case _:
 /// @nodoc
 
 
-class _Initial with DiagnosticableTreeMixin implements AuthState {
-  const _Initial();
+class AuthInitialState with DiagnosticableTreeMixin implements AuthState {
+  const AuthInitialState();
   
 
 
@@ -413,7 +457,7 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthInitialState);
 }
 
 
@@ -445,7 +489,7 @@ class AuthHasState with DiagnosticableTreeMixin implements AuthState {
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'AuthState.authenticate'))
+    ..add(DiagnosticsProperty('type', 'AuthState.authenticated'))
     ;
 }
 
@@ -460,7 +504,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'AuthState.authenticate()';
+  return 'AuthState.authenticated()';
 }
 
 
@@ -483,7 +527,7 @@ class AuthNotState with DiagnosticableTreeMixin implements AuthState {
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'AuthState.notAuthenticate'))
+    ..add(DiagnosticsProperty('type', 'AuthState.unauthenticated'))
     ;
 }
 
@@ -498,7 +542,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'AuthState.notAuthenticate()';
+  return 'AuthState.unauthenticated()';
 }
 
 
