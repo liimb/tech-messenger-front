@@ -2,6 +2,7 @@
     "auth": "Вход",
     "registration": "Регистрация",
     "yourNickname": "Никнейм",
+    "yourName": "Ваше имя",
     "errorUncorrectNickname": "Никнейм должен быть не менее 3 символов",
     "fieldMustNotEmpty": "Обязательное поле!",
     "yourPassword": "Пароль",

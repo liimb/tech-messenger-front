@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tech_messenger/app/app_logger.dart';
 import 'package:tech_messenger/core/common/secure_storage/secure_storage.dart';
 import 'package:tech_messenger/modules/error/error_model.dart';
-import 'package:tech_messenger/modules/jwt/jwt_model.dart';
+import 'package:tech_messenger/modules/jwt/domain/model/jwt_model.dart';
 import 'package:tech_messenger/modules/login/domain/model/login_request.dart';
 import 'package:tech_messenger/modules/login/domain/repository/login_repository_interface.dart';
 

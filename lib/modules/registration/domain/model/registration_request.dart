@@ -8,6 +8,7 @@ part 'registration_request.g.dart';
 sealed class RegistrationRequest with _$RegistrationRequest {
   const factory RegistrationRequest({
     @JsonKey(name: 'nickname') required String nickname,
+    @JsonKey(name: 'name') required String name,
     @JsonKey(name: 'password') required String password,
     @JsonKey(name: 'password_repeat') required String passwordRepeat,
   }) = _RegistrationRequest;

@@ -2,6 +2,7 @@
     "auth": "Login",
     "registration": "Registration",
     "yourNickname": "Nickname",
+    "yourName": "Your name",
     "errorUncorrectNickname": "The nickname must be at least 3 characters long",
     "fieldMustNotEmpty": "Compulsory field!",
     "yourPassword": "Password",

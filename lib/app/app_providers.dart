@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tech_messenger/app/app_config.dart';
+import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
+import 'package:tech_messenger/modules/jwt/data/datasource/impl/jwt_datasource_impl.dart';
+import 'package:tech_messenger/modules/jwt/data/repository/jwt_repository_impl.dart';
+import 'package:tech_messenger/modules/jwt/domain/repository/jwt_repository_interface.dart';
 import 'package:tech_messenger/modules/login/data/datasource/impl/login_datasource_impl.dart';
 import 'package:tech_messenger/modules/login/data/repository/login_repository_impl.dart';
 import 'package:tech_messenger/modules/login/domain/repository/login_repository_interface.dart';
@@ -22,12 +26,17 @@ class AppProviders extends StatelessWidget {
       providers: [
         RepositoryProvider<IRegistrationRepository>(
           create: (context) => RegistrationRepository(
-            ds: RegistrationDatasource(config.dio, baseUrl: config.apiUrl),
+            ds: RegistrationDatasource(config.dio, baseUrl: config.baseUrl),
           ),
         ),
         RepositoryProvider<ILoginRepository>(
           create: (context) => LoginRepository(
-            ds: LoginDatasource(config.dio, baseUrl: config.apiUrl),
+            ds: LoginDatasource(config.dio, baseUrl: config.baseUrl),
+          ),
+        ),
+        RepositoryProvider<IJwtRepository>(
+          create: (context) => JwtRepository(
+            ds: JwtDatasource(config.dio, baseUrl: config.baseUrl),
           ),
         ),
       ],
@@ -44,6 +53,9 @@ class AppProviders extends StatelessWidget {
               loginRepository: context.read<ILoginRepository>(),
               secureStorage: config.secureStorage,
             ),
+          ),
+          BlocProvider.value(
+            value: config.authBloc..add(const AuthEvent.checkAuth()),
           ),
         ],
         child: child,
