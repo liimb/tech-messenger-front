@@ -54,11 +54,8 @@ class AppProviders extends StatelessWidget {
               secureStorage: config.secureStorage,
             ),
           ),
-          BlocProvider(
-            create: (context) => AuthBloc(
-              jwtRepository: context.read<IJwtRepository>(),
-              secureStorage: config.secureStorage,
-            ),
+          BlocProvider.value(
+            value: config.authBloc..add(const AuthEvent.checkAuth()),
           ),
         ],
         child: child,

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RegistrationRequest {
 
-@JsonKey(name: 'nickname') String get nickname;@JsonKey(name: 'password') String get password;@JsonKey(name: 'password_repeat') String get passwordRepeat;
+@JsonKey(name: 'nickname') String get nickname;@JsonKey(name: 'name') String get name;@JsonKey(name: 'password') String get password;@JsonKey(name: 'password_repeat') String get passwordRepeat;
 /// Create a copy of RegistrationRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $RegistrationRequestCopyWith<RegistrationRequest> get copyWith => _$Registration
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegistrationRequest&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordRepeat, passwordRepeat) || other.passwordRepeat == passwordRepeat));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegistrationRequest&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.name, name) || other.name == name)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordRepeat, passwordRepeat) || other.passwordRepeat == passwordRepeat));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,nickname,password,passwordRepeat);
+int get hashCode => Object.hash(runtimeType,nickname,name,password,passwordRepeat);
 
 @override
 String toString() {
-  return 'RegistrationRequest(nickname: $nickname, password: $password, passwordRepeat: $passwordRepeat)';
+  return 'RegistrationRequest(nickname: $nickname, name: $name, password: $password, passwordRepeat: $passwordRepeat)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $RegistrationRequestCopyWith<$Res>  {
   factory $RegistrationRequestCopyWith(RegistrationRequest value, $Res Function(RegistrationRequest) _then) = _$RegistrationRequestCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'nickname') String nickname,@JsonKey(name: 'password') String password,@JsonKey(name: 'password_repeat') String passwordRepeat
+@JsonKey(name: 'nickname') String nickname,@JsonKey(name: 'name') String name,@JsonKey(name: 'password') String password,@JsonKey(name: 'password_repeat') String passwordRepeat
 });
 
 
@@ -65,9 +65,10 @@ class _$RegistrationRequestCopyWithImpl<$Res>
 
 /// Create a copy of RegistrationRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? nickname = null,Object? password = null,Object? passwordRepeat = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? nickname = null,Object? name = null,Object? password = null,Object? passwordRepeat = null,}) {
   return _then(_self.copyWith(
 nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,passwordRepeat: null == passwordRepeat ? _self.passwordRepeat : passwordRepeat // ignore: cast_nullable_to_non_nullable
 as String,
@@ -152,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'password')  String password, @JsonKey(name: 'password_repeat')  String passwordRepeat)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'name')  String name, @JsonKey(name: 'password')  String password, @JsonKey(name: 'password_repeat')  String passwordRepeat)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RegistrationRequest() when $default != null:
-return $default(_that.nickname,_that.password,_that.passwordRepeat);case _:
+return $default(_that.nickname,_that.name,_that.password,_that.passwordRepeat);case _:
   return orElse();
 
 }
@@ -173,10 +174,10 @@ return $default(_that.nickname,_that.password,_that.passwordRepeat);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'password')  String password, @JsonKey(name: 'password_repeat')  String passwordRepeat)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'name')  String name, @JsonKey(name: 'password')  String password, @JsonKey(name: 'password_repeat')  String passwordRepeat)  $default,) {final _that = this;
 switch (_that) {
 case _RegistrationRequest():
-return $default(_that.nickname,_that.password,_that.passwordRepeat);}
+return $default(_that.nickname,_that.name,_that.password,_that.passwordRepeat);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -190,10 +191,10 @@ return $default(_that.nickname,_that.password,_that.passwordRepeat);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'password')  String password, @JsonKey(name: 'password_repeat')  String passwordRepeat)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'name')  String name, @JsonKey(name: 'password')  String password, @JsonKey(name: 'password_repeat')  String passwordRepeat)?  $default,) {final _that = this;
 switch (_that) {
 case _RegistrationRequest() when $default != null:
-return $default(_that.nickname,_that.password,_that.passwordRepeat);case _:
+return $default(_that.nickname,_that.name,_that.password,_that.passwordRepeat);case _:
   return null;
 
 }
@@ -205,10 +206,11 @@ return $default(_that.nickname,_that.password,_that.passwordRepeat);case _:
 @JsonSerializable()
 
 class _RegistrationRequest implements RegistrationRequest {
-  const _RegistrationRequest({@JsonKey(name: 'nickname') required this.nickname, @JsonKey(name: 'password') required this.password, @JsonKey(name: 'password_repeat') required this.passwordRepeat});
+  const _RegistrationRequest({@JsonKey(name: 'nickname') required this.nickname, @JsonKey(name: 'name') required this.name, @JsonKey(name: 'password') required this.password, @JsonKey(name: 'password_repeat') required this.passwordRepeat});
   factory _RegistrationRequest.fromJson(Map<String, dynamic> json) => _$RegistrationRequestFromJson(json);
 
 @override@JsonKey(name: 'nickname') final  String nickname;
+@override@JsonKey(name: 'name') final  String name;
 @override@JsonKey(name: 'password') final  String password;
 @override@JsonKey(name: 'password_repeat') final  String passwordRepeat;
 
@@ -225,16 +227,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegistrationRequest&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordRepeat, passwordRepeat) || other.passwordRepeat == passwordRepeat));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegistrationRequest&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.name, name) || other.name == name)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordRepeat, passwordRepeat) || other.passwordRepeat == passwordRepeat));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,nickname,password,passwordRepeat);
+int get hashCode => Object.hash(runtimeType,nickname,name,password,passwordRepeat);
 
 @override
 String toString() {
-  return 'RegistrationRequest(nickname: $nickname, password: $password, passwordRepeat: $passwordRepeat)';
+  return 'RegistrationRequest(nickname: $nickname, name: $name, password: $password, passwordRepeat: $passwordRepeat)';
 }
 
 
@@ -245,7 +247,7 @@ abstract mixin class _$RegistrationRequestCopyWith<$Res> implements $Registratio
   factory _$RegistrationRequestCopyWith(_RegistrationRequest value, $Res Function(_RegistrationRequest) _then) = __$RegistrationRequestCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'nickname') String nickname,@JsonKey(name: 'password') String password,@JsonKey(name: 'password_repeat') String passwordRepeat
+@JsonKey(name: 'nickname') String nickname,@JsonKey(name: 'name') String name,@JsonKey(name: 'password') String password,@JsonKey(name: 'password_repeat') String passwordRepeat
 });
 
 
@@ -262,9 +264,10 @@ class __$RegistrationRequestCopyWithImpl<$Res>
 
 /// Create a copy of RegistrationRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? nickname = null,Object? password = null,Object? passwordRepeat = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? nickname = null,Object? name = null,Object? password = null,Object? passwordRepeat = null,}) {
   return _then(_RegistrationRequest(
 nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,passwordRepeat: null == passwordRepeat ? _self.passwordRepeat : passwordRepeat // ignore: cast_nullable_to_non_nullable
 as String,

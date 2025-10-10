@@ -20,8 +20,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required SecureStorage secureStorage,
   }) : _jwtRepository = jwtRepository,
        _secureStorage = secureStorage,
-       super(_Initial()) {
+       super(AuthInitialState()) {
     on<AuthCheckEvent>(_onCheckAuth);
+    on<AuthLogoutEvent>(_onLogout);
+  }
+
+  Future<void> _onLogout(AuthLogoutEvent event, Emitter<AuthState> emit) async {
+    await _secureStorage.deleteToken();
+    emit(AuthState.unauthenticated());
   }
 
   Future<void> _onCheckAuth(
@@ -32,7 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final jwt = await _secureStorage.getToken();
 
       if (jwt == null) {
-        emit(AuthState.notAuthenticate());
+        emit(AuthState.unauthenticated());
         return;
       }
 
@@ -43,15 +49,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (response.response.statusCode == 200) {
         final newJwt = JwtModel.fromJson(response.response.data);
         await _secureStorage.saveToken(newJwt);
-        emit(AuthState.authenticate());
+        emit(AuthState.authenticated());
         AppLogger.info('Пользователь аутентифицирован!');
       } else {
         AppLogger.error('Ошибка обновления токена: ${response.response.data}');
-        emit(AuthState.notAuthenticate());
+        emit(AuthState.unauthenticated());
       }
     } catch (e, st) {
       AppLogger.error('Ошибка обновления токена: $e \n $st');
-      emit(AuthState.notAuthenticate());
+      emit(AuthState.unauthenticated());
     }
   }
 }

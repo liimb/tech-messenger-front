@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
 import 'package:tech_messenger/modules/home/presentation/home_screen.dart';
 import 'package:tech_messenger/modules/login/presentation/login_screen.dart';
 import 'package:tech_messenger/modules/registration/presentation/registration_screen.dart';
@@ -15,6 +17,32 @@ enum AppRoutes {
 
 final router = GoRouter(
   initialLocation: AppRoutes.login.routePath,
+  redirect: (BuildContext context, GoRouterState state) {
+    final authBloc = context.read<AuthBloc>();
+    final authState = authBloc.state;
+
+    final isGoingToLogin = state.matchedLocation == AppRoutes.login.routePath;
+    final isGoingToRegistration =
+        state.matchedLocation == AppRoutes.registration.routePath;
+    final isGoingToHome = state.matchedLocation == AppRoutes.home.routePath;
+
+    final isAuthPage = isGoingToLogin || isGoingToRegistration;
+    final isProtectedPage = isGoingToHome;
+
+    if (authState is AuthInitialState) {
+      return null;
+    }
+
+    if (authState is AuthHasState && isAuthPage) {
+      return AppRoutes.home.routePath;
+    }
+
+    if (authState is AuthNotState && isProtectedPage) {
+      return AppRoutes.login.routePath;
+    }
+
+    return null;
+  },
   //errorBuilder: (context, state) => const ErrorRouteWidget(),
   routes: [
     GoRoute(

@@ -20,6 +20,7 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   late final TextEditingController nicknameController;
+  late final TextEditingController nameController;
   late final TextEditingController passwordController;
   late final TextEditingController passwordRepeatController;
   final _formKey = GlobalKey<FormState>();
@@ -28,6 +29,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void initState() {
     super.initState();
     nicknameController = TextEditingController();
+    nameController = TextEditingController();
     passwordController = TextEditingController();
     passwordRepeatController = TextEditingController();
   }
@@ -36,6 +38,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void dispose() {
     super.dispose();
     nicknameController.dispose();
+    nameController.dispose();
     passwordController.dispose();
     passwordRepeatController.dispose();
   }
@@ -92,6 +95,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       SizedBox(height: p16),
                       InputWidget(
+                        controller: nameController,
+                        hintText: context.l10n.yourName,
+                        validator: (value) =>
+                            AppValidators.correctNameValidator(value, context),
+                      ),
+                      SizedBox(height: p16),
+                      InputWidget(
                         controller: passwordController,
                         obscureText: true,
                         hintText: context.l10n.yourPassword,
@@ -125,6 +135,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 context.read<RegistrationBloc>().add(
                                   RegistrationEvent.submit(
                                     nickname: nicknameController.text,
+                                    name: nameController.text,
                                     password: passwordController.text,
                                     passwordRepeat:
                                         passwordRepeatController.text,

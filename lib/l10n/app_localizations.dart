@@ -116,6 +116,12 @@ abstract class AppLocalizations {
   /// **'Никнейм'**
   String get yourNickname;
 
+  /// No description provided for @yourName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ваше имя'**
+  String get yourName;
+
   /// No description provided for @errorUncorrectNickname.
   ///
   /// In ru, this message translates to:
