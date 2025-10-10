@@ -20,6 +20,7 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   late final TextEditingController nicknameController;
+  late final TextEditingController nameController;
   late final TextEditingController passwordController;
   late final TextEditingController passwordRepeatController;
   final _formKey = GlobalKey<FormState>();
@@ -28,6 +29,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void initState() {
     super.initState();
     nicknameController = TextEditingController();
+    nameController = TextEditingController();
     passwordController = TextEditingController();
     passwordRepeatController = TextEditingController();
   }
@@ -36,6 +38,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void dispose() {
     super.dispose();
     nicknameController.dispose();
+    nameController.dispose();
     passwordController.dispose();
     passwordRepeatController.dispose();
   }
@@ -63,10 +66,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           },
         );
       },
-      child: SafeArea(
-        top: false,
-        child: Scaffold(
-          body: Padding(
+      child: Scaffold(
+        body: SafeArea(
+          top: false,
+          child: Padding(
             padding: EdgeInsets.symmetric(vertical: p32, horizontal: p32),
             child: Center(
               child: Form(
@@ -89,6 +92,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               value,
                               context,
                             ),
+                      ),
+                      SizedBox(height: p16),
+                      InputWidget(
+                        controller: nameController,
+                        hintText: context.l10n.yourName,
+                        validator: (value) =>
+                            AppValidators.correctNameValidator(value, context),
                       ),
                       SizedBox(height: p16),
                       InputWidget(
@@ -125,6 +135,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 context.read<RegistrationBloc>().add(
                                   RegistrationEvent.submit(
                                     nickname: nicknameController.text,
+                                    name: nameController.text,
                                     password: passwordController.text,
                                     passwordRepeat:
                                         passwordRepeatController.text,
@@ -141,13 +152,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
             ),
           ),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.only(bottom: p16),
-            child: TextButtonWidget(
-              onPressed: () => context.go(AppRoutes.login.routePath),
-              text: context.l10n.hasAccount,
-              buttonText: context.l10n.login,
-            ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(bottom: p16),
+          child: TextButtonWidget(
+            onPressed: () => context.go(AppRoutes.login.routePath),
+            text: context.l10n.hasAccount,
+            buttonText: context.l10n.login,
           ),
         ),
       ),

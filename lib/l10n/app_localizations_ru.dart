@@ -18,6 +18,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get yourNickname => 'Никнейм';
 
   @override
+  String get yourName => 'Ваше имя';
+
+  @override
   String get errorUncorrectNickname =>
       'Никнейм должен быть не менее 3 символов';
 

@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(getSnackBar(context.l10n.loginSuccess, context));
-          context.go('/home');
+          context.go(AppRoutes.home.routePath);
         },
         failure: (e) {
           ScaffoldMessenger.of(
@@ -58,11 +58,10 @@ class _LoginScreenState extends State<LoginScreen> {
           ).showSnackBar(getSnackBar(e.msg, context));
         },
       ),
-
-      child: SafeArea(
-        top: false,
-        child: Scaffold(
-          body: Padding(
+      child: Scaffold(
+        body: SafeArea(
+          top: false,
+          child: Padding(
             padding: EdgeInsets.symmetric(vertical: p32, horizontal: p32),
             child: Center(
               child: Form(
@@ -118,13 +117,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.only(bottom: p16),
-            child: TextButtonWidget(
-              onPressed: () => context.go(AppRoutes.registration.routePath),
-              text: context.l10n.noAccount,
-              buttonText: context.l10n.register,
-            ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(bottom: p16),
+          child: TextButtonWidget(
+            onPressed: () => context.go(AppRoutes.registration.routePath),
+            text: context.l10n.noAccount,
+            buttonText: context.l10n.register,
           ),
         ),
       ),

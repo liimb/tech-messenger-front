@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RegistrationEvent {
 
- String get nickname; String get password; String get passwordRepeat;
+ String get nickname; String get name; String get password; String get passwordRepeat;
 /// Create a copy of RegistrationEvent
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $RegistrationEventCopyWith<RegistrationEvent> get copyWith => _$RegistrationEven
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegistrationEvent&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordRepeat, passwordRepeat) || other.passwordRepeat == passwordRepeat));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegistrationEvent&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.name, name) || other.name == name)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordRepeat, passwordRepeat) || other.passwordRepeat == passwordRepeat));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,nickname,password,passwordRepeat);
+int get hashCode => Object.hash(runtimeType,nickname,name,password,passwordRepeat);
 
 @override
 String toString() {
-  return 'RegistrationEvent(nickname: $nickname, password: $password, passwordRepeat: $passwordRepeat)';
+  return 'RegistrationEvent(nickname: $nickname, name: $name, password: $password, passwordRepeat: $passwordRepeat)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $RegistrationEventCopyWith<$Res>  {
   factory $RegistrationEventCopyWith(RegistrationEvent value, $Res Function(RegistrationEvent) _then) = _$RegistrationEventCopyWithImpl;
 @useResult
 $Res call({
- String nickname, String password, String passwordRepeat
+ String nickname, String name, String password, String passwordRepeat
 });
 
 
@@ -62,9 +62,10 @@ class _$RegistrationEventCopyWithImpl<$Res>
 
 /// Create a copy of RegistrationEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? nickname = null,Object? password = null,Object? passwordRepeat = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? nickname = null,Object? name = null,Object? password = null,Object? passwordRepeat = null,}) {
   return _then(_self.copyWith(
 nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,passwordRepeat: null == passwordRepeat ? _self.passwordRepeat : passwordRepeat // ignore: cast_nullable_to_non_nullable
 as String,
@@ -152,10 +153,10 @@ return submit(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String nickname,  String password,  String passwordRepeat)?  submit,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String nickname,  String name,  String password,  String passwordRepeat)?  submit,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SubmitRegistrationEvent() when submit != null:
-return submit(_that.nickname,_that.password,_that.passwordRepeat);case _:
+return submit(_that.nickname,_that.name,_that.password,_that.passwordRepeat);case _:
   return orElse();
 
 }
@@ -173,10 +174,10 @@ return submit(_that.nickname,_that.password,_that.passwordRepeat);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String nickname,  String password,  String passwordRepeat)  submit,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String nickname,  String name,  String password,  String passwordRepeat)  submit,}) {final _that = this;
 switch (_that) {
 case SubmitRegistrationEvent():
-return submit(_that.nickname,_that.password,_that.passwordRepeat);case _:
+return submit(_that.nickname,_that.name,_that.password,_that.passwordRepeat);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +194,10 @@ return submit(_that.nickname,_that.password,_that.passwordRepeat);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String nickname,  String password,  String passwordRepeat)?  submit,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String nickname,  String name,  String password,  String passwordRepeat)?  submit,}) {final _that = this;
 switch (_that) {
 case SubmitRegistrationEvent() when submit != null:
-return submit(_that.nickname,_that.password,_that.passwordRepeat);case _:
+return submit(_that.nickname,_that.name,_that.password,_that.passwordRepeat);case _:
   return null;
 
 }
@@ -208,10 +209,11 @@ return submit(_that.nickname,_that.password,_that.passwordRepeat);case _:
 
 
 class SubmitRegistrationEvent implements RegistrationEvent {
-  const SubmitRegistrationEvent({required this.nickname, required this.password, required this.passwordRepeat});
+  const SubmitRegistrationEvent({required this.nickname, required this.name, required this.password, required this.passwordRepeat});
   
 
 @override final  String nickname;
+@override final  String name;
 @override final  String password;
 @override final  String passwordRepeat;
 
@@ -225,16 +227,16 @@ $SubmitRegistrationEventCopyWith<SubmitRegistrationEvent> get copyWith => _$Subm
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubmitRegistrationEvent&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordRepeat, passwordRepeat) || other.passwordRepeat == passwordRepeat));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubmitRegistrationEvent&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.name, name) || other.name == name)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordRepeat, passwordRepeat) || other.passwordRepeat == passwordRepeat));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,nickname,password,passwordRepeat);
+int get hashCode => Object.hash(runtimeType,nickname,name,password,passwordRepeat);
 
 @override
 String toString() {
-  return 'RegistrationEvent.submit(nickname: $nickname, password: $password, passwordRepeat: $passwordRepeat)';
+  return 'RegistrationEvent.submit(nickname: $nickname, name: $name, password: $password, passwordRepeat: $passwordRepeat)';
 }
 
 
@@ -245,7 +247,7 @@ abstract mixin class $SubmitRegistrationEventCopyWith<$Res> implements $Registra
   factory $SubmitRegistrationEventCopyWith(SubmitRegistrationEvent value, $Res Function(SubmitRegistrationEvent) _then) = _$SubmitRegistrationEventCopyWithImpl;
 @override @useResult
 $Res call({
- String nickname, String password, String passwordRepeat
+ String nickname, String name, String password, String passwordRepeat
 });
 
 
@@ -262,9 +264,10 @@ class _$SubmitRegistrationEventCopyWithImpl<$Res>
 
 /// Create a copy of RegistrationEvent
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? nickname = null,Object? password = null,Object? passwordRepeat = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? nickname = null,Object? name = null,Object? password = null,Object? passwordRepeat = null,}) {
   return _then(SubmitRegistrationEvent(
 nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,passwordRepeat: null == passwordRepeat ? _self.passwordRepeat : passwordRepeat // ignore: cast_nullable_to_non_nullable
 as String,
