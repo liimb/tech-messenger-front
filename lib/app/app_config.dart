@@ -5,12 +5,12 @@ import 'package:tech_messenger/core/common/secure_storage/secure_storage.dart';
 
 class AppConfig {
   const AppConfig({
-    required this.apiUrl,
+    required this.baseUrl,
     required this.dio,
     required this.secureStorage,
   });
 
-  final String apiUrl;
+  final String baseUrl;
   final Dio dio;
   final SecureStorage secureStorage;
 
@@ -48,7 +48,7 @@ class AppConfig {
       //   ),
       // );
 
-      return AppConfig(apiUrl: apiUrl, dio: dio, secureStorage: secureStorage);
+      return AppConfig(baseUrl: apiUrl, dio: dio, secureStorage: secureStorage);
     } catch (e, st) {
       throw Exception('Ошибка инициализации конфигурации: $e\n$st');
     }

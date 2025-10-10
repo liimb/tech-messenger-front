@@ -1,5 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tech_messenger/modules/jwt/jwt_model.dart';
+import 'package:tech_messenger/modules/jwt/domain/model/jwt_model.dart';
 
 class SecureStorage {
   SecureStorage({required FlutterSecureStorage storage}) : _storage = storage;
