@@ -29,6 +29,33 @@ class MessengerApp extends StatelessWidget {
         locale: const Locale('ru'),
         routerConfig: router,
         theme: AppTheme.darkTheme,
+        builder: (context, child) {
+          return BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              final router = GoRouter.of(context);
+              final location = router.routerDelegate.currentConfiguration.uri
+                  .toString();
+              state.mapOrNull(
+                authenticated: (_) {
+                  final isAuthPage =
+                      location == AppRoutes.login.routePath ||
+                      location == AppRoutes.registration.routePath;
+
+                  if (isAuthPage) {
+                    router.go(AppRoutes.home.routePath);
+                  }
+                },
+                unauthenticated: (_) {
+                  if (location != AppRoutes.login.routePath &&
+                      location != AppRoutes.registration.routePath) {
+                    router.go(AppRoutes.login.routePath);
+                  }
+                },
+              );
+            },
+            child: child,
+          );
+        },
       ),
     );
   }
