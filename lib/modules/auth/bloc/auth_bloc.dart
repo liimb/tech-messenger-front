@@ -35,6 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     try {
+      emit(AuthState.initial());
       final jwt = await _secureStorage.getToken();
 
       if (jwt == null) {
