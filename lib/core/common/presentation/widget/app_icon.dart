@@ -28,6 +28,6 @@ class AppIcon extends StatelessWidget {
                 ? ColorFilter.mode(color!, BlendMode.srcIn)
                 : null,
           )
-        : Icon(icon);
+        : Icon(icon, size: width, color: color);
   }
 }
