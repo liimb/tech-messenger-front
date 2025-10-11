@@ -45,23 +45,26 @@ class _LoginScreenState extends State<LoginScreen> {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(getSnackBar(context.l10n.loginProcess, context));
+          return null;
         },
         success: (_) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(getSnackBar(context.l10n.loginSuccess, context));
           context.go(AppRoutes.home.routePath);
+          return null;
         },
         failure: (e) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(getSnackBar(e.msg, context));
+          return null;
         },
       ),
-      child: Scaffold(
-        body: SafeArea(
-          top: false,
-          child: Padding(
+      child: SafeArea(
+        top: false,
+        child: Scaffold(
+          body: Padding(
             padding: EdgeInsets.symmetric(vertical: p32, horizontal: p32),
             child: Center(
               child: Form(
@@ -70,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(context.l10n.auth, style: context.appTextTheme.large),
+                    Text(context.l10n.login, style: context.appTextTheme.large),
                     SizedBox(height: p32),
                     InputWidget(
                       controller: nicknameController,
@@ -117,13 +120,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-        ),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(bottom: p16),
-          child: TextButtonWidget(
-            onPressed: () => context.go(AppRoutes.registration.routePath),
-            text: context.l10n.noAccount,
-            buttonText: context.l10n.register,
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.only(bottom: p16),
+            child: TextButtonWidget(
+              onPressed: () => context.go(AppRoutes.registration.routePath),
+              text: context.l10n.noAccount,
+              buttonText: context.l10n.register,
+            ),
           ),
         ),
       ),
