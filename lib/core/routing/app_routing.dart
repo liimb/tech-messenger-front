@@ -6,11 +6,13 @@ import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
 import 'package:tech_messenger/modules/home/presentation/home_screen.dart';
 import 'package:tech_messenger/modules/login/presentation/login_screen.dart';
 import 'package:tech_messenger/modules/registration/presentation/registration_screen.dart';
+import 'package:tech_messenger/modules/search/presentation/search_screen.dart';
 
 enum AppRoutes {
   login('/login'),
   registration('/registration'),
-  home('/home');
+  home('/home'),
+  search('/search');
 
   const AppRoutes(this.routePath);
   final String routePath;
@@ -62,6 +64,13 @@ final router = GoRouter(
       path: AppRoutes.home.routePath,
       pageBuilder: (context, state) =>
           buildPageWithAnimation(child: const HomeScreen(), state: state),
+      routes: [
+        GoRoute(
+          path: AppRoutes.search.routePath,
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: SearchScreen()),
+        ),
+      ],
     ),
   ],
 );

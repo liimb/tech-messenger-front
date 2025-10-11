@@ -24,5 +24,7 @@
     "unknownError": "Unknown error",
     "registrationSuccess": "Registration is successful",
     "loginProcess": "Login...",
-    "loginSuccess": "Login is successful"
+    "loginSuccess": "Login is successful",
+    "search": "Search",
+    "exit": "Exit"
 }

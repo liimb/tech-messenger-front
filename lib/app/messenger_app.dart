@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tech_messenger/app/app_config.dart';
+import 'package:tech_messenger/app/app_logger.dart';
 import 'package:tech_messenger/app/app_providers.dart';
 import 'package:tech_messenger/core/routing/app_routing.dart';
 import 'package:tech_messenger/core/theme/app_theme.dart';
@@ -30,17 +30,16 @@ class MessengerApp extends StatelessWidget {
         routerConfig: router,
         theme: AppTheme.darkTheme,
         builder: (context, child) {
-          return BlocListener<AuthBloc, AuthState>(
+          return BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              final router = GoRouter.of(context);
               final location = router.routerDelegate.currentConfiguration.uri
                   .toString();
+
               state.mapOrNull(
                 authenticated: (_) {
                   final isAuthPage =
                       location == AppRoutes.login.routePath ||
                       location == AppRoutes.registration.routePath;
-
                   if (isAuthPage) {
                     router.go(AppRoutes.home.routePath);
                   }
@@ -53,7 +52,13 @@ class MessengerApp extends StatelessWidget {
                 },
               );
             },
-            child: child,
+            builder: (context, state) {
+              if (state is AuthInitialState) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              return child!;
+            },
           );
         },
       ),

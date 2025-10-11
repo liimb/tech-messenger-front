@@ -3,7 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:tech_messenger/app/jwt_dio_interceptor.dart';
 import 'package:tech_messenger/core/common/secure_storage/secure_storage.dart';
+import 'package:tech_messenger/core/util/auth_checker_util.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
+import 'package:tech_messenger/modules/auth/data/datasource/impl/auth_datasource_impl.dart';
+import 'package:tech_messenger/modules/auth/data/repository/auth_repository_impl.dart';
 import 'package:tech_messenger/modules/jwt/data/datasource/impl/jwt_datasource_impl.dart';
 import 'package:tech_messenger/modules/jwt/data/repository/jwt_repository_impl.dart';
 
@@ -42,17 +45,25 @@ class AppConfig {
       // JWT
       final jwtDataSource = JwtDatasource(dio, baseUrl: apiUrl);
       final jwtRepository = JwtRepository(ds: jwtDataSource);
+      final authDatasource = AuthDatasource(dio, baseUrl: apiUrl);
+      final authRepository = AuthRepository(ds: authDatasource);
+      final authChecker = AuthChecker(
+        secureStorage: secureStorage,
+        jwtRepository: jwtRepository,
+      );
 
       final authBloc = AuthBloc(
-        jwtRepository: jwtRepository,
+        authRepository: authRepository,
         secureStorage: secureStorage,
+        authChecker: authChecker,
       );
 
       dio.interceptors.add(
         JwtDioInterceptor(
           storage: secureStorage,
-          repository: jwtRepository,
+          authRepository: authRepository,
           authBloc: authBloc,
+          authChecker: authChecker,
         ),
       );
 
