@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tech_messenger/core/routing/build_animation.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
 import 'package:tech_messenger/modules/home/presentation/home_screen.dart';
 import 'package:tech_messenger/modules/login/presentation/login_screen.dart';
@@ -49,16 +50,20 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: AppRoutes.login.routePath,
-      pageBuilder: (context, state) => const MaterialPage(child: LoginScreen()),
+      pageBuilder: (context, state) =>
+          buildPageWithAnimation(child: const LoginScreen(), state: state),
     ),
     GoRoute(
       path: AppRoutes.registration.routePath,
-      pageBuilder: (context, state) =>
-          const MaterialPage(child: RegistrationScreen()),
+      pageBuilder: (context, state) => buildPageWithAnimation(
+        child: const RegistrationScreen(),
+        state: state,
+      ),
     ),
     GoRoute(
       path: AppRoutes.home.routePath,
-      pageBuilder: (context, state) => const MaterialPage(child: HomeScreen()),
+      pageBuilder: (context, state) =>
+          buildPageWithAnimation(child: const HomeScreen(), state: state),
       routes: [
         GoRoute(
           path: AppRoutes.search.routePath,

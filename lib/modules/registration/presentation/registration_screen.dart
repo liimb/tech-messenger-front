@@ -66,10 +66,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           },
         );
       },
-      child: Scaffold(
-        body: SafeArea(
-          top: false,
-          child: Padding(
+      child: SafeArea(
+        top: false,
+        child: Scaffold(
+          body: Padding(
             padding: EdgeInsets.symmetric(vertical: p32, horizontal: p32),
             child: Center(
               child: Form(
@@ -152,13 +152,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
             ),
           ),
-        ),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(bottom: p16),
-          child: TextButtonWidget(
-            onPressed: () => context.go(AppRoutes.login.routePath),
-            text: context.l10n.hasAccount,
-            buttonText: context.l10n.login,
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.only(bottom: p16),
+            child: TextButtonWidget(
+              onPressed: () => context.go(AppRoutes.login.routePath),
+              text: context.l10n.hasAccount,
+              buttonText: context.l10n.login,
+            ),
           ),
         ),
       ),
