@@ -87,4 +87,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginSuccess => 'Login is successful';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get exit => 'Exit';
 }
