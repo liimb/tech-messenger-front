@@ -128,11 +128,11 @@ return logout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  checkAuth,TResult Function()?  logout,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  checkAuth,TResult Function( bool fromInterceptor)?  logout,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case AuthCheckEvent() when checkAuth != null:
 return checkAuth();case AuthLogoutEvent() when logout != null:
-return logout();case _:
+return logout(_that.fromInterceptor);case _:
   return orElse();
 
 }
@@ -150,11 +150,11 @@ return logout();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  checkAuth,required TResult Function()  logout,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  checkAuth,required TResult Function( bool fromInterceptor)  logout,}) {final _that = this;
 switch (_that) {
 case AuthCheckEvent():
 return checkAuth();case AuthLogoutEvent():
-return logout();case _:
+return logout(_that.fromInterceptor);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -171,11 +171,11 @@ return logout();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  checkAuth,TResult? Function()?  logout,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  checkAuth,TResult? Function( bool fromInterceptor)?  logout,}) {final _that = this;
 switch (_that) {
 case AuthCheckEvent() when checkAuth != null:
 return checkAuth();case AuthLogoutEvent() when logout != null:
-return logout();case _:
+return logout(_that.fromInterceptor);case _:
   return null;
 
 }
@@ -225,39 +225,73 @@ String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
 
 
 class AuthLogoutEvent with DiagnosticableTreeMixin implements AuthEvent {
-  const AuthLogoutEvent();
+  const AuthLogoutEvent(this.fromInterceptor);
   
 
+ final  bool fromInterceptor;
 
-
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AuthLogoutEventCopyWith<AuthLogoutEvent> get copyWith => _$AuthLogoutEventCopyWithImpl<AuthLogoutEvent>(this, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'AuthEvent.logout'))
-    ;
+    ..add(DiagnosticsProperty('fromInterceptor', fromInterceptor));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthLogoutEvent);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthLogoutEvent&&(identical(other.fromInterceptor, fromInterceptor) || other.fromInterceptor == fromInterceptor));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,fromInterceptor);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'AuthEvent.logout()';
+  return 'AuthEvent.logout(fromInterceptor: $fromInterceptor)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $AuthLogoutEventCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
+  factory $AuthLogoutEventCopyWith(AuthLogoutEvent value, $Res Function(AuthLogoutEvent) _then) = _$AuthLogoutEventCopyWithImpl;
+@useResult
+$Res call({
+ bool fromInterceptor
+});
 
 
+
+
+}
+/// @nodoc
+class _$AuthLogoutEventCopyWithImpl<$Res>
+    implements $AuthLogoutEventCopyWith<$Res> {
+  _$AuthLogoutEventCopyWithImpl(this._self, this._then);
+
+  final AuthLogoutEvent _self;
+  final $Res Function(AuthLogoutEvent) _then;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? fromInterceptor = null,}) {
+  return _then(AuthLogoutEvent(
+null == fromInterceptor ? _self.fromInterceptor : fromInterceptor // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$AuthState implements DiagnosticableTreeMixin {

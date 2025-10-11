@@ -253,6 +253,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Успешный вход'**
   String get loginSuccess;
+
+  /// No description provided for @search.
+  ///
+  /// In ru, this message translates to:
+  /// **'Поиск'**
+  String get search;
+
+  /// No description provided for @exit.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выйти'**
+  String get exit;
 }
 
 class _AppLocalizationsDelegate

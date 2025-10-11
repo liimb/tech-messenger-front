@@ -24,5 +24,7 @@
     "unknownError": "Неизвестная ошибка",
     "registrationSuccess": "Регистрация успешна",
     "loginProcess": "Вход...",
-    "loginSuccess": "Успешный вход"
+    "loginSuccess": "Успешный вход",
+    "search": "Поиск",
+    "exit": "Выйти"
 }
