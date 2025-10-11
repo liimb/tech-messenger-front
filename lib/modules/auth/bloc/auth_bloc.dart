@@ -29,13 +29,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onLogout(AuthLogoutEvent event, Emitter<AuthState> emit) async {
     try {
-      await _secureStorage.deleteToken();
       if (!event.fromInterceptor) {
         await _authRepository.logout();
       }
     } catch (e, st) {
       AppLogger.error('Ошибка при logout:$e\n$st');
     }
+    await _secureStorage.deleteToken();
     emit(AuthState.unauthenticated());
   }
 
