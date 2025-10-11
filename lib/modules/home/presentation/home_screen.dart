@@ -17,18 +17,26 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Container(height: p8, color: context.appTheme.hoverColor),
-            ),
-            SliverAppBar(
-              backgroundColor: context.appTheme.hoverColor,
-              title: Text(
-                context.l10n.settings,
-                style: context.appTextTheme.heading1,
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        drawer: Drawer(
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Container(
+                  height: p8,
+                  color: context.appTheme.hoverColor,
+                ),
+              ),
+              SliverAppBar(
+                backgroundColor: context.appTheme.hoverColor,
+                title: Text(
+                  context.l10n.settings,
+                  style: context.appTextTheme.heading1,
+                ),
+                titleSpacing: p32,
+                automaticallyImplyLeading: false,
               ),
               titleSpacing: p32,
               automaticallyImplyLeading: false,
@@ -81,27 +89,21 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      drawerEdgeDragWidth: MediaQuery.of(context).size.width / 1.3,
-      body: RefreshIndicator(
-        onRefresh: _refreshData,
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              backgroundColor: context.appTheme.primaryColor,
-              surfaceTintColor: Colors.transparent,
-              title: Text(
-                context.l10n.allChats,
-                style: context.appTextTheme.heading1,
-              ),
-              leading: Builder(
-                builder: (context) => IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
+        drawerEdgeDragWidth: MediaQuery.of(context).size.width / 1.3,
+        body: RefreshIndicator(
+          onRefresh: _refreshData,
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                backgroundColor: context.appTheme.primaryColor,
+                surfaceTintColor: Colors.transparent,
+                title: Text(
+                  context.l10n.allChats,
+                  style: context.appTextTheme.heading1,
                 ),
               ),
             ),
