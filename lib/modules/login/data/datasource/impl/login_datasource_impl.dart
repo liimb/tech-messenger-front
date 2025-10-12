@@ -13,5 +13,5 @@ abstract class LoginDatasource implements ILoginDatasource {
   @override
   @POST('/auth/sign-in')
   @DioResponseType(ResponseType.plain)
-  Future<HttpResponse> tryLogin(LoginRequest request);
+  Future<HttpResponse> tryLogin(@Body() LoginRequest request);
 }

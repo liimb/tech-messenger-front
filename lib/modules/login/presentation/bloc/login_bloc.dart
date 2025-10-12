@@ -44,7 +44,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           AppLogger.error('Ошибка при входе:\n$error');
         } catch (e, st) {
           emit(LoginState.failure('Ошибка на сервере'));
-          AppLogger.error('Ошибка при входе:\n$e\n$st');
+          AppLogger.error('Ошибка при входе:\n$e\n$st\n$response\n');
         }
       }
     } catch (e, st) {

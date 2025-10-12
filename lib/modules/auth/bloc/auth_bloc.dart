@@ -25,6 +25,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
        super(AuthInitialState()) {
     on<AuthCheckEvent>(_onCheckAuth);
     on<AuthLogoutEvent>(_onLogout);
+    on<AuthSetEvent>(_onSetAuth);
+  }
+
+  Future<void> _onSetAuth(AuthSetEvent event, Emitter<AuthState> emit) async {
+    emit(AuthState.authenticated());
   }
 
   Future<void> _onLogout(AuthLogoutEvent event, Emitter<AuthState> emit) async {

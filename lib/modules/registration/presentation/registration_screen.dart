@@ -9,6 +9,7 @@ import 'package:tech_messenger/core/constant/app_padding.dart';
 import 'package:tech_messenger/core/routing/app_routing.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 import 'package:tech_messenger/core/util/validators.dart';
+import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
 import 'package:tech_messenger/modules/registration/presentation/bloc/registration_bloc.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -57,7 +58,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               getSnackBar(context.l10n.registrationSuccess, context),
             );
-            context.go('/home');
+            context.read<AuthBloc>().add(AuthEvent.setAuth());
+            context.go(AppRoutes.home.routePath);
           },
           error: (e) {
             ScaffoldMessenger.of(

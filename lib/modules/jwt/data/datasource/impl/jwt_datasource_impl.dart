@@ -12,5 +12,5 @@ abstract class JwtDatasource implements IJwtDatasource {
   @override
   @POST('/auth/refresh')
   @DioResponseType(ResponseType.plain)
-  Future<HttpResponse> refresh(JwtRefreshRequest request);
+  Future<HttpResponse> refresh(@Body() JwtRefreshRequest request);
 }

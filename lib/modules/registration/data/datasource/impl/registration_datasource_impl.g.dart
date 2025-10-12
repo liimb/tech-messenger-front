@@ -22,7 +22,7 @@ class _RegistrationDatasource implements RegistrationDatasource {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = request;
     final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(
             method: 'POST',
