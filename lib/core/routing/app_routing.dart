@@ -68,7 +68,7 @@ final router = GoRouter(
         GoRoute(
           path: AppRoutes.search.routePath,
           pageBuilder: (context, state) =>
-              const MaterialPage(child: SearchScreen()),
+              buildPageWithAnimation(child: SearchScreen(), state: state),
         ),
       ],
     ),
