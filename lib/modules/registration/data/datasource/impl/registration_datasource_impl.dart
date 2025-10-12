@@ -13,5 +13,5 @@ abstract class RegistrationDatasource implements IRegistrationDatasource {
   @override
   @POST('/auth/sign-up')
   @DioResponseType(ResponseType.plain)
-  Future<HttpResponse> register(RegistrationRequest request);
+  Future<HttpResponse> register(@Body() RegistrationRequest request);
 }

@@ -9,6 +9,7 @@ import 'package:tech_messenger/core/constant/app_padding.dart';
 import 'package:tech_messenger/core/routing/app_routing.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 import 'package:tech_messenger/core/util/validators.dart';
+import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
 import 'package:tech_messenger/modules/login/presentation/bloc/login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -51,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(getSnackBar(context.l10n.loginSuccess, context));
+          context.read<AuthBloc>().add(AuthEvent.setAuth());
           context.go(AppRoutes.home.routePath);
           return null;
         },
