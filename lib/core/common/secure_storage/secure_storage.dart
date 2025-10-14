@@ -35,19 +35,6 @@ class SecureStorage {
     await _storage.delete(key: _refreshToken);
   }
 
-  Future<void> saveUserId(int id) async {
-    await _storage.write(key: _userIdKey, value: id.toString());
-  }
-
-  Future<int?> getUserId() async {
-    final id = await _storage.read(key: _userIdKey);
-    return id != null ? int.tryParse(id) : null;
-  }
-
-  Future<void> deleteUserId() async {
-    await _storage.delete(key: _userIdKey);
-  }
-
   Future<void> clear() async {
     await _storage.deleteAll();
   }
