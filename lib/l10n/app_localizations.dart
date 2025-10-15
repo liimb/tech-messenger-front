@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
+import 'app_localizations_kk.dart';
 import 'app_localizations_ru.dart';
 
 // ignore_for_file: type=lint
@@ -96,6 +97,7 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ru'),
     Locale('en'),
+    Locale('kk'),
   ];
 
   /// No description provided for @auth.
@@ -143,7 +145,7 @@ abstract class AppLocalizations {
   /// No description provided for @errorUncorrectPassword.
   ///
   /// In ru, this message translates to:
-  /// **'Пароль должен быть не менее 8 символов и \nсодержать\n●заглавные буквы\n●цифры\n●специальные символы'**
+  /// **'Пароль должен быть не менее 8 символов и содержать заглавные буквы цифры специальные символы'**
   String get errorUncorrectPassword;
 
   /// No description provided for @repeatYourPassword.
@@ -278,7 +280,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'ru'].contains(locale.languageCode);
+      <String>['en', 'kk', 'ru'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -289,6 +291,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
+    case 'kk':
+      return AppLocalizationsKk();
     case 'ru':
       return AppLocalizationsRu();
   }

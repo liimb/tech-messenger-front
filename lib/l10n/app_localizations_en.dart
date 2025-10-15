@@ -32,7 +32,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorUncorrectPassword =>
-      'The password must be at least 8 characters long and\ncontain uppercase letters\n●numbers\n●special characters';
+      'The password must be at least 8 characters long and contain uppercase letters numbers special characters';
 
   @override
   String get repeatYourPassword => 'Repeat password';
