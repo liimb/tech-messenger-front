@@ -12,6 +12,342 @@ part of 'settings_bloc.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
+mixin _$SettingsEvent {
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SettingsEvent()';
+}
+
+
+}
+
+/// @nodoc
+class $SettingsEventCopyWith<$Res>  {
+$SettingsEventCopyWith(SettingsEvent _, $Res Function(SettingsEvent) __);
+}
+
+
+/// Adds pattern-matching-related methods to [SettingsEvent].
+extension SettingsEventPatterns on SettingsEvent {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ToggleThemeEvent value)?  toggleTheme,TResult Function( SetThemeEvent value)?  setTheme,TResult Function( SetLocaleEvent value)?  setLocale,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case ToggleThemeEvent() when toggleTheme != null:
+return toggleTheme(_that);case SetThemeEvent() when setTheme != null:
+return setTheme(_that);case SetLocaleEvent() when setLocale != null:
+return setLocale(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ToggleThemeEvent value)  toggleTheme,required TResult Function( SetThemeEvent value)  setTheme,required TResult Function( SetLocaleEvent value)  setLocale,}){
+final _that = this;
+switch (_that) {
+case ToggleThemeEvent():
+return toggleTheme(_that);case SetThemeEvent():
+return setTheme(_that);case SetLocaleEvent():
+return setLocale(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ToggleThemeEvent value)?  toggleTheme,TResult? Function( SetThemeEvent value)?  setTheme,TResult? Function( SetLocaleEvent value)?  setLocale,}){
+final _that = this;
+switch (_that) {
+case ToggleThemeEvent() when toggleTheme != null:
+return toggleTheme(_that);case SetThemeEvent() when setTheme != null:
+return setTheme(_that);case SetLocaleEvent() when setLocale != null:
+return setLocale(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  toggleTheme,TResult Function( ThemeMode themeMode)?  setTheme,TResult Function( AppLocales locale)?  setLocale,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case ToggleThemeEvent() when toggleTheme != null:
+return toggleTheme();case SetThemeEvent() when setTheme != null:
+return setTheme(_that.themeMode);case SetLocaleEvent() when setLocale != null:
+return setLocale(_that.locale);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  toggleTheme,required TResult Function( ThemeMode themeMode)  setTheme,required TResult Function( AppLocales locale)  setLocale,}) {final _that = this;
+switch (_that) {
+case ToggleThemeEvent():
+return toggleTheme();case SetThemeEvent():
+return setTheme(_that.themeMode);case SetLocaleEvent():
+return setLocale(_that.locale);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  toggleTheme,TResult? Function( ThemeMode themeMode)?  setTheme,TResult? Function( AppLocales locale)?  setLocale,}) {final _that = this;
+switch (_that) {
+case ToggleThemeEvent() when toggleTheme != null:
+return toggleTheme();case SetThemeEvent() when setTheme != null:
+return setTheme(_that.themeMode);case SetLocaleEvent() when setLocale != null:
+return setLocale(_that.locale);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class ToggleThemeEvent implements SettingsEvent {
+  const ToggleThemeEvent();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToggleThemeEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SettingsEvent.toggleTheme()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class SetThemeEvent implements SettingsEvent {
+  const SetThemeEvent({required this.themeMode});
+  
+
+ final  ThemeMode themeMode;
+
+/// Create a copy of SettingsEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SetThemeEventCopyWith<SetThemeEvent> get copyWith => _$SetThemeEventCopyWithImpl<SetThemeEvent>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetThemeEvent&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,themeMode);
+
+@override
+String toString() {
+  return 'SettingsEvent.setTheme(themeMode: $themeMode)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SetThemeEventCopyWith<$Res> implements $SettingsEventCopyWith<$Res> {
+  factory $SetThemeEventCopyWith(SetThemeEvent value, $Res Function(SetThemeEvent) _then) = _$SetThemeEventCopyWithImpl;
+@useResult
+$Res call({
+ ThemeMode themeMode
+});
+
+
+
+
+}
+/// @nodoc
+class _$SetThemeEventCopyWithImpl<$Res>
+    implements $SetThemeEventCopyWith<$Res> {
+  _$SetThemeEventCopyWithImpl(this._self, this._then);
+
+  final SetThemeEvent _self;
+  final $Res Function(SetThemeEvent) _then;
+
+/// Create a copy of SettingsEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? themeMode = null,}) {
+  return _then(SetThemeEvent(
+themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
+as ThemeMode,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class SetLocaleEvent implements SettingsEvent {
+  const SetLocaleEvent({required this.locale});
+  
+
+ final  AppLocales locale;
+
+/// Create a copy of SettingsEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SetLocaleEventCopyWith<SetLocaleEvent> get copyWith => _$SetLocaleEventCopyWithImpl<SetLocaleEvent>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetLocaleEvent&&(identical(other.locale, locale) || other.locale == locale));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,locale);
+
+@override
+String toString() {
+  return 'SettingsEvent.setLocale(locale: $locale)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SetLocaleEventCopyWith<$Res> implements $SettingsEventCopyWith<$Res> {
+  factory $SetLocaleEventCopyWith(SetLocaleEvent value, $Res Function(SetLocaleEvent) _then) = _$SetLocaleEventCopyWithImpl;
+@useResult
+$Res call({
+ AppLocales locale
+});
+
+
+
+
+}
+/// @nodoc
+class _$SetLocaleEventCopyWithImpl<$Res>
+    implements $SetLocaleEventCopyWith<$Res> {
+  _$SetLocaleEventCopyWithImpl(this._self, this._then);
+
+  final SetLocaleEvent _self;
+  final $Res Function(SetLocaleEvent) _then;
+
+/// Create a copy of SettingsEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? locale = null,}) {
+  return _then(SetLocaleEvent(
+locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as AppLocales,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$SettingsState {
 
  ThemeMode get themeMode; AppLocales get locale;
