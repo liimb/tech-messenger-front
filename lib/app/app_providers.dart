@@ -60,7 +60,8 @@ class AppProviders extends StatelessWidget {
             value: config.authBloc..add(const AuthEvent.checkAuth()),
           ),
           BlocProvider(
-            create: (_) => SettingsBloc(settingsService: SettingsService()),
+            create: (_) =>
+                SettingsBloc(settingsService: config.settingsService),
           ),
         ],
         child: child,
