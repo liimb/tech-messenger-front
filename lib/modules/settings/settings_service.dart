@@ -7,28 +7,28 @@ class SettingsService {
   static const _themeKey = 'isDarkMode';
   static const _localeKey = 'appLocale';
 
+  SharedPreferences? _prefs;
+
+  Future<void> init() async {
+    _prefs ??= await SharedPreferences.getInstance();
+  }
+
   Future<void> saveThemeMode(ThemeMode themeMode) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_themeKey, themeMode == ThemeMode.dark);
+    await _prefs?.setBool(_themeKey, themeMode == ThemeMode.dark);
   }
 
   Future<ThemeMode> getThemeMode() async {
-    final prefs = await SharedPreferences.getInstance();
-    final isDark = prefs.getBool(_themeKey);
-    if (isDark == null) {
-      return ThemeMode.system;
-    }
+    final isDark = _prefs?.getBool(_themeKey);
+    if (isDark == null) return ThemeMode.system;
     return isDark ? ThemeMode.dark : ThemeMode.light;
   }
 
   Future<void> saveLocale(AppLocales locale) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_localeKey, locale.locale);
+    await _prefs?.setString(_localeKey, locale.locale);
   }
 
   Future<AppLocales> getLocale() async {
-    final prefs = await SharedPreferences.getInstance();
-    final code = prefs.getString(_localeKey);
+    final code = _prefs?.getString(_localeKey);
     if (code == null) {
       return AppLocales.values.byName(
         ui.PlatformDispatcher.instance.locale.languageCode,
