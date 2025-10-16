@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tech_messenger/core/common/presentation/widget/app_icon.dart';
+import 'package:tech_messenger/core/constant/app_locales.dart';
 import 'package:tech_messenger/core/constant/app_padding.dart';
 import 'package:tech_messenger/core/routing/app_routing.dart';
+import 'package:tech_messenger/core/theme/app_theme.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
 import 'package:tech_messenger/modules/home/presentation/widget/chatlist.dart';
+import 'package:tech_messenger/modules/home/presentation/widget/languages_popup.dart';
+import 'package:tech_messenger/modules/settings/bloc/settings_bloc.dart';
 
 Future<void> _refreshData() async {
   await Future.delayed(const Duration(seconds: 2));
@@ -57,7 +61,9 @@ class HomeScreen extends StatelessWidget {
                           context.l10n.theme,
                           style: context.appTextTheme.heading2,
                         ),
-                        onTap: () {},
+                        onTap: () => context.read<SettingsBloc>().add(
+                          ToggleThemeEvent(),
+                        ),
                         leading: Icon(Icons.tonality),
                         contentPadding: EdgeInsets.symmetric(horizontal: p32),
                       ),
@@ -66,7 +72,14 @@ class HomeScreen extends StatelessWidget {
                           context.l10n.language,
                           style: context.appTextTheme.heading2,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return LanguagesPopup();
+                            },
+                          );
+                        },
                         leading: Icon(Icons.book_outlined),
                         contentPadding: EdgeInsets.symmetric(horizontal: p32),
                       ),
@@ -105,11 +118,15 @@ class HomeScreen extends StatelessWidget {
                 surfaceTintColor: Colors.transparent,
                 title: Text(
                   context.l10n.allChats,
-                  style: context.appTextTheme.heading1,
+                  style: context.appTextTheme.heading1.copyWith(
+                    color: Colors.white,
+                    //TODO: заменить на цвет из темы
+                  ),
                 ),
                 leading: Builder(
                   builder: (context) => IconButton(
-                    icon: const Icon(Icons.menu),
+                    //TODO: заменить на цвет из темы
+                    icon: Icon(Icons.menu, color: Colors.white),
                     onPressed: () => Scaffold.of(context).openDrawer(),
                   ),
                 ),

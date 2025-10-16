@@ -119,7 +119,7 @@ class AppTheme {
     brightness: Brightness.dark,
     colorScheme: const ColorScheme.dark(
       primary: Color(0xffffb5a0),
-      onPrimary: Color(0xff561f0f),
+      onPrimary: Color.fromARGB(255, 255, 255, 255),
       primaryContainer: Color(0xff723523),
       onPrimaryContainer: Color(0xffffdbd1),
       secondary: Color(0xffe7bdb2),

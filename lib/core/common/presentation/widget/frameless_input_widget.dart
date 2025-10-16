@@ -34,16 +34,25 @@ class FramelessInputWidget extends StatelessWidget {
                 controller: controller,
                 focusNode: focusNode,
                 autofocus: false,
-                style: context.appTextTheme.heading2,
+                style: context.appTextTheme.heading2.copyWith(
+                  //FIXME: заменить на цвет из appColors
+                  color: Colors.white,
+                ),
                 onChanged: onChanged,
                 textInputAction: TextInputAction.search,
 
                 decoration: InputDecoration(
                   hintText: hintText,
                   hintStyle: context.appTextTheme.heading2.copyWith(
-                    color: context.appColors.secondaryColor100,
+                    //FIXME: заменить на цвет из appColors
+                    color: Colors.white,
                   ),
-                  suffixIcon: _buildSuffixIcon(context, value.text),
+                  suffixIcon: _buildSuffixIcon(
+                    context,
+                    value.text,
+                    //FIXME: заменить на цвет из appColors
+                    Colors.white,
+                  ),
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -60,7 +69,7 @@ class FramelessInputWidget extends StatelessWidget {
     );
   }
 
-  Widget? _buildSuffixIcon(BuildContext context, String text) {
+  Widget? _buildSuffixIcon(BuildContext context, String text, Color color) {
     if (text.isNotEmpty) {
       return IconButton(
         //padding: const EdgeInsets.symmetric(vertical: p16),
@@ -69,7 +78,7 @@ class FramelessInputWidget extends StatelessWidget {
           onClear?.call();
           focusNode.requestFocus();
         },
-        icon: const AppIcon(icon: Icons.clear, width: s24),
+        icon: AppIcon(icon: Icons.clear, width: s24, color: color),
       );
     }
     return null;
