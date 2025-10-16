@@ -28,7 +28,7 @@ class LanguagesPopup extends StatelessWidget {
                     value: AppLocales.values[i],
                     groupValue: state.locale,
                     onChanged: (value) => context.read<SettingsBloc>().add(
-                      SetLocaleEvent(value!),
+                      SetLocaleEvent(locale: value!),
                     ),
                   );
                 },

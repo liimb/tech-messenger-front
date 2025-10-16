@@ -36,11 +36,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   Future<void> _loadThemeMode() async {
     final savedMode = await settingsService.getThemeMode();
-    add(SetThemeEvent(savedMode));
+    add(SetThemeEvent(themeMode: savedMode));
   }
 
   Future<void> _loadLocale() async {
     final savedLocale = await settingsService.getLocale();
-    add(SetLocaleEvent(savedLocale));
+    add(SetLocaleEvent(locale: savedLocale));
   }
 }
