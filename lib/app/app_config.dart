@@ -9,6 +9,7 @@ import 'package:tech_messenger/modules/auth/data/datasource/impl/auth_datasource
 import 'package:tech_messenger/modules/auth/data/repository/auth_repository_impl.dart';
 import 'package:tech_messenger/modules/jwt/data/datasource/impl/jwt_datasource_impl.dart';
 import 'package:tech_messenger/modules/jwt/data/repository/jwt_repository_impl.dart';
+import 'package:tech_messenger/modules/settings/settings_service.dart';
 
 class AppConfig {
   const AppConfig({
@@ -16,12 +17,14 @@ class AppConfig {
     required this.dio,
     required this.secureStorage,
     required this.authBloc,
+    required this.settingsService,
   });
 
   final String baseUrl;
   final Dio dio;
   final SecureStorage secureStorage;
   final AuthBloc authBloc;
+  final SettingsService settingsService;
 
   static Future<AppConfig> config() async {
     try {
@@ -58,6 +61,9 @@ class AppConfig {
         authChecker: authChecker,
       );
 
+      final settingsService = SettingsService();
+      await settingsService.init();
+
       dio.interceptors.add(
         JwtDioInterceptor(
           storage: secureStorage,
@@ -72,6 +78,7 @@ class AppConfig {
         dio: dio,
         secureStorage: secureStorage,
         authBloc: authBloc,
+        settingsService: settingsService,
       );
     } catch (e, st) {
       throw Exception('Ошибка инициализации конфигурации: $e\n$st');

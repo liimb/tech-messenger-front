@@ -50,7 +50,11 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               leading: Builder(
                 builder: (context) => IconButton(
-                  icon: const AppIcon(icon: Icons.arrow_back),
+                  icon: const AppIcon(
+                    icon: Icons.arrow_back,
+                    //FIXME: заменить на цвет из appColors
+                    color: Colors.white,
+                  ),
                   onPressed: () {
                     if (_focusNode.hasFocus) {
                       _focusNode.unfocus();
