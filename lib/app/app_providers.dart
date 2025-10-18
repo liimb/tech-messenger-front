@@ -13,7 +13,15 @@ import 'package:tech_messenger/modules/registration/data/datasource/impl/registr
 import 'package:tech_messenger/modules/registration/data/repository/registration_repository_impl.dart';
 import 'package:tech_messenger/modules/registration/domain/repository/registration_repository_interface.dart';
 import 'package:tech_messenger/modules/registration/presentation/bloc/registration_bloc.dart';
+import 'package:tech_messenger/modules/search/data/datasource/impl/search_datasource_impl.dart';
+import 'package:tech_messenger/modules/search/data/repository/search_repository_impl.dart';
+import 'package:tech_messenger/modules/search/domain/repository/search_repository_interface.dart';
+import 'package:tech_messenger/modules/search/presentation/bloc/search_bloc.dart';
 import 'package:tech_messenger/modules/settings/bloc/settings_bloc.dart';
+import 'package:tech_messenger/modules/user/data/datasource/impl/user_datasource_impl.dart';
+import 'package:tech_messenger/modules/user/data/repository/user_repository_impl.dart';
+import 'package:tech_messenger/modules/user/domain/repository/user_repository_interface.dart';
+import 'package:tech_messenger/modules/user/presentation/bloc/bloc/user_bloc.dart';
 
 class AppProviders extends StatelessWidget {
   const AppProviders({super.key, required this.child, required this.config});
@@ -40,6 +48,16 @@ class AppProviders extends StatelessWidget {
             ds: JwtDatasource(config.dio, baseUrl: config.baseUrl),
           ),
         ),
+        RepositoryProvider<IUserRepository>(
+          create: (context) => UserRepository(
+            ds: UserDatasource(config.dio, baseUrl: config.baseUrl),
+          ),
+        ),
+        RepositoryProvider<ISearchRepository>(
+          create: (context) => SearchRepository(
+            ds: SearchDatasource(config.dio, baseUrl: config.baseUrl),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -61,6 +79,15 @@ class AppProviders extends StatelessWidget {
           BlocProvider(
             create: (_) =>
                 SettingsBloc(settingsService: config.settingsService),
+          ),
+          BlocProvider(
+            create: (context) =>
+                UserBloc(userRepository: context.read<IUserRepository>())
+                  ..add(const UserEvent.fetchUser()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                SearchBloc(searchRepository: context.read<ISearchRepository>()),
           ),
         ],
         child: child,

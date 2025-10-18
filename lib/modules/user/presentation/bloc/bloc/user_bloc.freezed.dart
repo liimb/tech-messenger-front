@@ -450,12 +450,12 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserLoadedState&&const DeepCollectionEquality().equals(other.user, user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserLoadedState&&(identical(other.user, user) || other.user == user));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(user));
+int get hashCode => Object.hash(runtimeType,user);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
@@ -474,7 +474,7 @@ $Res call({
 });
 
 
-
+$UserModelCopyWith<$Res> get user;
 
 }
 /// @nodoc
@@ -487,14 +487,23 @@ class _$UserLoadedStateCopyWithImpl<$Res>
 
 /// Create a copy of UserState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? user = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
   return _then(UserLoadedState(
-freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as UserModel,
   ));
 }
 
-
+/// Create a copy of UserState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserModelCopyWith<$Res> get user {
+  
+  return $UserModelCopyWith<$Res>(_self.user, (value) {
+    return _then(_self.copyWith(user: value));
+  });
+}
 }
 
 // dart format on

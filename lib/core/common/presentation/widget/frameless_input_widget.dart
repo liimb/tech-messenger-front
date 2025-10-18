@@ -11,6 +11,7 @@ class FramelessInputWidget extends StatelessWidget {
     required this.focusNode,
     this.onChanged,
     this.onClear,
+    this.onSubmitted,
     this.hintText = 'Поиск',
   });
 
@@ -19,6 +20,7 @@ class FramelessInputWidget extends StatelessWidget {
   final String hintText;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onClear;
+  final Function(String)? onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class FramelessInputWidget extends StatelessWidget {
                 ),
                 onChanged: onChanged,
                 textInputAction: TextInputAction.search,
-
+                onFieldSubmitted: onSubmitted,
                 decoration: InputDecoration(
                   hintText: hintText,
                   hintStyle: context.appTextTheme.heading2.copyWith(
