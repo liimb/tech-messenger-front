@@ -3,12 +3,12 @@ import 'package:tech_messenger/modules/user/data/datasource/impl/user_datasource
 import 'package:tech_messenger/modules/user/domain/repository/user_repository_interface.dart';
 
 class UserRepository implements IUserRepository {
-  UserRepository({required this.ds});
+  UserRepository({required UserDatasource ds}) : _ds = ds;
 
-  final UserDatasource ds;
+  final UserDatasource _ds;
 
   @override
   Future<HttpResponse> fetchUser() {
-    return ds.fetchUser();
+    return _ds.fetchUser();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tech_messenger/core/common/presentation/widget/app_icon.dart';
 import 'package:tech_messenger/core/constant/app_padding.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 
@@ -38,7 +39,11 @@ class ChatlistItem extends StatelessWidget {
       },
       child: ListTile(
         title: Text(nickname),
-        leading: CircleAvatar(child: Icon(Icons.person)),
+        leading: CircleAvatar(
+          backgroundColor: context.appColors.onPrimaryContainer,
+          foregroundColor: context.appColors.onPrimary,
+          child: AppIcon(icon: Icons.person),
+        ),
         contentPadding: EdgeInsets.symmetric(vertical: p8, horizontal: p32),
         onTap: () {},
         tileColor: context.appTheme.hoverColor,
