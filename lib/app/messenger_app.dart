@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tech_messenger/app/app_config.dart';
-import 'package:tech_messenger/app/app_logger.dart';
 import 'package:tech_messenger/app/app_providers.dart';
 import 'package:tech_messenger/core/constant/app_locales.dart';
 import 'package:tech_messenger/core/routing/app_routing.dart';

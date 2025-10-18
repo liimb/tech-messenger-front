@@ -14,7 +14,6 @@ import 'package:tech_messenger/modules/registration/data/repository/registration
 import 'package:tech_messenger/modules/registration/domain/repository/registration_repository_interface.dart';
 import 'package:tech_messenger/modules/registration/presentation/bloc/registration_bloc.dart';
 import 'package:tech_messenger/modules/settings/bloc/settings_bloc.dart';
-import 'package:tech_messenger/modules/settings/settings_service.dart';
 
 class AppProviders extends StatelessWidget {
   const AppProviders({super.key, required this.child, required this.config});
