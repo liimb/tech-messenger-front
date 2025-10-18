@@ -21,7 +21,7 @@ import 'package:tech_messenger/modules/settings/bloc/settings_bloc.dart';
 import 'package:tech_messenger/modules/user/data/datasource/impl/user_datasource_impl.dart';
 import 'package:tech_messenger/modules/user/data/repository/user_repository_impl.dart';
 import 'package:tech_messenger/modules/user/domain/repository/user_repository_interface.dart';
-import 'package:tech_messenger/modules/user/presentation/bloc/bloc/user_bloc.dart';
+import 'package:tech_messenger/modules/user/presentation/bloc/user_bloc.dart';
 
 class AppProviders extends StatelessWidget {
   const AppProviders({super.key, required this.child, required this.config});
