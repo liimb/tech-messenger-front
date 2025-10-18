@@ -32,7 +32,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get errorUncorrectPassword =>
-      'Пароль должен быть не менее 8 символов и \nсодержать\n●заглавные буквы\n●цифры\n●специальные символы';
+      'Пароль должен быть не менее 8 символов и содержать заглавные буквы цифры специальные символы';
 
   @override
   String get repeatYourPassword => 'Повторите пароль';
