@@ -44,30 +44,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           'Ошибка поиска пользователей\n${response.response.data}',
         );
         emit(SearchState.failure());
-        emit(
-          SearchState.loaded([
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-            UserModel(username: 'username', name: 'name'),
-          ]),
-        );
       }
     } catch (e, st) {
       AppLogger.error('Ошибка поиска пользователей\n${e}\n${st}');

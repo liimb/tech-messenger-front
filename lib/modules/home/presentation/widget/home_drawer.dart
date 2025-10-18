@@ -7,7 +7,7 @@ import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tech_messenger/modules/home/presentation/widget/languages_popup.dart';
 import 'package:tech_messenger/modules/settings/bloc/settings_bloc.dart';
-import 'package:tech_messenger/modules/user/presentation/bloc/bloc/user_bloc.dart';
+import 'package:tech_messenger/modules/user/presentation/bloc/user_bloc.dart';
 
 class HomeDrawer extends StatefulWidget {
   const HomeDrawer({super.key});
