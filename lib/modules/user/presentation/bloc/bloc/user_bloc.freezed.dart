@@ -332,11 +332,11 @@ return loaded(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function()?  loaded,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( UserModel user)?  loaded,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case UserLoadingState() when loading != null:
 return loading();case UserLoadedState() when loaded != null:
-return loaded();case _:
+return loaded(_that.user);case _:
   return orElse();
 
 }
@@ -354,11 +354,11 @@ return loaded();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function()  loaded,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( UserModel user)  loaded,}) {final _that = this;
 switch (_that) {
 case UserLoadingState():
 return loading();case UserLoadedState():
-return loaded();case _:
+return loaded(_that.user);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -375,11 +375,11 @@ return loaded();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function()?  loaded,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( UserModel user)?  loaded,}) {final _that = this;
 switch (_that) {
 case UserLoadingState() when loading != null:
 return loading();case UserLoadedState() when loaded != null:
-return loaded();case _:
+return loaded(_that.user);case _:
   return null;
 
 }
@@ -429,38 +429,72 @@ String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
 
 
 class UserLoadedState with DiagnosticableTreeMixin implements UserState {
-  const UserLoadedState();
+  const UserLoadedState(this.user);
   
 
+ final  UserModel user;
 
-
+/// Create a copy of UserState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UserLoadedStateCopyWith<UserLoadedState> get copyWith => _$UserLoadedStateCopyWithImpl<UserLoadedState>(this, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'UserState.loaded'))
-    ;
+    ..add(DiagnosticsProperty('user', user));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserLoadedState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserLoadedState&&const DeepCollectionEquality().equals(other.user, user));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(user));
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'UserState.loaded()';
+  return 'UserState.loaded(user: $user)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $UserLoadedStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
+  factory $UserLoadedStateCopyWith(UserLoadedState value, $Res Function(UserLoadedState) _then) = _$UserLoadedStateCopyWithImpl;
+@useResult
+$Res call({
+ UserModel user
+});
 
 
+
+
+}
+/// @nodoc
+class _$UserLoadedStateCopyWithImpl<$Res>
+    implements $UserLoadedStateCopyWith<$Res> {
+  _$UserLoadedStateCopyWithImpl(this._self, this._then);
+
+  final UserLoadedState _self;
+  final $Res Function(UserLoadedState) _then;
+
+/// Create a copy of UserState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? user = freezed,}) {
+  return _then(UserLoadedState(
+freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as UserModel,
+  ));
+}
+
+
+}
 
 // dart format on
