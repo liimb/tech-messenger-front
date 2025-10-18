@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tech_messenger/core/common/presentation/widget/app_icon.dart';
 import 'package:tech_messenger/core/constant/app_padding.dart';
 import 'package:tech_messenger/core/constant/app_rounding.dart';
@@ -88,6 +89,7 @@ class InputWidget extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(r20),
                 ),
+                errorMaxLines: 5,
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: context.appColors.primaryColor300,
@@ -95,6 +97,9 @@ class InputWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(r20),
                 ),
               ),
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'\s')),
+              ],
             );
           },
         ),
