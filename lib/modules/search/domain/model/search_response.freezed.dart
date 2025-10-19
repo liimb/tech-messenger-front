@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SearchResponse {
 
- List<UserModel> get users;
+@JsonKey(name: 'users') List<UserModel> get users;
 /// Create a copy of SearchResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $SearchResponseCopyWith<$Res>  {
   factory $SearchResponseCopyWith(SearchResponse value, $Res Function(SearchResponse) _then) = _$SearchResponseCopyWithImpl;
 @useResult
 $Res call({
- List<UserModel> users
+@JsonKey(name: 'users') List<UserModel> users
 });
 
 
@@ -150,7 +150,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UserModel> users)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'users')  List<UserModel> users)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SearchResponse() when $default != null:
 return $default(_that.users);case _:
@@ -171,7 +171,7 @@ return $default(_that.users);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UserModel> users)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'users')  List<UserModel> users)  $default,) {final _that = this;
 switch (_that) {
 case _SearchResponse():
 return $default(_that.users);}
@@ -188,7 +188,7 @@ return $default(_that.users);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UserModel> users)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'users')  List<UserModel> users)?  $default,) {final _that = this;
 switch (_that) {
 case _SearchResponse() when $default != null:
 return $default(_that.users);case _:
@@ -203,11 +203,11 @@ return $default(_that.users);case _:
 @JsonSerializable()
 
 class _SearchResponse implements SearchResponse {
-  const _SearchResponse({required final  List<UserModel> users}): _users = users;
+  const _SearchResponse({@JsonKey(name: 'users') required final  List<UserModel> users}): _users = users;
   factory _SearchResponse.fromJson(Map<String, dynamic> json) => _$SearchResponseFromJson(json);
 
  final  List<UserModel> _users;
-@override List<UserModel> get users {
+@override@JsonKey(name: 'users') List<UserModel> get users {
   if (_users is EqualUnmodifiableListView) return _users;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_users);
@@ -247,7 +247,7 @@ abstract mixin class _$SearchResponseCopyWith<$Res> implements $SearchResponseCo
   factory _$SearchResponseCopyWith(_SearchResponse value, $Res Function(_SearchResponse) _then) = __$SearchResponseCopyWithImpl;
 @override @useResult
 $Res call({
- List<UserModel> users
+@JsonKey(name: 'users') List<UserModel> users
 });
 
 

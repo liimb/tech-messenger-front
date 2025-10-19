@@ -27,6 +27,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       final response = await _userRepository.fetchUser();
       if (response.response.statusCode == 200) {
         emit(UserState.loaded(UserModel.fromJson(response.response.data)));
+      } else {
+        AppLogger.error('Ошибка при fetchUser():\n${response.response.data}');
       }
     } catch (e, st) {
       AppLogger.error('Ошибка при fetchUser():\n${e}\n${st}');
