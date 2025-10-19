@@ -6,8 +6,9 @@ part 'search_response.g.dart';
 
 @freezed
 sealed class SearchResponse with _$SearchResponse {
-  const factory SearchResponse({required List<UserModel> users}) =
-      _SearchResponse;
+  const factory SearchResponse({
+    @JsonKey(name: 'users') required List<UserModel> users,
+  }) = _SearchResponse;
 
   factory SearchResponse.fromJson(Map<String, dynamic> json) =>
       _$SearchResponseFromJson(json);
