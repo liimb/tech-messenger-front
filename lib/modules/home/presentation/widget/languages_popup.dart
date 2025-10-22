@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tech_messenger/core/constant/app_locales.dart';
 import 'package:tech_messenger/core/constant/app_padding.dart';
-import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 import 'package:tech_messenger/modules/settings/bloc/settings_bloc.dart';
 
 class LanguagesPopup extends StatelessWidget {
