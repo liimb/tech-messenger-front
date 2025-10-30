@@ -50,7 +50,7 @@ class AppTheme {
       elevation: 0,
       scrolledUnderElevation: 2,
       titleTextStyle: AppTypography.light.heading1.copyWith(
-        color: lightColors.textColor0,
+        color: Color.fromARGB(255, 255, 255, 255),
       ),
     ),
     cardTheme: CardThemeData(
@@ -61,21 +61,21 @@ class AppTheme {
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(r8),
-        borderSide: BorderSide(color: lightColors.outline),
+        borderSide: BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(r8),
-        borderSide: BorderSide(color: lightColors.outlineVariant),
+        borderSide: BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(r8),
-        borderSide: BorderSide(color: lightColors.primaryColor700),
+        borderSide: BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
       ),
       labelStyle: AppTypography.light.body2.copyWith(
-        color: lightColors.onSurfaceVariant,
+        color: Color.fromARGB(255, 255, 255, 255),
       ),
       hintStyle: AppTypography.light.body2.copyWith(
-        color: lightColors.onSurfaceVariant,
+        color: Color.fromARGB(255, 255, 255, 255),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -158,7 +158,7 @@ class AppTheme {
       elevation: 0,
       scrolledUnderElevation: 2,
       titleTextStyle: AppTypography.dark.heading1.copyWith(
-        color: darkColors.textColor0,
+        color: Color.fromARGB(255, 255, 255, 255),
       ),
     ),
     cardTheme: CardThemeData(

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tech_messenger/core/common/presentation/widget/app_icon.dart';
 import 'package:tech_messenger/core/constant/app_padding.dart';
+import 'package:tech_messenger/core/routing/app_routing.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
+import 'package:tech_messenger/modules/user/domain/model/user_model.dart';
 
 class ChatlistItem extends StatelessWidget {
-  final String nickname;
-
-  const ChatlistItem({super.key, required this.nickname});
+  final UserModel userData;
+  const ChatlistItem({super.key, required this.userData});
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +40,19 @@ class ChatlistItem extends StatelessWidget {
         );
       },
       child: ListTile(
-        title: Text(nickname),
+        title: Text(userData.name),
         leading: CircleAvatar(
           backgroundColor: context.appColors.onPrimaryContainer,
           foregroundColor: context.appColors.onPrimary,
           child: AppIcon(icon: Icons.person),
         ),
         contentPadding: EdgeInsets.symmetric(vertical: p8, horizontal: p32),
-        onTap: () {},
+        onTap: () {
+          context.go(
+            AppRoutes.home.routePath + AppRoutes.chat.routePath,
+            extra: userData,
+          );
+        },
         tileColor: context.appTheme.hoverColor,
         splashColor: context.appTheme.highlightColor,
       ),

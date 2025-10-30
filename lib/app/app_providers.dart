@@ -20,6 +20,7 @@ import 'package:tech_messenger/modules/search/presentation/bloc/search_bloc.dart
 import 'package:tech_messenger/modules/settings/bloc/settings_bloc.dart';
 import 'package:tech_messenger/modules/user/data/datasource/impl/user_datasource_impl.dart';
 import 'package:tech_messenger/modules/user/data/repository/user_repository_impl.dart';
+import 'package:tech_messenger/modules/user/data/user_local_storage/user_local_storage.dart';
 import 'package:tech_messenger/modules/user/domain/repository/user_repository_interface.dart';
 import 'package:tech_messenger/modules/user/presentation/bloc/user_bloc.dart';
 
@@ -51,6 +52,7 @@ class AppProviders extends StatelessWidget {
         RepositoryProvider<IUserRepository>(
           create: (context) => UserRepository(
             ds: UserDatasource(config.dio, baseUrl: config.baseUrl),
+            localStorage: config.userLocalStorage,
           ),
         ),
         RepositoryProvider<ISearchRepository>(

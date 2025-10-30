@@ -267,6 +267,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Выйти'**
   String get exit;
+
+  /// No description provided for @enterMessage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Введите сообщение...'**
+  String get enterMessage;
 }
 
 class _AppLocalizationsDelegate
