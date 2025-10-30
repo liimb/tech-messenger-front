@@ -93,4 +93,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exit => 'Exit';
+
+  @override
+  String get enterMessage => 'Enter a message...';
 }

@@ -10,6 +10,7 @@ import 'package:tech_messenger/modules/auth/data/repository/auth_repository_impl
 import 'package:tech_messenger/modules/jwt/data/datasource/impl/jwt_datasource_impl.dart';
 import 'package:tech_messenger/modules/jwt/data/repository/jwt_repository_impl.dart';
 import 'package:tech_messenger/modules/settings/settings_service.dart';
+import 'package:tech_messenger/modules/user/data/user_local_storage/user_local_storage.dart';
 
 class AppConfig {
   const AppConfig({
@@ -18,6 +19,7 @@ class AppConfig {
     required this.secureStorage,
     required this.authBloc,
     required this.settingsService,
+    required this.userLocalStorage,
   });
 
   final String baseUrl;
@@ -25,6 +27,7 @@ class AppConfig {
   final SecureStorage secureStorage;
   final AuthBloc authBloc;
   final SettingsService settingsService;
+  final UserLocalStorage userLocalStorage;
 
   static Future<AppConfig> config() async {
     try {
@@ -45,6 +48,9 @@ class AppConfig {
         storage: const FlutterSecureStorage(),
       );
 
+      final userLocalStorage = UserLocalStorage();
+      await userLocalStorage.init();
+
       // JWT
       final jwtDataSource = JwtDatasource(dio, baseUrl: apiUrl);
       final jwtRepository = JwtRepository(ds: jwtDataSource);
@@ -58,6 +64,7 @@ class AppConfig {
       final authBloc = AuthBloc(
         authRepository: authRepository,
         secureStorage: secureStorage,
+        userLocalStorage: userLocalStorage,
         authChecker: authChecker,
       );
 
@@ -79,6 +86,7 @@ class AppConfig {
         secureStorage: secureStorage,
         authBloc: authBloc,
         settingsService: settingsService,
+        userLocalStorage: userLocalStorage,
       );
     } catch (e, st) {
       throw Exception('Ошибка инициализации конфигурации: $e\n$st');

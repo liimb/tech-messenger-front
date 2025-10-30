@@ -73,10 +73,9 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               leading: Builder(
                 builder: (context) => IconButton(
-                  icon: const AppIcon(
+                  icon: AppIcon(
                     icon: Icons.arrow_back,
-                    //FIXME: заменить на цвет из appColors
-                    color: Colors.white,
+                    color: context.appTheme.appBarTheme.titleTextStyle?.color,
                   ),
                   onPressed: () {
                     if (_focusNode.hasFocus) {
@@ -99,7 +98,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   loaded: (loadedState) => SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
                       final user = loadedState.users[index];
-                      return ChatlistItem(nickname: user.name);
+                      return ChatlistItem(userData: user);
                     }, childCount: loadedState.users.length),
                   ),
                 );

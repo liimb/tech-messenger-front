@@ -30,15 +30,14 @@ class HomeScreen extends StatelessWidget {
                 surfaceTintColor: Colors.transparent,
                 title: Text(
                   context.l10n.allChats,
-                  style: context.appTextTheme.heading1.copyWith(
-                    color: Colors.white,
-                    //TODO: заменить на цвет из темы
-                  ),
+                  style: context.appTextTheme.heading1,
                 ),
                 leading: Builder(
                   builder: (context) => IconButton(
-                    //TODO: заменить на цвет из темы
-                    icon: Icon(Icons.menu, color: Colors.white),
+                    icon: Icon(
+                      Icons.menu,
+                      color: context.appTheme.appBarTheme.titleTextStyle?.color,
+                    ),
                     onPressed: () => Scaffold.of(context).openDrawer(),
                   ),
                 ),

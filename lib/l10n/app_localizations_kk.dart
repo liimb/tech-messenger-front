@@ -93,4 +93,7 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get exit => 'Шығу';
+
+  @override
+  String get enterMessage => 'Хабарламаны енгізіңіз...';
 }
