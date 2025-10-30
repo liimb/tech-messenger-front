@@ -5,6 +5,7 @@ import 'package:tech_messenger/app/app_logger.dart';
 import 'package:tech_messenger/core/common/secure_storage/secure_storage.dart';
 import 'package:tech_messenger/core/util/auth_checker_util.dart';
 import 'package:tech_messenger/modules/auth/domain/repository/auth_repository_interface.dart';
+import 'package:tech_messenger/modules/user/data/user_local_storage/user_local_storage.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -14,13 +15,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository _authRepository;
   final AuthChecker _authChecker;
   final SecureStorage _secureStorage;
+  final UserLocalStorage _userLocalStorage;
 
   AuthBloc({
     required IAuthRepository authRepository,
     required SecureStorage secureStorage,
+    required UserLocalStorage userLocalStorage,
     required AuthChecker authChecker,
   }) : _authRepository = authRepository,
        _secureStorage = secureStorage,
+       _userLocalStorage = userLocalStorage,
        _authChecker = authChecker,
        super(AuthInitialState()) {
     on<AuthCheckEvent>(_onCheckAuth);
@@ -41,6 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       AppLogger.error('Ошибка при logout:$e\n$st');
     }
     await _secureStorage.deleteToken();
+    await _userLocalStorage.clearUser();
     emit(AuthState.unauthenticated());
   }
 

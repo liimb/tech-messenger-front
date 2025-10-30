@@ -26,5 +26,6 @@
     "loginProcess": "Login...",
     "loginSuccess": "Login is successful",
     "search": "Search",
-    "exit": "Exit"
+    "exit": "Exit",
+    "enterMessage": "Enter a message..."
 }

@@ -26,5 +26,6 @@
     "loginProcess": "Вход...",
     "loginSuccess": "Успешный вход",
     "search": "Поиск",
-    "exit": "Выйти"
+    "exit": "Выйти",
+    "enterMessage": "Введите сообщение..."
 }
