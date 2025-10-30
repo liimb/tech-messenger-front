@@ -20,9 +20,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   @override
   void initState() {
     super.initState();
-    if (context.read<UserBloc>().state is! UserLoadedState) {
-      context.read<UserBloc>().add(UserEvent.fetchUser());
-    }
+    context.read<UserBloc>().add(UserEvent.fetchUser());
   }
 
   @override
@@ -46,7 +44,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
                       if (state is UserLoadedState) {
                         name = state.user.name;
-                        nickname = state.user.username;
+                        nickname = state.user.nickname;
                       }
 
                       final avatar = CircleAvatar(

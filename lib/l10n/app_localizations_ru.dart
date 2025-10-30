@@ -93,4 +93,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get exit => 'Выйти';
+
+  @override
+  String get enterMessage => 'Введите сообщение...';
 }
