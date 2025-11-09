@@ -20,7 +20,7 @@ import 'package:tech_messenger/modules/search/presentation/bloc/search_bloc.dart
 import 'package:tech_messenger/modules/settings/bloc/settings_bloc.dart';
 import 'package:tech_messenger/modules/user/data/datasource/impl/user_datasource_impl.dart';
 import 'package:tech_messenger/modules/user/data/repository/user_repository_impl.dart';
-import 'package:tech_messenger/modules/user/data/user_local_storage/user_local_storage.dart';
+import 'package:tech_messenger/core/common/user_local_storage/user_local_storage.dart';
 import 'package:tech_messenger/modules/user/domain/repository/user_repository_interface.dart';
 import 'package:tech_messenger/modules/user/presentation/bloc/user_bloc.dart';
 
@@ -84,15 +84,22 @@ class AppProviders extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) =>
-                UserBloc(userRepository: context.read<IUserRepository>())
-                  ..add(const UserEvent.fetchUser()),
+                UserBloc(userRepository: context.read<IUserRepository>()),
+            // ..add(const UserEvent.fetchUser()),
           ),
           BlocProvider(
             create: (context) =>
                 SearchBloc(searchRepository: context.read<ISearchRepository>()),
           ),
         ],
-        child: child,
+        child: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthHasState) {
+              context.read<UserBloc>().add(const UserEvent.fetchUser());
+            }
+          },
+          child: child,
+        ),
       ),
     );
   }

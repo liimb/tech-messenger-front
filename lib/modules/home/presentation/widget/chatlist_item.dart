@@ -46,6 +46,7 @@ class ChatlistItem extends StatelessWidget {
           foregroundColor: context.appColors.onPrimary,
           child: AppIcon(icon: Icons.person),
         ),
+        subtitle: Text(userData.nickname),
         contentPadding: EdgeInsets.symmetric(vertical: p8, horizontal: p32),
         onTap: () {
           context.go(

@@ -96,4 +96,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get enterMessage => 'Введите сообщение...';
+
+  @override
+  String get usersAreNotFound => 'Пользователи не найдены';
 }

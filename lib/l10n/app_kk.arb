@@ -27,5 +27,6 @@
     "loginSuccess": "Кіру сәтті өтті",
     "search": "Іздеу",
     "exit": "Шығу",
-    "enterMessage": "Хабарламаны енгізіңіз..."
+    "enterMessage": "Хабарламаны енгізіңіз...",
+    "usersAreNotFound": "Пайдаланушылар табылмады"
 }

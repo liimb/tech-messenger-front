@@ -27,5 +27,6 @@
     "loginSuccess": "Login is successful",
     "search": "Search",
     "exit": "Exit",
-    "enterMessage": "Enter a message..."
+    "enterMessage": "Enter a message...",
+    "usersAreNotFound": "Users are Not Found"
 }
