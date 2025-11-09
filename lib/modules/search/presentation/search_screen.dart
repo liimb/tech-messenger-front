@@ -78,11 +78,11 @@ class _SearchScreenState extends State<SearchScreen> {
                     color: context.appTheme.appBarTheme.titleTextStyle?.color,
                   ),
                   onPressed: () {
-                    if (_focusNode.hasFocus) {
-                      _focusNode.unfocus();
-                    } else {
-                      context.pop();
-                    }
+                    // if (_focusNode.hasFocus) {
+                    //   _focusNode.unfocus();
+                    // } else {
+                    context.pop();
+                    // }
                   },
                 ),
               ),
@@ -95,11 +95,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: Center(child: CircularProgressIndicator()),
                   ),
                   failure: (_) => SliverToBoxAdapter(),
-                  loaded: (loadedState) => SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      final user = loadedState.users[index];
-                      return ChatlistItem(userData: user);
-                    }, childCount: loadedState.users.length),
+                  loaded: (loadedState) => SliverList.separated(
+                    itemCount: loadedState.users.length,
+                    separatorBuilder: (context, i) => const Divider(height: 0),
+                    itemBuilder: (context, i) =>
+                        ChatlistItem(userData: loadedState.users[i]),
+                  ),
+                  emptyList: (_) => SliverFillRemaining(
+                    child: Center(child: Text(context.l10n.usersAreNotFound)),
                   ),
                 );
               },

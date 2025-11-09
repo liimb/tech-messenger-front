@@ -12,11 +12,17 @@ part of 'search_bloc.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$SearchEvent {
+mixin _$SearchEvent implements DiagnosticableTreeMixin {
 
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SearchEvent'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -28,7 +34,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SearchEvent()';
 }
 
@@ -180,7 +186,7 @@ return reset();case _:
 /// @nodoc
 
 
-class SearchUsersEvent implements SearchEvent {
+class SearchUsersEvent with DiagnosticableTreeMixin implements SearchEvent {
   const SearchUsersEvent(this.name);
   
 
@@ -193,6 +199,12 @@ class SearchUsersEvent implements SearchEvent {
 $SearchUsersEventCopyWith<SearchUsersEvent> get copyWith => _$SearchUsersEventCopyWithImpl<SearchUsersEvent>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SearchEvent.searchUsers'))
+    ..add(DiagnosticsProperty('name', name));
+}
 
 @override
 bool operator ==(Object other) {
@@ -204,7 +216,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,name);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SearchEvent.searchUsers(name: $name)';
 }
 
@@ -246,7 +258,7 @@ as String,
 /// @nodoc
 
 
-class SearchResetEvent implements SearchEvent {
+class SearchResetEvent with DiagnosticableTreeMixin implements SearchEvent {
   const SearchResetEvent();
   
 
@@ -254,6 +266,12 @@ class SearchResetEvent implements SearchEvent {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SearchEvent.reset'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -265,7 +283,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SearchEvent.reset()';
 }
 
@@ -276,11 +294,17 @@ String toString() {
 
 
 /// @nodoc
-mixin _$SearchState {
+mixin _$SearchState implements DiagnosticableTreeMixin {
 
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SearchState'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -292,7 +316,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SearchState()';
 }
 
@@ -319,14 +343,15 @@ extension SearchStatePatterns on SearchState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SearchInitialState value)?  initial,TResult Function( SearchLoadingState value)?  loading,TResult Function( SearchLoadedState value)?  loaded,TResult Function( SearchFailureState value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SearchInitialState value)?  initial,TResult Function( SearchLoadingState value)?  loading,TResult Function( SearchLoadedState value)?  loaded,TResult Function( SearchFailureState value)?  failure,TResult Function( SearchEmptyListState value)?  emptyList,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case SearchInitialState() when initial != null:
 return initial(_that);case SearchLoadingState() when loading != null:
 return loading(_that);case SearchLoadedState() when loaded != null:
 return loaded(_that);case SearchFailureState() when failure != null:
-return failure(_that);case _:
+return failure(_that);case SearchEmptyListState() when emptyList != null:
+return emptyList(_that);case _:
   return orElse();
 
 }
@@ -344,14 +369,15 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SearchInitialState value)  initial,required TResult Function( SearchLoadingState value)  loading,required TResult Function( SearchLoadedState value)  loaded,required TResult Function( SearchFailureState value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SearchInitialState value)  initial,required TResult Function( SearchLoadingState value)  loading,required TResult Function( SearchLoadedState value)  loaded,required TResult Function( SearchFailureState value)  failure,required TResult Function( SearchEmptyListState value)  emptyList,}){
 final _that = this;
 switch (_that) {
 case SearchInitialState():
 return initial(_that);case SearchLoadingState():
 return loading(_that);case SearchLoadedState():
 return loaded(_that);case SearchFailureState():
-return failure(_that);case _:
+return failure(_that);case SearchEmptyListState():
+return emptyList(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -368,14 +394,15 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SearchInitialState value)?  initial,TResult? Function( SearchLoadingState value)?  loading,TResult? Function( SearchLoadedState value)?  loaded,TResult? Function( SearchFailureState value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SearchInitialState value)?  initial,TResult? Function( SearchLoadingState value)?  loading,TResult? Function( SearchLoadedState value)?  loaded,TResult? Function( SearchFailureState value)?  failure,TResult? Function( SearchEmptyListState value)?  emptyList,}){
 final _that = this;
 switch (_that) {
 case SearchInitialState() when initial != null:
 return initial(_that);case SearchLoadingState() when loading != null:
 return loading(_that);case SearchLoadedState() when loaded != null:
 return loaded(_that);case SearchFailureState() when failure != null:
-return failure(_that);case _:
+return failure(_that);case SearchEmptyListState() when emptyList != null:
+return emptyList(_that);case _:
   return null;
 
 }
@@ -392,13 +419,14 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<UserModel> users)?  loaded,TResult Function()?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<UserModel> users)?  loaded,TResult Function()?  failure,TResult Function()?  emptyList,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SearchInitialState() when initial != null:
 return initial();case SearchLoadingState() when loading != null:
 return loading();case SearchLoadedState() when loaded != null:
 return loaded(_that.users);case SearchFailureState() when failure != null:
-return failure();case _:
+return failure();case SearchEmptyListState() when emptyList != null:
+return emptyList();case _:
   return orElse();
 
 }
@@ -416,13 +444,14 @@ return failure();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<UserModel> users)  loaded,required TResult Function()  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<UserModel> users)  loaded,required TResult Function()  failure,required TResult Function()  emptyList,}) {final _that = this;
 switch (_that) {
 case SearchInitialState():
 return initial();case SearchLoadingState():
 return loading();case SearchLoadedState():
 return loaded(_that.users);case SearchFailureState():
-return failure();case _:
+return failure();case SearchEmptyListState():
+return emptyList();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -439,13 +468,14 @@ return failure();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<UserModel> users)?  loaded,TResult? Function()?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<UserModel> users)?  loaded,TResult? Function()?  failure,TResult? Function()?  emptyList,}) {final _that = this;
 switch (_that) {
 case SearchInitialState() when initial != null:
 return initial();case SearchLoadingState() when loading != null:
 return loading();case SearchLoadedState() when loaded != null:
 return loaded(_that.users);case SearchFailureState() when failure != null:
-return failure();case _:
+return failure();case SearchEmptyListState() when emptyList != null:
+return emptyList();case _:
   return null;
 
 }
@@ -456,7 +486,7 @@ return failure();case _:
 /// @nodoc
 
 
-class SearchInitialState implements SearchState {
+class SearchInitialState with DiagnosticableTreeMixin implements SearchState {
   const SearchInitialState();
   
 
@@ -464,6 +494,12 @@ class SearchInitialState implements SearchState {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SearchState.initial'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -475,7 +511,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SearchState.initial()';
 }
 
@@ -488,7 +524,7 @@ String toString() {
 /// @nodoc
 
 
-class SearchLoadingState implements SearchState {
+class SearchLoadingState with DiagnosticableTreeMixin implements SearchState {
   const SearchLoadingState();
   
 
@@ -496,6 +532,12 @@ class SearchLoadingState implements SearchState {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SearchState.loading'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -507,7 +549,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SearchState.loading()';
 }
 
@@ -520,7 +562,7 @@ String toString() {
 /// @nodoc
 
 
-class SearchLoadedState implements SearchState {
+class SearchLoadedState with DiagnosticableTreeMixin implements SearchState {
   const SearchLoadedState(final  List<UserModel> users): _users = users;
   
 
@@ -539,6 +581,12 @@ class SearchLoadedState implements SearchState {
 $SearchLoadedStateCopyWith<SearchLoadedState> get copyWith => _$SearchLoadedStateCopyWithImpl<SearchLoadedState>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SearchState.loaded'))
+    ..add(DiagnosticsProperty('users', users));
+}
 
 @override
 bool operator ==(Object other) {
@@ -550,7 +598,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_users));
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SearchState.loaded(users: $users)';
 }
 
@@ -592,7 +640,7 @@ as List<UserModel>,
 /// @nodoc
 
 
-class SearchFailureState implements SearchState {
+class SearchFailureState with DiagnosticableTreeMixin implements SearchState {
   const SearchFailureState();
   
 
@@ -600,6 +648,12 @@ class SearchFailureState implements SearchState {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SearchState.failure'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -611,8 +665,46 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SearchState.failure()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class SearchEmptyListState with DiagnosticableTreeMixin implements SearchState {
+  const SearchEmptyListState();
+  
+
+
+
+
+
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SearchState.emptyList'))
+    ;
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SearchEmptyListState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'SearchState.emptyList()';
 }
 
 

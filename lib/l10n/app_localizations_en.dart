@@ -96,4 +96,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterMessage => 'Enter a message...';
+
+  @override
+  String get usersAreNotFound => 'Users are Not Found';
 }

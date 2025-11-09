@@ -27,5 +27,6 @@
     "loginSuccess": "Успешный вход",
     "search": "Поиск",
     "exit": "Выйти",
-    "enterMessage": "Введите сообщение..."
+    "enterMessage": "Введите сообщение...",
+    "usersAreNotFound": "Пользователи не найдены"
 }

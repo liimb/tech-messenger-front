@@ -79,7 +79,7 @@ final router = GoRouter(
           pageBuilder: (context, state) {
             final userData = state.extra as UserModel;
             return buildPageWithAnimation(
-              child: ChatScreen(userData: userData),
+              child: ChatScreen(companionUser: userData),
               state: state,
             );
           },

@@ -273,6 +273,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Введите сообщение...'**
   String get enterMessage;
+
+  /// No description provided for @usersAreNotFound.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пользователи не найдены'**
+  String get usersAreNotFound;
 }
 
 class _AppLocalizationsDelegate

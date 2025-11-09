@@ -96,4 +96,7 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get enterMessage => 'Хабарламаны енгізіңіз...';
+
+  @override
+  String get usersAreNotFound => 'Пайдаланушылар табылмады';
 }

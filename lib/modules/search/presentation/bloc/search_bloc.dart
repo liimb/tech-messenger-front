@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tech_messenger/app/app_logger.dart';
 import 'package:tech_messenger/modules/search/domain/model/search_response.dart';
@@ -34,11 +35,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(SearchState.loading());
       final response = await _searchRepository.searchUsers(event.name);
       if (response.response.statusCode == 200) {
-        emit(
-          SearchState.loaded(
-            SearchResponse.fromJson(response.response.data).users,
-          ),
-        );
+        final users = SearchResponse.fromJson(response.response.data).users;
+        if (users.isNotEmpty) {
+          emit(SearchState.loaded(users));
+        } else {
+          emit(SearchState.emptyList());
+        }
       } else {
         AppLogger.error(
           'Ошибка поиска пользователей\n${response.response.data}',
