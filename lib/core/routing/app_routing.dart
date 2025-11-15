@@ -5,6 +5,7 @@ import 'package:tech_messenger/core/routing/build_animation.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
 import 'package:tech_messenger/modules/chat/domain/model/chat_model.dart';
 import 'package:tech_messenger/modules/chat/presentation/chat_screen.dart';
+import 'package:tech_messenger/modules/editor/presentation/editor_screen.dart';
 import 'package:tech_messenger/modules/home/presentation/home_screen.dart';
 import 'package:tech_messenger/modules/login/presentation/login_screen.dart';
 import 'package:tech_messenger/modules/registration/presentation/registration_screen.dart';
@@ -16,7 +17,8 @@ enum AppRoutes {
   registration('/registration'),
   home('/home'),
   search('/search'),
-  chat('/chat');
+  chat('/chat'),
+  editor('/editor');
 
   const AppRoutes(this.routePath);
   final String routePath;
@@ -79,10 +81,15 @@ final router = GoRouter(
           pageBuilder: (context, state) {
             final userData = state.extra as UserModel;
             return buildPageWithAnimation(
-              child: ChatScreen(userData: userData),
+              child: ChatScreen(companionUser: userData),
               state: state,
             );
           },
+        ),
+        GoRoute(
+          path: AppRoutes.editor.routePath,
+          pageBuilder: (context, state) =>
+              buildPageWithAnimation(child: EditorScreen(), state: state),
         ),
       ],
     ),

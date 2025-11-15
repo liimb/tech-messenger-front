@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tech_messenger/core/common/presentation/widget/input_widget.dart';
@@ -101,6 +102,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         hintText: context.l10n.yourName,
                         validator: (value) =>
                             AppValidators.correctNameValidator(value, context),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(RegExp(r'\s\s')),
+                        ],
                       ),
                       SizedBox(height: p16),
                       InputWidget(

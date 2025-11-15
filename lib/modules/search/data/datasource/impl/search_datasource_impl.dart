@@ -10,8 +10,8 @@ abstract class SearchDatasource implements ISearchDatasource {
       _SearchDatasource;
 
   @override
-  @GET('/user/search/{userName}')
+  @GET('/user/search/{username}')
   @DioResponseType(ResponseType.plain)
   @Extra({'requiresAuth': true})
-  Future<HttpResponse> searchUsers(@Path('userName') String name);
+  Future<HttpResponse> searchUsers(@Path('username') String name);
 }

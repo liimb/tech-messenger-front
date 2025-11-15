@@ -5,7 +5,7 @@ import 'package:tech_messenger/app/app_logger.dart';
 import 'package:tech_messenger/core/common/secure_storage/secure_storage.dart';
 import 'package:tech_messenger/core/util/auth_checker_util.dart';
 import 'package:tech_messenger/modules/auth/domain/repository/auth_repository_interface.dart';
-import 'package:tech_messenger/modules/user/data/user_local_storage/user_local_storage.dart';
+import 'package:tech_messenger/core/common/user_local_storage/user_local_storage.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

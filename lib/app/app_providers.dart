@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tech_messenger/app/app_config.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
+import 'package:tech_messenger/modules/avatar/presentation/bloc/avatar_bloc.dart';
+import 'package:tech_messenger/modules/editor/data/datasource/impl/editor_datasource_impl.dart';
+import 'package:tech_messenger/modules/editor/data/repository/editor_repository_impl.dart';
+import 'package:tech_messenger/modules/editor/domain/repository/editor_repository_interface.dart';
+import 'package:tech_messenger/modules/editor/presentation/bloc/editor_bloc.dart';
 import 'package:tech_messenger/modules/jwt/data/datasource/impl/jwt_datasource_impl.dart';
 import 'package:tech_messenger/modules/jwt/data/repository/jwt_repository_impl.dart';
 import 'package:tech_messenger/modules/jwt/domain/repository/jwt_repository_interface.dart';
@@ -20,7 +25,7 @@ import 'package:tech_messenger/modules/search/presentation/bloc/search_bloc.dart
 import 'package:tech_messenger/modules/settings/bloc/settings_bloc.dart';
 import 'package:tech_messenger/modules/user/data/datasource/impl/user_datasource_impl.dart';
 import 'package:tech_messenger/modules/user/data/repository/user_repository_impl.dart';
-import 'package:tech_messenger/modules/user/data/user_local_storage/user_local_storage.dart';
+import 'package:tech_messenger/core/common/user_local_storage/user_local_storage.dart';
 import 'package:tech_messenger/modules/user/domain/repository/user_repository_interface.dart';
 import 'package:tech_messenger/modules/user/presentation/bloc/user_bloc.dart';
 
@@ -60,6 +65,11 @@ class AppProviders extends StatelessWidget {
             ds: SearchDatasource(config.dio, baseUrl: config.baseUrl),
           ),
         ),
+        RepositoryProvider<IEditorRepository>(
+          create: (context) => EditorRepository(
+            ds: EditorDatasource(config.dio, baseUrl: config.baseUrl),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -84,15 +94,21 @@ class AppProviders extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) =>
-                UserBloc(userRepository: context.read<IUserRepository>())
-                  ..add(const UserEvent.fetchUser()),
+                UserBloc(userRepository: context.read<IUserRepository>()),
           ),
           BlocProvider(
             create: (context) =>
                 SearchBloc(searchRepository: context.read<ISearchRepository>()),
           ),
         ],
-        child: child,
+        child: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthHasState) {
+              context.read<UserBloc>().add(const UserEvent.fetchUser());
+            }
+          },
+          child: child,
+        ),
       ),
     );
   }
