@@ -3,7 +3,8 @@
     "registration": "Registration",
     "yourNickname": "Nickname",
     "yourName": "Your name",
-    "errorUncorrectNickname": "The nickname must be at least 3 characters long",
+    "errorUncorrectNickname": "The nickname must be at least 3 and no more than 20 characters long",
+    "errorUncorrectNickname": "The name must be at least 3 and no more than 20 characters long",
     "fieldMustNotEmpty": "Compulsory field!",
     "yourPassword": "Password",
     "errorUncorrectPassword": "The password must be at least 8 characters long and contain uppercase letters numbers special characters",
@@ -28,5 +29,8 @@
     "search": "Search",
     "exit": "Exit",
     "enterMessage": "Enter a message...",
-    "usersAreNotFound": "Users are Not Found"
+    "usersAreNotFound": "Users are Not Found",
+    "editProfile": "Edit profile",
+    "editingProcess": "Changing data...",
+    "editingSuccess": "Data updated"
 }

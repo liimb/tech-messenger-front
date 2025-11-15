@@ -3,7 +3,8 @@
     "registration": "Тіркелу",
     "yourNickname": "Лақап атыңыз",
     "yourName": "Атыңыз",
-    "errorUncorrectNickname": "Лақап ат кемінде 3 таңбадан тұруы керек",
+    "errorUncorrectNickname": "Лақап ат кемінде 3 және 20 таңбадан аспауы керек",
+    "errorUncorrectNickname": "Атаудың ұзындығы кемінде 3 және 20 таңбадан аспауы керек",
     "fieldMustNotEmpty": "Бұл өріс міндетті!",
     "yourPassword": "Құпиясөз",
     "errorUncorrectPassword": "Құпиясөз кемінде 8 таңбадан тұруы, бас әріптер, сандар және арнайы таңбалар қамтуы керек",
@@ -28,5 +29,8 @@
     "search": "Іздеу",
     "exit": "Шығу",
     "enterMessage": "Хабарламаны енгізіңіз...",
-    "usersAreNotFound": "Пайдаланушылар табылмады"
+    "usersAreNotFound": "Пайдаланушылар табылмады",
+    "editProfile": "Профильді өңдеу",
+    "editingProcess": "Деректерді өзгерту...",
+    "editingSuccess": "Деректер жаңартылды"
 }
