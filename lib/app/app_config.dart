@@ -10,7 +10,7 @@ import 'package:tech_messenger/modules/auth/data/repository/auth_repository_impl
 import 'package:tech_messenger/modules/jwt/data/datasource/impl/jwt_datasource_impl.dart';
 import 'package:tech_messenger/modules/jwt/data/repository/jwt_repository_impl.dart';
 import 'package:tech_messenger/modules/settings/settings_service.dart';
-import 'package:tech_messenger/modules/user/data/user_local_storage/user_local_storage.dart';
+import 'package:tech_messenger/core/common/user_local_storage/user_local_storage.dart';
 
 class AppConfig {
   const AppConfig({

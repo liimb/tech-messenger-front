@@ -1,1 +1,9 @@
-{}
+{
+  "en": [
+    "errorUncorrectName"
+  ],
+
+  "kk": [
+    "errorUncorrectName"
+  ]
+}

@@ -22,7 +22,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorUncorrectNickname =>
-      'The nickname must be at least 3 characters long';
+      'The name must be at least 3 and no more than 20 characters long';
+
+  @override
+  String get errorUncorrectName =>
+      'Имя должно быть не менее 3 и не более 20 символов';
 
   @override
   String get fieldMustNotEmpty => 'Compulsory field!';
@@ -96,4 +100,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterMessage => 'Enter a message...';
+
+  @override
+  String get usersAreNotFound => 'Users are Not Found';
+
+  @override
+  String get editProfile => 'Edit profile';
+
+  @override
+  String get editingProcess => 'Changing data...';
+
+  @override
+  String get editingSuccess => 'Data updated';
 }

@@ -3,7 +3,8 @@
     "registration": "Регистрация",
     "yourNickname": "Никнейм",
     "yourName": "Ваше имя",
-    "errorUncorrectNickname": "Никнейм должен быть не менее 3 символов",
+    "errorUncorrectNickname": "Никнейм должен быть не менее 3 и не более 20 символов",
+    "errorUncorrectName": "Имя должно быть не менее 3 и не более 20 символов",
     "fieldMustNotEmpty": "Обязательное поле!",
     "yourPassword": "Пароль",
     "errorUncorrectPassword": "Пароль должен быть не менее 8 символов и содержать заглавные буквы цифры специальные символы",
@@ -27,5 +28,9 @@
     "loginSuccess": "Успешный вход",
     "search": "Поиск",
     "exit": "Выйти",
-    "enterMessage": "Введите сообщение..."
+    "enterMessage": "Введите сообщение...",
+    "usersAreNotFound": "Пользователи не найдены",
+    "editProfile": "Редактировать профиль",
+    "editingProcess": "Изменение данных...",
+    "editingSuccess": "Данные обновлены"
 }

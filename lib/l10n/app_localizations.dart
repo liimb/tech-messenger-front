@@ -127,8 +127,14 @@ abstract class AppLocalizations {
   /// No description provided for @errorUncorrectNickname.
   ///
   /// In ru, this message translates to:
-  /// **'Никнейм должен быть не менее 3 символов'**
+  /// **'Никнейм должен быть не менее 3 и не более 20 символов'**
   String get errorUncorrectNickname;
+
+  /// No description provided for @errorUncorrectName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Имя должно быть не менее 3 и не более 20 символов'**
+  String get errorUncorrectName;
 
   /// No description provided for @fieldMustNotEmpty.
   ///
@@ -273,6 +279,30 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Введите сообщение...'**
   String get enterMessage;
+
+  /// No description provided for @usersAreNotFound.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пользователи не найдены'**
+  String get usersAreNotFound;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In ru, this message translates to:
+  /// **'Редактировать профиль'**
+  String get editProfile;
+
+  /// No description provided for @editingProcess.
+  ///
+  /// In ru, this message translates to:
+  /// **'Изменение данных...'**
+  String get editingProcess;
+
+  /// No description provided for @editingSuccess.
+  ///
+  /// In ru, this message translates to:
+  /// **'Данные обновлены'**
+  String get editingSuccess;
 }
 
 class _AppLocalizationsDelegate
