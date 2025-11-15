@@ -10,9 +10,11 @@ class Chatlist extends StatelessWidget {
     return SliverList.separated(
       itemCount: 20,
       separatorBuilder: (context, i) => const Divider(height: 0),
-      itemBuilder: (context, i) => ChatlistItem(
-        userData: UserModel(nickname: "Smith", name: "John"),
-      ),
+      itemBuilder: (context, i) {
+        return ChatlistItem(
+          userData: UserModel(nickname: "Smith", name: "John"),
+        );
+      },
     );
   }
 }

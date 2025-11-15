@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tech_messenger/core/common/presentation/widget/app_icon.dart';
 import 'package:tech_messenger/core/constant/app_padding.dart';
+import 'package:tech_messenger/core/constant/avatar_size.dart';
 import 'package:tech_messenger/core/routing/app_routing.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 import 'package:tech_messenger/modules/user/domain/model/user_model.dart';
+import 'package:tech_messenger/modules/avatar/presentation/avatar_widget.dart';
 
 class ChatlistItem extends StatelessWidget {
   final UserModel userData;
@@ -41,10 +42,9 @@ class ChatlistItem extends StatelessWidget {
       },
       child: ListTile(
         title: Text(userData.name),
-        leading: CircleAvatar(
-          backgroundColor: context.appColors.onPrimaryContainer,
-          foregroundColor: context.appColors.onPrimary,
-          child: AppIcon(icon: Icons.person),
+        leading: UserAvatarWidget(
+          userData: userData,
+          avatarSize: AvatarSize.small,
         ),
         subtitle: Text(userData.nickname),
         contentPadding: EdgeInsets.symmetric(vertical: p8, horizontal: p32),

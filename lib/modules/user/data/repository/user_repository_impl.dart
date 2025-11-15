@@ -24,16 +24,13 @@ class UserRepository implements IUserRepository {
         statusCode: 200,
         data: cachedUser.toJson(),
       );
-      print(
-        'RAW RESPONSE from local: ${cachedUser.name} ${cachedUser.nickname}',
-      );
       return HttpResponse(cachedUser.toJson(), fakeResponse);
     } else {
       try {
         final response = await _ds.fetchUser();
 
         final data = response.data;
-        print('RAW RESPONSE from fetchUser: ${response.data}');
+
         final user = UserModel.fromJson(data);
         await _local.saveUser(user);
         return HttpResponse(user.toJson(), response.response);

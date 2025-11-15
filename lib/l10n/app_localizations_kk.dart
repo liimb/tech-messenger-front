@@ -22,7 +22,11 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get errorUncorrectNickname =>
-      'Лақап ат кемінде 3 таңбадан тұруы керек';
+      'Атаудың ұзындығы кемінде 3 және 20 таңбадан аспауы керек';
+
+  @override
+  String get errorUncorrectName =>
+      'Имя должно быть не менее 3 и не более 20 символов';
 
   @override
   String get fieldMustNotEmpty => 'Бұл өріс міндетті!';
@@ -99,4 +103,13 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get usersAreNotFound => 'Пайдаланушылар табылмады';
+
+  @override
+  String get editProfile => 'Профильді өңдеу';
+
+  @override
+  String get editingProcess => 'Деректерді өзгерту...';
+
+  @override
+  String get editingSuccess => 'Деректер жаңартылды';
 }

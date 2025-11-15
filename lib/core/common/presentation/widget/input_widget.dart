@@ -21,6 +21,7 @@ class InputWidget extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
     this.labelText = '',
+    this.inputFormatters,
   });
 
   final FormFieldValidator<String>? validator;
@@ -35,6 +36,7 @@ class InputWidget extends StatelessWidget {
   final bool isOutlined;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
+  final dynamic inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -97,9 +99,9 @@ class InputWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(r20),
                 ),
               ),
-              inputFormatters: [
-                FilteringTextInputFormatter.deny(RegExp(r'\s')),
-              ],
+              inputFormatters:
+                  inputFormatters ??
+                  [FilteringTextInputFormatter.deny(RegExp(r'\s'))],
             );
           },
         ),

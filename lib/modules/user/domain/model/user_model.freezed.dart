@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserModel {
 
-@JsonKey(name: 'nickname') String get nickname;@JsonKey(name: 'name') String get name;
+@JsonKey(name: 'nickname') String get nickname;@JsonKey(name: 'name') String get name;@JsonKey(name: 'avatar') String? get avatar;@JsonKey(name: 'description') String? get description;
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UserModelCopyWith<UserModel> get copyWith => _$UserModelCopyWithImpl<UserModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.name, name) || other.name == name)&&(identical(other.avatar, avatar) || other.avatar == avatar)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,nickname,name);
+int get hashCode => Object.hash(runtimeType,nickname,name,avatar,description);
 
 @override
 String toString() {
-  return 'UserModel(nickname: $nickname, name: $name)';
+  return 'UserModel(nickname: $nickname, name: $name, avatar: $avatar, description: $description)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UserModelCopyWith<$Res>  {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) _then) = _$UserModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'nickname') String nickname,@JsonKey(name: 'name') String name
+@JsonKey(name: 'nickname') String nickname,@JsonKey(name: 'name') String name,@JsonKey(name: 'avatar') String? avatar,@JsonKey(name: 'description') String? description
 });
 
 
@@ -65,11 +65,13 @@ class _$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? nickname = null,Object? name = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? nickname = null,Object? name = null,Object? avatar = freezed,Object? description = freezed,}) {
   return _then(_self.copyWith(
 nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+as String,avatar: freezed == avatar ? _self.avatar : avatar // ignore: cast_nullable_to_non_nullable
+as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -151,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'name')  String name)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'name')  String name, @JsonKey(name: 'avatar')  String? avatar, @JsonKey(name: 'description')  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.nickname,_that.name);case _:
+return $default(_that.nickname,_that.name,_that.avatar,_that.description);case _:
   return orElse();
 
 }
@@ -172,10 +174,10 @@ return $default(_that.nickname,_that.name);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'name')  String name)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'name')  String name, @JsonKey(name: 'avatar')  String? avatar, @JsonKey(name: 'description')  String? description)  $default,) {final _that = this;
 switch (_that) {
 case _UserModel():
-return $default(_that.nickname,_that.name);}
+return $default(_that.nickname,_that.name,_that.avatar,_that.description);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -189,10 +191,10 @@ return $default(_that.nickname,_that.name);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'name')  String name)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'nickname')  String nickname, @JsonKey(name: 'name')  String name, @JsonKey(name: 'avatar')  String? avatar, @JsonKey(name: 'description')  String? description)?  $default,) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.nickname,_that.name);case _:
+return $default(_that.nickname,_that.name,_that.avatar,_that.description);case _:
   return null;
 
 }
@@ -204,11 +206,13 @@ return $default(_that.nickname,_that.name);case _:
 @JsonSerializable()
 
 class _UserModel implements UserModel {
-  const _UserModel({@JsonKey(name: 'nickname') required this.nickname, @JsonKey(name: 'name') required this.name});
+  const _UserModel({@JsonKey(name: 'nickname') required this.nickname, @JsonKey(name: 'name') required this.name, @JsonKey(name: 'avatar') this.avatar, @JsonKey(name: 'description') this.description});
   factory _UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
 @override@JsonKey(name: 'nickname') final  String nickname;
 @override@JsonKey(name: 'name') final  String name;
+@override@JsonKey(name: 'avatar') final  String? avatar;
+@override@JsonKey(name: 'description') final  String? description;
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
@@ -223,16 +227,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.name, name) || other.name == name)&&(identical(other.avatar, avatar) || other.avatar == avatar)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,nickname,name);
+int get hashCode => Object.hash(runtimeType,nickname,name,avatar,description);
 
 @override
 String toString() {
-  return 'UserModel(nickname: $nickname, name: $name)';
+  return 'UserModel(nickname: $nickname, name: $name, avatar: $avatar, description: $description)';
 }
 
 
@@ -243,7 +247,7 @@ abstract mixin class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Re
   factory _$UserModelCopyWith(_UserModel value, $Res Function(_UserModel) _then) = __$UserModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'nickname') String nickname,@JsonKey(name: 'name') String name
+@JsonKey(name: 'nickname') String nickname,@JsonKey(name: 'name') String name,@JsonKey(name: 'avatar') String? avatar,@JsonKey(name: 'description') String? description
 });
 
 
@@ -260,11 +264,13 @@ class __$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? nickname = null,Object? name = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? nickname = null,Object? name = null,Object? avatar = freezed,Object? description = freezed,}) {
   return _then(_UserModel(
 nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+as String,avatar: freezed == avatar ? _self.avatar : avatar // ignore: cast_nullable_to_non_nullable
+as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

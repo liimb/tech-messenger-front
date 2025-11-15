@@ -46,7 +46,7 @@ abstract class AppValidators {
     if (value == null || value == '') {
       return context.l10n.fieldMustNotEmpty;
     }
-    if (value.length < 3) {
+    if (value.length < 3 || value.length > 20) {
       return context.l10n.errorUncorrectNickname;
     }
     return null;
@@ -55,6 +55,9 @@ abstract class AppValidators {
   static String? correctNameValidator(String? value, BuildContext context) {
     if (value == null || value == '') {
       return context.l10n.fieldMustNotEmpty;
+    }
+    if (value.length < 3 || value.length > 20) {
+      return context.l10n.errorUncorrectName;
     }
     return null;
   }
