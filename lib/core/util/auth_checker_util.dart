@@ -23,7 +23,6 @@ class AuthChecker {
         return false;
       }
 
-      // Если уже идёт refresh, ждем результата
       if (_isRefreshing) {
         AppLogger.debug('Auth check: refresh already in progress, waiting');
         final c = Completer<bool>();
@@ -43,13 +42,11 @@ class AuthChecker {
           AppLogger.warning(
             'Auth check: refresh returned $status -> unauthorized',
           );
-          // оповестим ожидающие вызовы
           for (final comp in _completers) comp.complete(false);
           _completers.clear();
           return false;
         }
 
-        // При успехе — попытка сохранить новый токен (если он есть)
         try {
           final newToken = JwtModel.fromJson(response.response.data);
           await secureStorage.saveToken(newToken);

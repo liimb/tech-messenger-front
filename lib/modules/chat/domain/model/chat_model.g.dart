@@ -7,7 +7,12 @@ part of 'chat_model.dart';
 // **************************************************************************
 
 _ChatModel _$ChatModelFromJson(Map<String, dynamic> json) => _ChatModel(
-  id: json['id'] as String,
+  id: json['chatId'] as String,
+  name: json['name'] as String? ?? 'Без имени',
+  lastMessage: json['lastMessage'] as String?,
+  lastMessageTime: const DateTimeNullableConverter().fromJson(
+    json['lastMessageTime'] as String?,
+  ),
   messages: (json['messages'] as List<dynamic>)
       .map((e) => MessageModel.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -16,7 +21,12 @@ _ChatModel _$ChatModelFromJson(Map<String, dynamic> json) => _ChatModel(
 
 Map<String, dynamic> _$ChatModelToJson(_ChatModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'chatId': instance.id,
+      'name': instance.name,
+      'lastMessage': instance.lastMessage,
+      'lastMessageTime': const DateTimeNullableConverter().toJson(
+        instance.lastMessageTime,
+      ),
       'messages': instance.messages,
       'user': instance.user,
     };

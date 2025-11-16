@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ChatModel {
 
-@JsonKey(name: "id") String get id;@JsonKey(name: "messages") List<MessageModel> get messages;@JsonKey(name: "user") UserModel get user;
+@JsonKey(name: "chatId") String get id;@JsonKey(name: "name") String get name;@JsonKey(name: "lastMessage") String? get lastMessage;@JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() DateTime? get lastMessageTime;@JsonKey(name: "messages") List<MessageModel> get messages;@JsonKey(name: "user") UserModel get user;
 /// Create a copy of ChatModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ChatModelCopyWith<ChatModel> get copyWith => _$ChatModelCopyWithImpl<ChatModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatModel&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.messages, messages)&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.lastMessage, lastMessage) || other.lastMessage == lastMessage)&&(identical(other.lastMessageTime, lastMessageTime) || other.lastMessageTime == lastMessageTime)&&const DeepCollectionEquality().equals(other.messages, messages)&&(identical(other.user, user) || other.user == user));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(messages),user);
+int get hashCode => Object.hash(runtimeType,id,name,lastMessage,lastMessageTime,const DeepCollectionEquality().hash(messages),user);
 
 @override
 String toString() {
-  return 'ChatModel(id: $id, messages: $messages, user: $user)';
+  return 'ChatModel(id: $id, name: $name, lastMessage: $lastMessage, lastMessageTime: $lastMessageTime, messages: $messages, user: $user)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ChatModelCopyWith<$Res>  {
   factory $ChatModelCopyWith(ChatModel value, $Res Function(ChatModel) _then) = _$ChatModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: "id") String id,@JsonKey(name: "messages") List<MessageModel> messages,@JsonKey(name: "user") UserModel user
+@JsonKey(name: "chatId") String id,@JsonKey(name: "name") String name,@JsonKey(name: "lastMessage") String? lastMessage,@JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() DateTime? lastMessageTime,@JsonKey(name: "messages") List<MessageModel> messages,@JsonKey(name: "user") UserModel user
 });
 
 
@@ -65,10 +65,13 @@ class _$ChatModelCopyWithImpl<$Res>
 
 /// Create a copy of ChatModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? messages = null,Object? user = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? lastMessage = freezed,Object? lastMessageTime = freezed,Object? messages = null,Object? user = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,messages: null == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
+as String?,lastMessageTime: freezed == lastMessageTime ? _self.lastMessageTime : lastMessageTime // ignore: cast_nullable_to_non_nullable
+as DateTime?,messages: null == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
 as List<MessageModel>,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as UserModel,
   ));
@@ -161,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: "id")  String id, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel user)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: "chatId")  String id, @JsonKey(name: "name")  String name, @JsonKey(name: "lastMessage")  String? lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter()  DateTime? lastMessageTime, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel user)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChatModel() when $default != null:
-return $default(_that.id,_that.messages,_that.user);case _:
+return $default(_that.id,_that.name,_that.lastMessage,_that.lastMessageTime,_that.messages,_that.user);case _:
   return orElse();
 
 }
@@ -182,10 +185,10 @@ return $default(_that.id,_that.messages,_that.user);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: "id")  String id, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel user)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: "chatId")  String id, @JsonKey(name: "name")  String name, @JsonKey(name: "lastMessage")  String? lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter()  DateTime? lastMessageTime, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel user)  $default,) {final _that = this;
 switch (_that) {
 case _ChatModel():
-return $default(_that.id,_that.messages,_that.user);}
+return $default(_that.id,_that.name,_that.lastMessage,_that.lastMessageTime,_that.messages,_that.user);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -199,10 +202,10 @@ return $default(_that.id,_that.messages,_that.user);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: "id")  String id, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel user)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: "chatId")  String id, @JsonKey(name: "name")  String name, @JsonKey(name: "lastMessage")  String? lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter()  DateTime? lastMessageTime, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel user)?  $default,) {final _that = this;
 switch (_that) {
 case _ChatModel() when $default != null:
-return $default(_that.id,_that.messages,_that.user);case _:
+return $default(_that.id,_that.name,_that.lastMessage,_that.lastMessageTime,_that.messages,_that.user);case _:
   return null;
 
 }
@@ -214,10 +217,13 @@ return $default(_that.id,_that.messages,_that.user);case _:
 @JsonSerializable()
 
 class _ChatModel implements ChatModel {
-  const _ChatModel({@JsonKey(name: "id") required this.id, @JsonKey(name: "messages") required final  List<MessageModel> messages, @JsonKey(name: "user") required this.user}): _messages = messages;
+  const _ChatModel({@JsonKey(name: "chatId") required this.id, @JsonKey(name: "name") this.name = 'Без имени', @JsonKey(name: "lastMessage") this.lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() this.lastMessageTime, @JsonKey(name: "messages") required final  List<MessageModel> messages, @JsonKey(name: "user") required this.user}): _messages = messages;
   factory _ChatModel.fromJson(Map<String, dynamic> json) => _$ChatModelFromJson(json);
 
-@override@JsonKey(name: "id") final  String id;
+@override@JsonKey(name: "chatId") final  String id;
+@override@JsonKey(name: "name") final  String name;
+@override@JsonKey(name: "lastMessage") final  String? lastMessage;
+@override@JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() final  DateTime? lastMessageTime;
  final  List<MessageModel> _messages;
 @override@JsonKey(name: "messages") List<MessageModel> get messages {
   if (_messages is EqualUnmodifiableListView) return _messages;
@@ -240,16 +246,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatModel&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._messages, _messages)&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.lastMessage, lastMessage) || other.lastMessage == lastMessage)&&(identical(other.lastMessageTime, lastMessageTime) || other.lastMessageTime == lastMessageTime)&&const DeepCollectionEquality().equals(other._messages, _messages)&&(identical(other.user, user) || other.user == user));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_messages),user);
+int get hashCode => Object.hash(runtimeType,id,name,lastMessage,lastMessageTime,const DeepCollectionEquality().hash(_messages),user);
 
 @override
 String toString() {
-  return 'ChatModel(id: $id, messages: $messages, user: $user)';
+  return 'ChatModel(id: $id, name: $name, lastMessage: $lastMessage, lastMessageTime: $lastMessageTime, messages: $messages, user: $user)';
 }
 
 
@@ -260,7 +266,7 @@ abstract mixin class _$ChatModelCopyWith<$Res> implements $ChatModelCopyWith<$Re
   factory _$ChatModelCopyWith(_ChatModel value, $Res Function(_ChatModel) _then) = __$ChatModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: "id") String id,@JsonKey(name: "messages") List<MessageModel> messages,@JsonKey(name: "user") UserModel user
+@JsonKey(name: "chatId") String id,@JsonKey(name: "name") String name,@JsonKey(name: "lastMessage") String? lastMessage,@JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() DateTime? lastMessageTime,@JsonKey(name: "messages") List<MessageModel> messages,@JsonKey(name: "user") UserModel user
 });
 
 
@@ -277,10 +283,13 @@ class __$ChatModelCopyWithImpl<$Res>
 
 /// Create a copy of ChatModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? messages = null,Object? user = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? lastMessage = freezed,Object? lastMessageTime = freezed,Object? messages = null,Object? user = null,}) {
   return _then(_ChatModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,messages: null == messages ? _self._messages : messages // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
+as String?,lastMessageTime: freezed == lastMessageTime ? _self.lastMessageTime : lastMessageTime // ignore: cast_nullable_to_non_nullable
+as DateTime?,messages: null == messages ? _self._messages : messages // ignore: cast_nullable_to_non_nullable
 as List<MessageModel>,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as UserModel,
   ));

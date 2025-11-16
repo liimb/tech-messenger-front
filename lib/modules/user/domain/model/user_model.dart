@@ -6,6 +6,7 @@ part 'user_model.freezed.dart';
 @freezed
 sealed class UserModel with _$UserModel {
   const factory UserModel({
+    @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'nickname') required String nickname,
     @JsonKey(name: 'name') required String name,
     @JsonKey(name: 'avatar') String? avatar,

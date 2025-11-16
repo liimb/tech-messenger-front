@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tech_messenger/app/jwt_dio_interceptor.dart';
+import 'package:tech_messenger/core/network/jwt_dio_interceptor.dart';
 import 'package:tech_messenger/core/common/secure_storage/secure_storage.dart';
+import 'package:tech_messenger/core/network/stomp_service.dart';
 import 'package:tech_messenger/core/util/auth_checker_util.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
 import 'package:tech_messenger/modules/auth/data/datasource/impl/auth_datasource_impl.dart';
@@ -15,6 +16,7 @@ import 'package:tech_messenger/core/common/user_local_storage/user_local_storage
 class AppConfig {
   const AppConfig({
     required this.baseUrl,
+    required this.stompService,
     required this.dio,
     required this.secureStorage,
     required this.authBloc,
@@ -23,6 +25,7 @@ class AppConfig {
   });
 
   final String baseUrl;
+  final StompService stompService;
   final Dio dio;
   final SecureStorage secureStorage;
   final AuthBloc authBloc;
@@ -31,10 +34,17 @@ class AppConfig {
 
   static Future<AppConfig> config() async {
     try {
-      final apiUrl = dotenv.env['API_URL'];
-      if (apiUrl == null || apiUrl.isEmpty) {
-        throw Exception('API_URL не найден в .env файле');
+      final baseUrl = dotenv.env['BASE_URL'];
+      final webSocketUrl = dotenv.env['API_STOMP_URL'];
+
+      if (baseUrl == null || baseUrl.isEmpty) {
+        throw Exception('BASE_URL не найден в .env файле');
       }
+
+      if (webSocketUrl == null || webSocketUrl.isEmpty) {
+        throw Exception('API_STOMP_URL не найден в .env файле');
+      }
+
       final dio = Dio(
         BaseOptions(
           connectTimeout: const Duration(milliseconds: 15000),
@@ -52,18 +62,21 @@ class AppConfig {
       await userLocalStorage.init();
 
       // JWT
-      final jwtDataSource = JwtDatasource(dio, baseUrl: apiUrl);
+      final jwtDataSource = JwtDatasource(dio, baseUrl: baseUrl);
       final jwtRepository = JwtRepository(ds: jwtDataSource);
-      final authDatasource = AuthDatasource(dio, baseUrl: apiUrl);
+      final authDatasource = AuthDatasource(dio, baseUrl: baseUrl);
       final authRepository = AuthRepository(ds: authDatasource);
       final authChecker = AuthChecker(
         secureStorage: secureStorage,
         jwtRepository: jwtRepository,
       );
 
+      final stompService = StompService(url: webSocketUrl);
+
       final authBloc = AuthBloc(
         authRepository: authRepository,
         secureStorage: secureStorage,
+        stompService: stompService,
         userLocalStorage: userLocalStorage,
         authChecker: authChecker,
       );
@@ -81,7 +94,8 @@ class AppConfig {
       );
 
       return AppConfig(
-        baseUrl: apiUrl,
+        baseUrl: baseUrl,
+        stompService: stompService,
         dio: dio,
         secureStorage: secureStorage,
         authBloc: authBloc,
