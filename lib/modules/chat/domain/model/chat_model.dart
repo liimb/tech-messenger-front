@@ -8,11 +8,25 @@ part 'chat_model.g.dart';
 @freezed
 sealed class ChatModel with _$ChatModel {
   const factory ChatModel({
-    @JsonKey(name: "id") required String id,
+    @JsonKey(name: "chatId") required String id,
+    @JsonKey(name: "name") @Default('Без имени') String name,
+    @JsonKey(name: "lastMessage") String? lastMessage,
+    @JsonKey(name: "lastMessageTime")
+    @DateTimeNullableConverter()
+    DateTime? lastMessageTime,
     @JsonKey(name: "messages") required List<MessageModel> messages,
     @JsonKey(name: "user") required UserModel user,
   }) = _ChatModel;
 
   factory ChatModel.fromJson(Map<String, dynamic> json) =>
       _$ChatModelFromJson(json);
+}
+
+class DateTimeNullableConverter implements JsonConverter<DateTime?, String?> {
+  const DateTimeNullableConverter();
+  @override
+  DateTime? fromJson(String? json) =>
+      json == null ? null : DateTime.parse(json);
+  @override
+  String? toJson(DateTime? object) => object?.toIso8601String();
 }

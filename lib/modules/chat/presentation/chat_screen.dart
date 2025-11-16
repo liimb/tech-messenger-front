@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tech_messenger/core/common/presentation/widget/app_icon.dart';
 import 'package:tech_messenger/core/constant/app_padding.dart';
 import 'package:tech_messenger/core/constant/avatar_size.dart';
-// import 'package:tech_messenger/core/constant/icon_size.dart';
-import 'package:tech_messenger/core/routing/app_routing.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 import 'package:tech_messenger/modules/chat/domain/model/chat_model.dart';
 import 'package:tech_messenger/modules/chat/presentation/widget/chat.dart';
