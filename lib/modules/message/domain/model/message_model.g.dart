@@ -8,16 +8,16 @@ part of 'message_model.dart';
 
 _MessageModel _$MessageModelFromJson(Map<String, dynamic> json) =>
     _MessageModel(
-      id: json['id'] as String,
-      text: json['text'] as String,
-      sendTime: DateTime.parse(json['sendtime'] as String),
-      author: UserModel.fromJson(json['author'] as Map<String, dynamic>),
+      id: json['id'] as String?,
+      senderName: json['senderName'] as String? ?? 'Неизвестно',
+      messageText: json['messageText'] as String? ?? '',
+      sentTime: const DateTimeConverter().fromJson(json['sentTime'] as String),
     );
 
 Map<String, dynamic> _$MessageModelToJson(_MessageModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'text': instance.text,
-      'sendtime': instance.sendTime.toIso8601String(),
-      'author': instance.author,
+      'senderName': instance.senderName,
+      'messageText': instance.messageText,
+      'sentTime': const DateTimeConverter().toJson(instance.sentTime),
     };
