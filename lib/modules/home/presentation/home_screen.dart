@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
         body: RefreshIndicator(
           onRefresh: () => _refreshData(context),
           child: CustomScrollView(
-            physics: SlowScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
               SliverAppBar(
                 pinned: true,
