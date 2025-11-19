@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tech_messenger/app/app_logger.dart';
 import 'package:tech_messenger/core/constant/app_defaults.dart';
 import 'package:tech_messenger/modules/editor/domain/model/update_avatar.dart';
 import 'package:tech_messenger/modules/editor/domain/model/update_description.dart';
@@ -36,7 +37,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
       super(EditorState.initial()) {
     on<NameChangedEvent>(_NameChangedEvent);
     on<DescriptionChangedEvent>(_DescriptionChangedEvent);
-    on<AvatarChangedEvent>(_AvatarChangedEvent);
+    on<AvatarChangedEvent>(_avatarChangedEvent);
   }
 
   Future<void> _NameChangedEvent(
@@ -50,6 +51,8 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
         UpdateNameRequest(name: event.newName),
       );
 
+      AppLogger.info('Body изменения имени ${response.response.data}');
+
       if (response.response.statusCode == 200) {
         emit(EditorState.success());
       } else {
@@ -58,6 +61,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
       }
     } catch (e) {
       emit(EditorState.error('Неизвестная ошибка'));
+      AppLogger.error('Ошибка при изменении имени', e);
     } finally {
       await Future.delayed(Duration(seconds: AppDefaults.snackBarDuration * 2));
       emit(EditorState.initial());
@@ -83,13 +87,14 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
       }
     } catch (e) {
       emit(EditorState.error('Неизвестная ошибка'));
+      AppLogger.error('Ошибка при изменении описания', e);
     } finally {
       await Future.delayed(Duration(seconds: AppDefaults.snackBarDuration * 2));
       emit(EditorState.initial());
     }
   }
 
-  Future<void> _AvatarChangedEvent(
+  Future<void> _avatarChangedEvent(
     AvatarChangedEvent event,
     Emitter<EditorState> emit,
   ) async {
@@ -108,6 +113,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
       }
     } catch (e) {
       emit(EditorState.error('Неизвестная ошибка'));
+      AppLogger.error('Ошибка при изменении аватарки', e);
     } finally {
       await Future.delayed(Duration(seconds: AppDefaults.snackBarDuration * 2));
       emit(EditorState.initial());
