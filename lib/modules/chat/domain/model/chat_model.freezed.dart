@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ChatModel {
 
-@JsonKey(name: "chatId") String get id;@JsonKey(name: "name") String get name;@JsonKey(name: "lastMessage") String? get lastMessage;@JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() DateTime? get lastMessageTime;@JsonKey(name: "messages") List<MessageModel> get messages;@JsonKey(name: "user") UserModel get user;
+@JsonKey(name: "chatId") String get id;@JsonKey(name: "name") String get name;@JsonKey(name: "lastMessage") String? get lastMessage;@JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() DateTime? get lastMessageTime;@JsonKey(name: "messages") List<MessageModel> get messages;@JsonKey(name: "user") UserModel? get user;
 /// Create a copy of ChatModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,11 +48,11 @@ abstract mixin class $ChatModelCopyWith<$Res>  {
   factory $ChatModelCopyWith(ChatModel value, $Res Function(ChatModel) _then) = _$ChatModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: "chatId") String id,@JsonKey(name: "name") String name,@JsonKey(name: "lastMessage") String? lastMessage,@JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() DateTime? lastMessageTime,@JsonKey(name: "messages") List<MessageModel> messages,@JsonKey(name: "user") UserModel user
+@JsonKey(name: "chatId") String id,@JsonKey(name: "name") String name,@JsonKey(name: "lastMessage") String? lastMessage,@JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() DateTime? lastMessageTime,@JsonKey(name: "messages") List<MessageModel> messages,@JsonKey(name: "user") UserModel? user
 });
 
 
-$UserModelCopyWith<$Res> get user;
+$UserModelCopyWith<$Res>? get user;
 
 }
 /// @nodoc
@@ -65,24 +65,27 @@ class _$ChatModelCopyWithImpl<$Res>
 
 /// Create a copy of ChatModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? lastMessage = freezed,Object? lastMessageTime = freezed,Object? messages = null,Object? user = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? lastMessage = freezed,Object? lastMessageTime = freezed,Object? messages = null,Object? user = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
 as String?,lastMessageTime: freezed == lastMessageTime ? _self.lastMessageTime : lastMessageTime // ignore: cast_nullable_to_non_nullable
 as DateTime?,messages: null == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
-as List<MessageModel>,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as UserModel,
+as List<MessageModel>,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as UserModel?,
   ));
 }
 /// Create a copy of ChatModel
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$UserModelCopyWith<$Res> get user {
-  
-  return $UserModelCopyWith<$Res>(_self.user, (value) {
+$UserModelCopyWith<$Res>? get user {
+    if (_self.user == null) {
+    return null;
+  }
+
+  return $UserModelCopyWith<$Res>(_self.user!, (value) {
     return _then(_self.copyWith(user: value));
   });
 }
@@ -164,7 +167,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: "chatId")  String id, @JsonKey(name: "name")  String name, @JsonKey(name: "lastMessage")  String? lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter()  DateTime? lastMessageTime, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel user)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: "chatId")  String id, @JsonKey(name: "name")  String name, @JsonKey(name: "lastMessage")  String? lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter()  DateTime? lastMessageTime, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel? user)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChatModel() when $default != null:
 return $default(_that.id,_that.name,_that.lastMessage,_that.lastMessageTime,_that.messages,_that.user);case _:
@@ -185,7 +188,7 @@ return $default(_that.id,_that.name,_that.lastMessage,_that.lastMessageTime,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: "chatId")  String id, @JsonKey(name: "name")  String name, @JsonKey(name: "lastMessage")  String? lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter()  DateTime? lastMessageTime, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel user)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: "chatId")  String id, @JsonKey(name: "name")  String name, @JsonKey(name: "lastMessage")  String? lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter()  DateTime? lastMessageTime, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel? user)  $default,) {final _that = this;
 switch (_that) {
 case _ChatModel():
 return $default(_that.id,_that.name,_that.lastMessage,_that.lastMessageTime,_that.messages,_that.user);}
@@ -202,7 +205,7 @@ return $default(_that.id,_that.name,_that.lastMessage,_that.lastMessageTime,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: "chatId")  String id, @JsonKey(name: "name")  String name, @JsonKey(name: "lastMessage")  String? lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter()  DateTime? lastMessageTime, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel user)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: "chatId")  String id, @JsonKey(name: "name")  String name, @JsonKey(name: "lastMessage")  String? lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter()  DateTime? lastMessageTime, @JsonKey(name: "messages")  List<MessageModel> messages, @JsonKey(name: "user")  UserModel? user)?  $default,) {final _that = this;
 switch (_that) {
 case _ChatModel() when $default != null:
 return $default(_that.id,_that.name,_that.lastMessage,_that.lastMessageTime,_that.messages,_that.user);case _:
@@ -217,7 +220,7 @@ return $default(_that.id,_that.name,_that.lastMessage,_that.lastMessageTime,_tha
 @JsonSerializable()
 
 class _ChatModel implements ChatModel {
-  const _ChatModel({@JsonKey(name: "chatId") required this.id, @JsonKey(name: "name") this.name = 'Без имени', @JsonKey(name: "lastMessage") this.lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() this.lastMessageTime, @JsonKey(name: "messages") required final  List<MessageModel> messages, @JsonKey(name: "user") required this.user}): _messages = messages;
+  const _ChatModel({@JsonKey(name: "chatId") required this.id, @JsonKey(name: "name") this.name = 'Без имени', @JsonKey(name: "lastMessage") this.lastMessage, @JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() this.lastMessageTime, @JsonKey(name: "messages") final  List<MessageModel> messages = const <MessageModel>[], @JsonKey(name: "user") this.user}): _messages = messages;
   factory _ChatModel.fromJson(Map<String, dynamic> json) => _$ChatModelFromJson(json);
 
 @override@JsonKey(name: "chatId") final  String id;
@@ -231,7 +234,7 @@ class _ChatModel implements ChatModel {
   return EqualUnmodifiableListView(_messages);
 }
 
-@override@JsonKey(name: "user") final  UserModel user;
+@override@JsonKey(name: "user") final  UserModel? user;
 
 /// Create a copy of ChatModel
 /// with the given fields replaced by the non-null parameter values.
@@ -266,11 +269,11 @@ abstract mixin class _$ChatModelCopyWith<$Res> implements $ChatModelCopyWith<$Re
   factory _$ChatModelCopyWith(_ChatModel value, $Res Function(_ChatModel) _then) = __$ChatModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: "chatId") String id,@JsonKey(name: "name") String name,@JsonKey(name: "lastMessage") String? lastMessage,@JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() DateTime? lastMessageTime,@JsonKey(name: "messages") List<MessageModel> messages,@JsonKey(name: "user") UserModel user
+@JsonKey(name: "chatId") String id,@JsonKey(name: "name") String name,@JsonKey(name: "lastMessage") String? lastMessage,@JsonKey(name: "lastMessageTime")@DateTimeNullableConverter() DateTime? lastMessageTime,@JsonKey(name: "messages") List<MessageModel> messages,@JsonKey(name: "user") UserModel? user
 });
 
 
-@override $UserModelCopyWith<$Res> get user;
+@override $UserModelCopyWith<$Res>? get user;
 
 }
 /// @nodoc
@@ -283,15 +286,15 @@ class __$ChatModelCopyWithImpl<$Res>
 
 /// Create a copy of ChatModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? lastMessage = freezed,Object? lastMessageTime = freezed,Object? messages = null,Object? user = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? lastMessage = freezed,Object? lastMessageTime = freezed,Object? messages = null,Object? user = freezed,}) {
   return _then(_ChatModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,lastMessage: freezed == lastMessage ? _self.lastMessage : lastMessage // ignore: cast_nullable_to_non_nullable
 as String?,lastMessageTime: freezed == lastMessageTime ? _self.lastMessageTime : lastMessageTime // ignore: cast_nullable_to_non_nullable
 as DateTime?,messages: null == messages ? _self._messages : messages // ignore: cast_nullable_to_non_nullable
-as List<MessageModel>,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as UserModel,
+as List<MessageModel>,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as UserModel?,
   ));
 }
 
@@ -299,9 +302,12 @@ as UserModel,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$UserModelCopyWith<$Res> get user {
-  
-  return $UserModelCopyWith<$Res>(_self.user, (value) {
+$UserModelCopyWith<$Res>? get user {
+    if (_self.user == null) {
+    return null;
+  }
+
+  return $UserModelCopyWith<$Res>(_self.user!, (value) {
     return _then(_self.copyWith(user: value));
   });
 }

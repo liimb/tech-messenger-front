@@ -6,8 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:tech_messenger/core/common/presentation/widget/app_icon.dart';
 import 'package:tech_messenger/core/common/presentation/widget/frameless_input_widget.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
-import 'package:tech_messenger/modules/home/presentation/widget/chatlist_item.dart';
 import 'package:tech_messenger/modules/search/presentation/bloc/search_bloc.dart';
+import 'package:tech_messenger/modules/search/presentation/widget/search_result_item.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -99,7 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     itemCount: loadedState.users.length,
                     separatorBuilder: (context, i) => const Divider(height: 0),
                     itemBuilder: (context, i) =>
-                        ChatlistItem(userData: loadedState.users[i]),
+                        SearchResultItem(userModel: loadedState.users[i]),
                   ),
                   emptyList: (_) => SliverFillRemaining(
                     child: Center(child: Text(context.l10n.usersAreNotFound)),

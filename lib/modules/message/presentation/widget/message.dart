@@ -58,12 +58,12 @@ class Message extends StatelessWidget {
                     // ),
                     // const SizedBox(height: p8),
                     Text(
-                      messageData.text,
+                      messageData.messageText,
                       style: TextStyle(color: Colors.white),
                     ),
                     const SizedBox(height: p4),
                     Text(
-                      "${messageData.sendTime.hour > 9 ? messageData.sendTime.hour : '0${messageData.sendTime.hour}'}:${messageData.sendTime.minute > 9 ? messageData.sendTime.minute : '0${messageData.sendTime.minute}'}",
+                      "${messageData.sentTime.hour > 9 ? messageData.sentTime.hour : '0${messageData.sentTime.hour}'}:${messageData.sentTime.minute > 9 ? messageData.sentTime.minute : '0${messageData.sentTime.minute}'}",
                       style: TextStyle(color: Colors.white),
                     ),
                   ],

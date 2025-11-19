@@ -14,8 +14,10 @@ sealed class ChatModel with _$ChatModel {
     @JsonKey(name: "lastMessageTime")
     @DateTimeNullableConverter()
     DateTime? lastMessageTime,
-    @JsonKey(name: "messages") required List<MessageModel> messages,
-    @JsonKey(name: "user") required UserModel user,
+    @JsonKey(name: "messages")
+    @Default(<MessageModel>[])
+    List<MessageModel> messages,
+    @JsonKey(name: "user") UserModel? user,
   }) = _ChatModel;
 
   factory ChatModel.fromJson(Map<String, dynamic> json) =>

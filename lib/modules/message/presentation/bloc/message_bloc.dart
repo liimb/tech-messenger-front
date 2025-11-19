@@ -18,7 +18,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
        super(MessageState(isMine: false)) {
     on<CreateEvent>((event, emit) async {
       final userData = await _userRepository.getCachedUser();
-      final isMine = messageData.author.nickname == userData?.nickname;
+      final isMine = messageData.senderName == userData?.nickname;
 
       emit(MessageState(isMine: isMine));
     });

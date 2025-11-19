@@ -13,10 +13,14 @@ _ChatModel _$ChatModelFromJson(Map<String, dynamic> json) => _ChatModel(
   lastMessageTime: const DateTimeNullableConverter().fromJson(
     json['lastMessageTime'] as String?,
   ),
-  messages: (json['messages'] as List<dynamic>)
-      .map((e) => MessageModel.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
+  messages:
+      (json['messages'] as List<dynamic>?)
+          ?.map((e) => MessageModel.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const <MessageModel>[],
+  user: json['user'] == null
+      ? null
+      : UserModel.fromJson(json['user'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$ChatModelToJson(_ChatModel instance) =>

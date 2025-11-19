@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tech_messenger/core/routing/build_animation.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat_entry.dart';
 import 'package:tech_messenger/modules/chat/domain/model/chat_model.dart';
 import 'package:tech_messenger/modules/chat/presentation/chat_screen.dart';
 import 'package:tech_messenger/modules/editor/presentation/editor_screen.dart';
@@ -79,9 +80,9 @@ final router = GoRouter(
         GoRoute(
           path: AppRoutes.chat.routePath,
           pageBuilder: (context, state) {
-            final userData = state.extra as UserModel;
+            final ChatEntry entry = state.extra as ChatEntry;
             return buildPageWithAnimation(
-              child: ChatScreen(companionUser: userData),
+              child: ChatScreen(chatEntry: entry),
               state: state,
             );
           },

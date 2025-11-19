@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tech_messenger/app/app_config.dart';
 import 'package:tech_messenger/core/network/stomp_service.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
+import 'package:tech_messenger/modules/chat/data/repository/chat_repository_impl.dart';
+import 'package:tech_messenger/modules/chat/domain/repository/chat_repository_interface.dart';
+import 'package:tech_messenger/modules/chat/presentation/bloc/chat_bloc.dart';
 import 'package:tech_messenger/modules/editor/data/datasource/impl/editor_datasource_impl.dart';
 import 'package:tech_messenger/modules/editor/data/repository/editor_repository_impl.dart';
 import 'package:tech_messenger/modules/editor/domain/repository/editor_repository_interface.dart';
@@ -69,6 +72,9 @@ class AppProviders extends StatelessWidget {
             ds: EditorDatasource(config.dio, baseUrl: config.baseUrl),
           ),
         ),
+        RepositoryProvider<IChatRepository>(
+          create: (context) => ChatRepository(stomp: config.stompService),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -99,10 +105,23 @@ class AppProviders extends StatelessWidget {
             create: (context) =>
                 SearchBloc(searchRepository: context.read<ISearchRepository>()),
           ),
+          BlocProvider(
+            create: (context) => ChatBloc(
+              chatRepository: context.read<IChatRepository>(),
+              userStorage: config.userLocalStorage,
+              secureStorage: config.secureStorage,
+            ),
+          ),
         ],
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthHasState) {
+              config.stompService.activate();
+              config.stompService.onConnectionStateChanged.listen((connected) {
+                if (connected && context.mounted) {
+                  context.read<ChatBloc>().add(const ChatEvent.started());
+                }
+              });
               context.read<UserBloc>().add(const UserEvent.fetchUser());
             }
           },
