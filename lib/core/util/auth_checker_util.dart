@@ -36,13 +36,15 @@ class AuthChecker {
           JwtRefreshRequest(refreshToken: jwt.refreshToken),
         );
 
-        final status = response.response?.statusCode ?? 0;
+        final status = response.response.statusCode ?? 0;
 
         if (status == 401 || status == 403) {
           AppLogger.warning(
             'Auth check: refresh returned $status -> unauthorized',
           );
-          for (final comp in _completers) comp.complete(false);
+          for (final comp in _completers) {
+            comp.complete(false);
+          }
           _completers.clear();
           return false;
         }
@@ -59,12 +61,16 @@ class AuthChecker {
           );
         }
 
-        for (final comp in _completers) comp.complete(true);
+        for (final comp in _completers) {
+          comp.complete(true);
+        }
         _completers.clear();
         return true;
       } on TimeoutException {
         AppLogger.warning('Auth check: refresh timed out -> assume authorized');
-        for (final comp in _completers) comp.complete(true);
+        for (final comp in _completers) {
+          comp.complete(true);
+        }
         _completers.clear();
         return true;
       } on DioException catch (e) {
@@ -73,7 +79,9 @@ class AuthChecker {
           AppLogger.warning(
             'Auth check: refresh DioException with status $status -> unauthorized',
           );
-          for (final comp in _completers) comp.complete(false);
+          for (final comp in _completers) {
+            comp.complete(false);
+          }
           _completers.clear();
           return false;
         }
@@ -82,7 +90,9 @@ class AuthChecker {
           AppLogger.warning(
             'Auth check: network/server error during refresh (${e.type}), assume authorized',
           );
-          for (final comp in _completers) comp.complete(true);
+          for (final comp in _completers) {
+            comp.complete(true);
+          }
           _completers.clear();
           return true;
         }
@@ -90,7 +100,9 @@ class AuthChecker {
         AppLogger.info(
           'Auth check: DioException ${e.type} during refresh, assume authorized',
         );
-        for (final comp in _completers) comp.complete(true);
+        for (final comp in _completers) {
+          comp.complete(true);
+        }
         _completers.clear();
         return true;
       } catch (e, st) {
@@ -99,7 +111,9 @@ class AuthChecker {
           e,
           st,
         );
-        for (final comp in _completers) comp.complete(true);
+        for (final comp in _completers) {
+          comp.complete(true);
+        }
         _completers.clear();
         return true;
       } finally {

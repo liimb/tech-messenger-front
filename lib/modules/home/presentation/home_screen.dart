@@ -7,7 +7,6 @@ import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 import 'package:tech_messenger/modules/chat/presentation/bloc/chat_bloc.dart';
 import 'package:tech_messenger/modules/home/presentation/widget/chatlist.dart';
 import 'package:tech_messenger/modules/home/presentation/widget/home_drawer.dart';
-import 'package:tech_messenger/modules/home/presentation/widget/scroll_physics.dart';
 
 Future<void> _refreshData(BuildContext context) async {
   context.read<ChatBloc>().add(ChatEvent.refresh());
