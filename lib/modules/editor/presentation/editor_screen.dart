@@ -9,7 +9,6 @@ import 'package:tech_messenger/core/constant/avatar_size.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 import 'package:tech_messenger/core/util/validators.dart';
 import 'package:tech_messenger/modules/avatar/presentation/avatar_widget.dart';
-import 'package:tech_messenger/modules/avatar/presentation/bloc/avatar_bloc.dart';
 import 'package:tech_messenger/modules/editor/domain/repository/editor_repository_interface.dart';
 import 'package:tech_messenger/modules/editor/presentation/bloc/editor_bloc.dart';
 import 'package:tech_messenger/modules/home/presentation/widget/scroll_physics.dart';
@@ -127,7 +126,7 @@ class _EditorScreenState extends State<EditorScreen> {
                                     String? newAvatar = await context
                                         .read<EditorBloc>()
                                         .pickImageAndEncode();
-                                    if (newAvatar != null) {
+                                    if (newAvatar != null && context.mounted) {
                                       context.read<EditorBloc>().add(
                                         EditorEvent.avatarChanged(newAvatar),
                                       );
@@ -166,7 +165,6 @@ class _EditorScreenState extends State<EditorScreen> {
                                             context.read<EditorBloc>().state
                                                 is EditorInitialState
                                             ? () {
-                                                print(state.runtimeType);
                                                 _nameFormKey.currentState
                                                     ?.validate();
                                                 if (_nameFormKey.currentState
