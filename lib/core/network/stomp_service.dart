@@ -12,27 +12,15 @@ class StompService {
   final Map<String, StreamController<StompFrame>> _controllers = {};
   final Map<String, StompUnsubscribe?> _unsubscribes = {};
   Timer? _reconnectTimer;
-
   Completer<void>? _connectCompleter;
 
-  // Для уведомления о смене состояния подключения (опционально)
   final StreamController<bool> _connectionController =
       StreamController<bool>.broadcast();
-
   Stream<bool> get onConnectionStateChanged => _connectionController.stream;
-
   bool get isActive => _active;
 
-  /// Активирует клиент и возвращает Future, который завершится после успешного CONNECT.
-  /// Если уже подключен — Future завершается сразу.
-  /// Если уже есть процесс подключения — возвращает существующий Future.
-  ///
-  /// timeout — сколько ждать before throwing a TimeoutException (по умолчанию 10s).
   Future<void> activate({Duration timeout = const Duration(seconds: 10)}) {
-    // Если уже подключены — ничего ждать не нужно.
     if (_active) return Future.value();
-
-    // Если уже идёт попытка подключения — вернуть её Future.
     if (_connectCompleter != null) return _connectCompleter!.future;
 
     _connectCompleter = Completer<void>();
@@ -44,17 +32,16 @@ class StompService {
           AppLogger.info("WebSocket клиент успешно подключен");
           _active = true;
           _cancelReconnect();
-          // уведомляем слушателей
           if (!_connectionController.isClosed) _connectionController.add(true);
 
-          // Завершаем completer (если кто-то ждёт)
+          _resubscribeAll();
+
           if (_connectCompleter != null && !_connectCompleter!.isCompleted) {
             _connectCompleter!.complete();
           }
         },
         onStompError: (error) {
           AppLogger.error("Stomp ошибка: $error");
-          // если мы ещё ожидаем подключения — завершить с ошибкой
           if (_connectCompleter != null && !_connectCompleter!.isCompleted) {
             _connectCompleter!.completeError(Exception('STOMP error: $error'));
           }
@@ -80,22 +67,18 @@ class StompService {
 
     _client!.activate();
 
-    // Вернуть Future с таймаутом. При таймауте — деактивируем и бросим.
     return _connectCompleter!.future
         .timeout(
           timeout,
           onTimeout: () {
-            // очистим/деактивируем клиент — чтобы не оставить висеть
             try {
-              deactivate(); // без await — очищает структуры
+              deactivate();
             } catch (_) {}
-            // Очистим completer если он ещё жив (будет перезаписан при следующем activate)
             if (_connectCompleter != null && !_connectCompleter!.isCompleted) {
               _connectCompleter!.completeError(
                 TimeoutException('Timeout while connecting to STOMP', timeout),
               );
             }
-            // бросаем исключение из timeout handler — future завершится с TimeoutException
             throw TimeoutException(
               'Timeout while connecting to STOMP',
               timeout,
@@ -103,28 +86,22 @@ class StompService {
           },
         )
         .whenComplete(() {
-          // При завершении (успех/ошибка/таймаут) мы не удаляем completer тут,
-          // потому что onConnect/onError уже её завершили. Однако для аккуратности очистим ссылку:
           _connectCompleter = null;
         });
   }
 
   void deactivate() {
     _cancelReconnect();
+    _unsubscribeAll();
     try {
       _client?.deactivate();
     } catch (e) {
       AppLogger.error('Error during deactivate: $e');
     }
     _active = false;
-
     if (!_connectionController.isClosed) _connectionController.add(false);
-    // НЕ закрываем контроллер здесь, т.к. сервис может быть ре-активирован;
-    // закройте контроллер в dispose() если добавите такой метод.
-
     _client = null;
 
-    // Если кто-то всё ещё ждал — уведомим об ошибке
     if (_connectCompleter != null && !_connectCompleter!.isCompleted) {
       _connectCompleter!.completeError(
         Exception('Deactivated before connect finished'),
@@ -144,7 +121,6 @@ class StompService {
         try {
           activate();
         } catch (e) {
-          // activate может бросить синхронно — логируем
           AppLogger.error('activate error in reconnect: $e');
         }
       }
@@ -157,26 +133,97 @@ class StompService {
   }
 
   Stream<StompFrame> subscribe(String topic, {Map<String, String>? headers}) {
-    final controller = _controllers.putIfAbsent(topic, () {
-      final c = StreamController<StompFrame>.broadcast();
-      if (_client != null && _active) {
-        final unsubscribe = _client!.subscribe(
-          destination: topic,
-          callback: (frame) {
-            if (!c.isClosed) c.add(frame);
-          },
-          headers: headers ?? {},
-        );
-        _unsubscribes[topic] = unsubscribe;
-      } else {
-        AppLogger.info(
-          'StompService: подписка создана, но клиент не активен: $topic',
-        );
+    if (_controllers.containsKey(topic)) {
+      final existing = _controllers[topic]!;
+      if (_active && _unsubscribes[topic] == null) {
+        _subscribeTopic(topic, existing, headers: headers);
       }
-      return c;
-    });
+      return existing.stream;
+    }
 
-    return controller.stream;
+    final c = StreamController<StompFrame>.broadcast();
+
+    _controllers[topic] = c;
+
+    c.onListen = () {
+      if (_active && _unsubscribes[topic] == null) {
+        _subscribeTopic(topic, c, headers: headers);
+      }
+    };
+
+    c.onCancel = () {
+      if (!c.hasListener) {
+        _unsubscribeTopic(topic);
+        if (!c.isClosed) {
+          c.close();
+        }
+        _controllers.remove(topic);
+      }
+    };
+
+    if (_active && _unsubscribes[topic] == null) {
+      _subscribeTopic(topic, c, headers: headers);
+    }
+
+    return c.stream;
+  }
+
+  void _subscribeTopic(
+    String topic,
+    StreamController<StompFrame> controller, {
+    Map<String, String>? headers,
+  }) {
+    try {
+      final unsubscribe = _client!.subscribe(
+        destination: topic,
+        callback: (frame) {
+          if (!controller.isClosed) controller.add(frame);
+        },
+        headers: headers ?? {},
+      );
+      _unsubscribes[topic] = unsubscribe;
+      AppLogger.info('Subscribed to $topic');
+    } catch (e, st) {
+      AppLogger.error('Failed to subscribe $topic: $e\n$st');
+    }
+  }
+
+  void _unsubscribeTopic(String topic) {
+    try {
+      final unsub = _unsubscribes[topic];
+      if (unsub != null) {
+        unsub.call();
+      }
+    } catch (e) {
+      AppLogger.error('Error during unsubscribe for $topic: $e');
+    } finally {
+      _unsubscribes.remove(topic);
+    }
+  }
+
+  void _resubscribeAll() {
+    _unsubscribes.forEach((topic, unsub) {
+      try {
+        if (unsub != null) unsub.call();
+      } catch (_) {}
+    });
+    _unsubscribes.clear();
+
+    _controllers.forEach((topic, controller) {
+      if (controller.isClosed || !controller.hasListener) return;
+      _subscribeTopic(topic, controller);
+    });
+  }
+
+  void _unsubscribeAll() {
+    _unsubscribes.forEach((topic, unsub) {
+      try {
+        if (unsub != null) unsub.call();
+      } catch (e) {
+        AppLogger.error('Error unsubscribing $topic: $e');
+      }
+    });
+    _unsubscribes.clear();
   }
 
   void send({
@@ -194,5 +241,22 @@ class StompService {
     } catch (e, st) {
       AppLogger.error('Ошибка при send: $e\n$st');
     }
+  }
+
+  Future<void> dispose() async {
+    _cancelReconnect();
+    _unsubscribeAll();
+    _controllers.forEach((_, c) {
+      try {
+        if (!c.isClosed) c.close();
+      } catch (_) {}
+    });
+    _controllers.clear();
+    try {
+      _client?.deactivate();
+    } catch (_) {}
+    _client = null;
+    _active = false;
+    if (!_connectionController.isClosed) await _connectionController.close();
   }
 }
