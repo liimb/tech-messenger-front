@@ -34,6 +34,15 @@ class MyHttpOverrides extends HttpOverrides {
         headers: {'Content-Type': 'application/json'},
       ),
     );
+    dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestBody: true,
+        requestHeader: true,
+        responseBody: true,
+        responseHeader: true,
+      ),
+    );
     return dio;
   }
 }

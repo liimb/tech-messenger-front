@@ -25,7 +25,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   @override
   void initState() {
     super.initState();
-    context.read<UserBloc>().add(UserEvent.fetchUser());
+    context.read<UserBloc>().add(UserEvent.getCachedUser());
   }
 
   @override

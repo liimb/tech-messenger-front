@@ -61,11 +61,12 @@ extension UserEventPatterns on UserEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( UserFetchEvent value)?  fetchUser,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( UserFetchEvent value)?  fetchUser,TResult Function( UserGetCachedEvent value)?  getCachedUser,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case UserFetchEvent() when fetchUser != null:
-return fetchUser(_that);case _:
+return fetchUser(_that);case UserGetCachedEvent() when getCachedUser != null:
+return getCachedUser(_that);case _:
   return orElse();
 
 }
@@ -83,11 +84,12 @@ return fetchUser(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( UserFetchEvent value)  fetchUser,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( UserFetchEvent value)  fetchUser,required TResult Function( UserGetCachedEvent value)  getCachedUser,}){
 final _that = this;
 switch (_that) {
 case UserFetchEvent():
-return fetchUser(_that);case _:
+return fetchUser(_that);case UserGetCachedEvent():
+return getCachedUser(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -104,11 +106,12 @@ return fetchUser(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( UserFetchEvent value)?  fetchUser,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( UserFetchEvent value)?  fetchUser,TResult? Function( UserGetCachedEvent value)?  getCachedUser,}){
 final _that = this;
 switch (_that) {
 case UserFetchEvent() when fetchUser != null:
-return fetchUser(_that);case _:
+return fetchUser(_that);case UserGetCachedEvent() when getCachedUser != null:
+return getCachedUser(_that);case _:
   return null;
 
 }
@@ -125,10 +128,11 @@ return fetchUser(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchUser,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchUser,TResult Function()?  getCachedUser,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case UserFetchEvent() when fetchUser != null:
-return fetchUser();case _:
+return fetchUser();case UserGetCachedEvent() when getCachedUser != null:
+return getCachedUser();case _:
   return orElse();
 
 }
@@ -146,10 +150,11 @@ return fetchUser();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchUser,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchUser,required TResult Function()  getCachedUser,}) {final _that = this;
 switch (_that) {
 case UserFetchEvent():
-return fetchUser();case _:
+return fetchUser();case UserGetCachedEvent():
+return getCachedUser();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -166,10 +171,11 @@ return fetchUser();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchUser,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchUser,TResult? Function()?  getCachedUser,}) {final _that = this;
 switch (_that) {
 case UserFetchEvent() when fetchUser != null:
-return fetchUser();case _:
+return fetchUser();case UserGetCachedEvent() when getCachedUser != null:
+return getCachedUser();case _:
   return null;
 
 }
@@ -207,6 +213,44 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'UserEvent.fetchUser()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class UserGetCachedEvent with DiagnosticableTreeMixin implements UserEvent {
+  const UserGetCachedEvent();
+  
+
+
+
+
+
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'UserEvent.getCachedUser'))
+    ;
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserGetCachedEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'UserEvent.getCachedUser()';
 }
 
 

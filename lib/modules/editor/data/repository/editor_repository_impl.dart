@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:retrofit/dio.dart';
 
 import 'package:tech_messenger/modules/editor/data/datasource/interface/editor_datasource_interface.dart';
@@ -24,6 +27,7 @@ class EditorRepository implements IEditorRepository {
 
   @override
   Future<HttpResponse> updateAvatar(UpdateAvatarRequest updateAvatarRequest) {
+    print(updateAvatarRequest.toJson());
     return ds.updateAvatar(updateAvatarRequest);
   }
 }

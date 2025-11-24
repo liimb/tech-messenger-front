@@ -26,7 +26,6 @@ class AvatarBloc extends Bloc<AvatarEvent, AvatarState> {
           _userData.avatar!.indexOf('/') + 1,
           _userData.avatar!.indexOf(';'),
         );
-        print(extension);
         final dir = await getApplicationDocumentsDirectory();
         final path = '${dir.path}/${userData.nickname}.$extension';
 

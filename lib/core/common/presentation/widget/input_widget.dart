@@ -22,6 +22,7 @@ class InputWidget extends StatelessWidget {
     this.textInputAction = TextInputAction.done,
     this.labelText = '',
     this.inputFormatters,
+    this.maxLines = 1,
   });
 
   final FormFieldValidator<String>? validator;
@@ -37,6 +38,7 @@ class InputWidget extends StatelessWidget {
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final dynamic inputFormatters;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,7 @@ class InputWidget extends StatelessWidget {
               obscureText: isObscured,
               keyboardType: keyboardType,
               textInputAction: textInputAction,
+              maxLines: maxLines,
               style: isSearchInput
                   ? context.appTextTheme.body1
                   : context.appTextTheme.heading2,

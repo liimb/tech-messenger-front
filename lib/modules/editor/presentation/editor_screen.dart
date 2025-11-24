@@ -126,6 +126,9 @@ class _EditorScreenState extends State<EditorScreen> {
                                     String? newAvatar = await context
                                         .read<EditorBloc>()
                                         .pickImageAndEncode();
+                                    print(
+                                      "avatar length = ${newAvatar!.length}",
+                                    );
                                     if (newAvatar != null && context.mounted) {
                                       context.read<EditorBloc>().add(
                                         EditorEvent.avatarChanged(newAvatar),
@@ -202,40 +205,54 @@ class _EditorScreenState extends State<EditorScreen> {
                                     spacing: p8,
                                     children: [
                                       Expanded(
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: context
-                                                    .appColors
-                                                    .errorColor,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(p24),
-                                            ),
-                                            contentPadding: EdgeInsets.all(p16),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(p24),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: context
-                                                    .appColors
-                                                    .primaryColor700,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(p24),
-                                            ),
-                                          ),
-                                          maxLines: null,
+                                        child: InputWidget(
                                           controller: descriptionController,
                                           validator: (value) =>
                                               AppValidators.correctNameValidator(
                                                 value,
                                                 context,
                                               ),
+                                          maxLines: null,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.deny(
+                                              RegExp(r'\s\s'),
+                                            ),
+                                          ],
                                         ),
+                                        // TextFormField(
+                                        //   decoration: InputDecoration(
+                                        //     errorBorder: OutlineInputBorder(
+                                        //       borderSide: BorderSide(
+                                        //         color: context
+                                        //             .appColors
+                                        //             .errorColor,
+                                        //       ),
+                                        //       borderRadius:
+                                        //           BorderRadius.circular(p24),
+                                        //     ),
+                                        //     contentPadding: EdgeInsets.all(p16),
+                                        //     border: OutlineInputBorder(
+                                        //       borderRadius:
+                                        //           BorderRadius.circular(p24),
+                                        //     ),
+                                        //     enabledBorder: OutlineInputBorder(
+                                        //       borderSide: BorderSide(
+                                        //         color: context
+                                        //             .appColors
+                                        //             .primaryColor700,
+                                        //       ),
+                                        //       borderRadius:
+                                        //           BorderRadius.circular(p24),
+                                        //     ),
+                                        //   ),
+                                        //   maxLines: null,
+                                        //   controller: descriptionController,
+                                        //   validator: (value) =>
+                                        //       AppValidators.correctNameValidator(
+                                        //         value,
+                                        //         context,
+                                        //       ),
+                                        // ),
                                       ),
                                       ElevatedButton(
                                         onPressed:

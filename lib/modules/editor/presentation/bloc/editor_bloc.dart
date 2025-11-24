@@ -12,6 +12,7 @@ import 'package:tech_messenger/modules/editor/domain/model/update_name.dart';
 import 'package:tech_messenger/modules/editor/domain/repository/editor_repository_interface.dart';
 import 'package:tech_messenger/modules/error/error_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 
 part 'editor_event.dart';
 part 'editor_state.dart';
@@ -26,10 +27,13 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile == null) return null;
 
-    final bytes = await File(pickedFile.path).readAsBytes();
-    final extension = pickedFile.path.split('.').last.toLowerCase();
+    final file = File(pickedFile.path);
+    final bytes = await file.readAsBytes();
 
-    return 'data:image/$extension;base64,${base64Encode(bytes)}';
+    final mimeType =
+        lookupMimeType(pickedFile.path, headerBytes: bytes) ?? 'image/jpeg';
+
+    return 'data:$mimeType;base64,${base64Encode(bytes)}';
   }
 
   EditorBloc({required IEditorRepository editorRepository})
@@ -100,16 +104,16 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
   ) async {
     try {
       emit(EditorState.loading());
-
       final response = await _editorRepository.updateAvatar(
         UpdateAvatarRequest(avatar: event.newAvatar),
       );
-
+      // print(response.response.data);
       if (response.response.statusCode == 200) {
         emit(EditorState.success());
       } else {
-        final error = ErrorModel.fromJson(response.response.data);
-        emit(EditorState.error(error.message));
+        // final error = ErrorModel.fromJson(response.response.data);
+        // emit(EditorState.error(error.message));
+        emit(EditorState.error("Ошибка"));
       }
     } catch (e) {
       emit(EditorState.error('Неизвестная ошибка'));

@@ -17,26 +17,28 @@ class UserRepository implements IUserRepository {
 
   @override
   Future<HttpResponse> fetchUser() async {
-    final cachedUser = await _local.getUser();
-    if (cachedUser != null) {
-      final fakeResponse = Response(
-        requestOptions: RequestOptions(path: '/user/info'),
-        statusCode: 200,
-        data: cachedUser.toJson(),
-      );
-      return HttpResponse(cachedUser.toJson(), fakeResponse);
-    } else {
-      try {
-        final response = await _ds.fetchUser();
+    try {
+      final response = await _ds.fetchUser();
 
-        final data = response.data;
+      final data = response.data;
+      final user = UserModel.fromJson(data);
 
-        final user = UserModel.fromJson(data);
-        await _local.saveUser(user);
-        return HttpResponse(user.toJson(), response.response);
-      } catch (e) {
-        rethrow;
+      await _local.saveUser(user);
+
+      return HttpResponse(user.toJson(), response.response);
+    } catch (e) {
+      final cachedUser = await _local.getUser();
+
+      if (cachedUser != null) {
+        final fakeResponse = Response(
+          requestOptions: RequestOptions(path: '/user/info'),
+          statusCode: 200,
+          data: cachedUser.toJson(),
+        );
+
+        return HttpResponse(cachedUser.toJson(), fakeResponse);
       }
+      rethrow;
     }
   }
 

@@ -16,6 +16,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     : _userRepository = userRepository,
       super(UserLoadingState()) {
     on<UserFetchEvent>(_onFetchUser);
+    on<UserGetCachedEvent>(_onGetCachedUser);
   }
 
   Future<void> _onFetchUser(
@@ -32,6 +33,23 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
     } catch (e, st) {
       AppLogger.error('Ошибка при fetchUser():\n${e}\n${st}');
+    }
+  }
+
+  Future<void> _onGetCachedUser(
+    UserGetCachedEvent event,
+    Emitter<UserState> emit,
+  ) async {
+    try {
+      emit(UserState.loading());
+      final user = await _userRepository.getCachedUser();
+      if (user != null) {
+        emit(UserState.loaded(user));
+      } else {
+        AppLogger.error('Ошибка при getCachedUser():\n${user}');
+      }
+    } catch (e, st) {
+      AppLogger.error('Ошибка при getCachedUser():\n${e}\n${st}');
     }
   }
 }

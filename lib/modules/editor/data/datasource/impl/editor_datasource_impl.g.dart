@@ -19,13 +19,13 @@ class _EditorDatasource implements EditorDatasource {
 
   @override
   Future<HttpResponse<dynamic>> updateName(UpdateNameRequest request) async {
-    final _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{'requiresAuth': true};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = request;
     final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(
-            method: 'POST',
+            method: 'PATCH',
             headers: _headers,
             extra: _extra,
             responseType: ResponseType.plain,
@@ -48,13 +48,13 @@ class _EditorDatasource implements EditorDatasource {
   Future<HttpResponse<dynamic>> updateDescription(
     UpdateDescriptionRequest request,
   ) async {
-    final _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{'requiresAuth': true};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = request;
     final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(
-            method: 'POST',
+            method: 'PATCH',
             headers: _headers,
             extra: _extra,
             responseType: ResponseType.plain,
@@ -77,13 +77,13 @@ class _EditorDatasource implements EditorDatasource {
   Future<HttpResponse<dynamic>> updateAvatar(
     UpdateAvatarRequest request,
   ) async {
-    final _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{'requiresAuth': true};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = request;
     final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(
-            method: 'POST',
+            method: 'PATCH',
             headers: _headers,
             extra: _extra,
             responseType: ResponseType.plain,
