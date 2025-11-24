@@ -73,13 +73,30 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   void _onChatsUpdated(ChatsUpdatedEvent event, Emitter<ChatState> emit) {
-    final chats = List<ChatModel>.from(event.chats);
-    chats.sort((a, b) {
+    final currentChats = state.maybeWhen(
+      loaded: (chats) => List<ChatModel>.from(chats),
+      orElse: () => <ChatModel>[],
+    );
+
+    if (event.chats.isEmpty) {
+      return;
+    }
+
+    final Map<String, ChatModel> map = {for (final c in currentChats) c.id: c};
+
+    for (final updated in event.chats) {
+      final id = updated.id;
+      map[id] = updated;
+    }
+
+    final merged = map.values.toList();
+    merged.sort((a, b) {
       if (a.lastMessageTime == null) return 1;
       if (b.lastMessageTime == null) return -1;
       return b.lastMessageTime!.compareTo(a.lastMessageTime!);
     });
-    emit(ChatState.loaded(chats: chats));
+
+    emit(ChatState.loaded(chats: merged));
   }
 
   @override
