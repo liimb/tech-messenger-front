@@ -18,9 +18,13 @@ _ChatModel _$ChatModelFromJson(Map<String, dynamic> json) => _ChatModel(
           ?.map((e) => MessageModel.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const <MessageModel>[],
-  user: json['user'] == null
-      ? null
-      : UserModel.fromJson(json['user'] as Map<String, dynamic>),
+  interlocutors:
+      (json['interlocutors'] as List<dynamic>?)
+          ?.map(
+            (e) => ChatInterlocutorModel.fromJson(e as Map<String, dynamic>),
+          )
+          .toList() ??
+      const <ChatInterlocutorModel>[],
 );
 
 Map<String, dynamic> _$ChatModelToJson(_ChatModel instance) =>
@@ -32,5 +36,5 @@ Map<String, dynamic> _$ChatModelToJson(_ChatModel instance) =>
         instance.lastMessageTime,
       ),
       'messages': instance.messages,
-      'user': instance.user,
+      'interlocutors': instance.interlocutors,
     };

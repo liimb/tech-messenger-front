@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tech_messenger/app/app_logger.dart';
 import 'package:tech_messenger/core/common/secure_storage/secure_storage.dart';
 import 'package:tech_messenger/core/common/user_local_storage/user_local_storage.dart';
-import 'package:tech_messenger/modules/chat/domain/model/chat_model.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat/chat_model.dart';
 import 'package:tech_messenger/modules/chat/domain/repository/chat_repository_interface.dart';
 
 part 'chat_event.dart';

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tech_messenger/app/app_config.dart';
 import 'package:tech_messenger/core/network/stomp_service.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
+import 'package:tech_messenger/modules/chat/data/datasource/impl/chat_datasource_impl.dart';
 import 'package:tech_messenger/modules/chat/data/repository/chat_repository_impl.dart';
 import 'package:tech_messenger/modules/chat/domain/repository/chat_repository_interface.dart';
 import 'package:tech_messenger/modules/chat/presentation/bloc/chat_bloc.dart';
@@ -73,7 +74,10 @@ class AppProviders extends StatelessWidget {
           ),
         ),
         RepositoryProvider<IChatRepository>(
-          create: (context) => ChatRepository(stomp: config.stompService),
+          create: (context) => ChatRepository(
+            stomp: config.stompService,
+            chatDatasource: ChatDatasource(config.dio, baseUrl: config.baseUrl),
+          ),
         ),
       ],
       child: MultiBlocProvider(

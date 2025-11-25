@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tech_messenger/modules/chat/domain/model/interlocutor/chat_interlocutor_model.dart';
 import 'package:tech_messenger/modules/message/domain/model/message_model.dart';
 import 'package:tech_messenger/modules/user/domain/model/user_model.dart';
 
@@ -17,7 +18,9 @@ sealed class ChatModel with _$ChatModel {
     @JsonKey(name: "messages")
     @Default(<MessageModel>[])
     List<MessageModel> messages,
-    @JsonKey(name: "user") UserModel? user,
+    @JsonKey(name: "interlocutors")
+    @Default(<ChatInterlocutorModel>[])
+    List<ChatInterlocutorModel> interlocutors,
   }) = _ChatModel;
 
   factory ChatModel.fromJson(Map<String, dynamic> json) =>

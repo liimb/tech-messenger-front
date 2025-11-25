@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tech_messenger/modules/chat/domain/model/chat_model.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat/chat_model.dart';
 import 'package:tech_messenger/modules/message/presentation/widget/message.dart';
 
 class Chat extends StatelessWidget {
