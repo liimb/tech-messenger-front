@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tech_messenger/core/constant/avatar_size.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
-import 'package:tech_messenger/modules/chat/domain/model/chat_entry.dart';
-import 'package:tech_messenger/modules/chat/domain/model/chat_model.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat/chat_entry.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat/chat_model.dart';
 import 'package:tech_messenger/modules/chat/presentation/widget/chat.dart';
 import 'package:tech_messenger/modules/chat/presentation/widget/chat_input.dart';
 import 'package:tech_messenger/modules/user/domain/model/user_model.dart';
@@ -34,9 +34,13 @@ class _ChatScreenState extends State<ChatScreen> {
 
     widget.chatEntry.when(
       existing: (e) {
-        title = e.name;
+        final interlocutor = e.interlocutors.first;
+        title = interlocutor.name;
         chatData = e;
-        companionUser = e.user;
+        companionUser = UserModel(
+          nickname: interlocutor.nickname,
+          name: interlocutor.name,
+        );
       },
       withUser: (e) {
         title = e.name;

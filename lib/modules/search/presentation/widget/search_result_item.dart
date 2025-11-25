@@ -5,7 +5,7 @@ import 'package:tech_messenger/core/constant/avatar_size.dart';
 import 'package:tech_messenger/core/routing/app_routing.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
 import 'package:tech_messenger/modules/avatar/presentation/avatar_widget.dart';
-import 'package:tech_messenger/modules/chat/domain/model/chat_entry.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat/chat_entry.dart';
 import 'package:tech_messenger/modules/user/domain/model/user_model.dart';
 
 class SearchResultItem extends StatelessWidget {

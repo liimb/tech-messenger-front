@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tech_messenger/core/routing/build_animation.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
-import 'package:tech_messenger/modules/chat/domain/model/chat_entry.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat/chat_entry.dart';
 import 'package:tech_messenger/modules/chat/presentation/chat_screen.dart';
 import 'package:tech_messenger/modules/editor/presentation/editor_screen.dart';
 import 'package:tech_messenger/modules/home/presentation/home_screen.dart';

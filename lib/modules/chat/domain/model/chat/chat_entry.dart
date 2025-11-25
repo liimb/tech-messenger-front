@@ -1,4 +1,4 @@
-import 'package:tech_messenger/modules/chat/domain/model/chat_model.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat/chat_model.dart';
 import 'package:tech_messenger/modules/user/domain/model/user_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
