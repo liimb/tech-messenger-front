@@ -11,35 +11,35 @@ class AppPalette extends ThemeExtension<AppPalette> {
   final Color surfaceContainer;
   final Color surfaceContainerHigh;
   final Color surfaceContainerHighest;
-  
+
   final Color primaryColor300;
   final Color primaryColor700;
   final Color primaryContainer;
   final Color onPrimary;
   final Color onPrimaryContainer;
-  
+
   final Color secondaryColor100;
   final Color secondaryContainer;
   final Color onSecondary;
   final Color onSecondaryContainer;
-  
+
   final Color tertiaryContainer;
   final Color onTertiary;
   final Color onTertiaryContainer;
-  
+
   final Color textColor0;
   final Color textColor100;
   final Color onSurface;
   final Color onSurfaceVariant;
-  
+
   final Color errorColor;
   final Color errorContainer;
   final Color onError;
   final Color onErrorContainer;
-  
+
   final Color outline;
   final Color outlineVariant;
-  
+
   const AppPalette({
     required this.neutralColor0,
     required this.neutralColor100,
@@ -114,11 +114,13 @@ class AppPalette extends ThemeExtension<AppPalette> {
       neutralColor100: neutralColor100 ?? this.neutralColor100,
       surfaceDim: surfaceDim ?? this.surfaceDim,
       surfaceBright: surfaceBright ?? this.surfaceBright,
-      surfaceContainerLowest: surfaceContainerLowest ?? this.surfaceContainerLowest,
+      surfaceContainerLowest:
+          surfaceContainerLowest ?? this.surfaceContainerLowest,
       surfaceContainerLow: surfaceContainerLow ?? this.surfaceContainerLow,
       surfaceContainer: surfaceContainer ?? this.surfaceContainer,
       surfaceContainerHigh: surfaceContainerHigh ?? this.surfaceContainerHigh,
-      surfaceContainerHighest: surfaceContainerHighest ?? this.surfaceContainerHighest,
+      surfaceContainerHighest:
+          surfaceContainerHighest ?? this.surfaceContainerHighest,
       primaryColor300: primaryColor300 ?? this.primaryColor300,
       primaryColor700: primaryColor700 ?? this.primaryColor700,
       primaryContainer: primaryContainer ?? this.primaryContainer,
@@ -154,31 +156,87 @@ class AppPalette extends ThemeExtension<AppPalette> {
       neutralColor100: Color.lerp(neutralColor100, other.neutralColor100, t)!,
       surfaceDim: Color.lerp(surfaceDim, other.surfaceDim, t)!,
       surfaceBright: Color.lerp(surfaceBright, other.surfaceBright, t)!,
-      surfaceContainerLowest: Color.lerp(surfaceContainerLowest, other.surfaceContainerLowest, t)!,
-      surfaceContainerLow: Color.lerp(surfaceContainerLow, other.surfaceContainerLow, t)!,
-      surfaceContainer: Color.lerp(surfaceContainer, other.surfaceContainer, t)!,
-      surfaceContainerHigh: Color.lerp(surfaceContainerHigh, other.surfaceContainerHigh, t)!,
-      surfaceContainerHighest: Color.lerp(surfaceContainerHighest, other.surfaceContainerHighest, t)!,
+      surfaceContainerLowest: Color.lerp(
+        surfaceContainerLowest,
+        other.surfaceContainerLowest,
+        t,
+      )!,
+      surfaceContainerLow: Color.lerp(
+        surfaceContainerLow,
+        other.surfaceContainerLow,
+        t,
+      )!,
+      surfaceContainer: Color.lerp(
+        surfaceContainer,
+        other.surfaceContainer,
+        t,
+      )!,
+      surfaceContainerHigh: Color.lerp(
+        surfaceContainerHigh,
+        other.surfaceContainerHigh,
+        t,
+      )!,
+      surfaceContainerHighest: Color.lerp(
+        surfaceContainerHighest,
+        other.surfaceContainerHighest,
+        t,
+      )!,
       primaryColor300: Color.lerp(primaryColor300, other.primaryColor300, t)!,
       primaryColor700: Color.lerp(primaryColor700, other.primaryColor700, t)!,
-      primaryContainer: Color.lerp(primaryContainer, other.primaryContainer, t)!,
+      primaryContainer: Color.lerp(
+        primaryContainer,
+        other.primaryContainer,
+        t,
+      )!,
       onPrimary: Color.lerp(onPrimary, other.onPrimary, t)!,
-      onPrimaryContainer: Color.lerp(onPrimaryContainer, other.onPrimaryContainer, t)!,
-      secondaryColor100: Color.lerp(secondaryColor100, other.secondaryColor100, t)!,
-      secondaryContainer: Color.lerp(secondaryContainer, other.secondaryContainer, t)!,
+      onPrimaryContainer: Color.lerp(
+        onPrimaryContainer,
+        other.onPrimaryContainer,
+        t,
+      )!,
+      secondaryColor100: Color.lerp(
+        secondaryColor100,
+        other.secondaryColor100,
+        t,
+      )!,
+      secondaryContainer: Color.lerp(
+        secondaryContainer,
+        other.secondaryContainer,
+        t,
+      )!,
       onSecondary: Color.lerp(onSecondary, other.onSecondary, t)!,
-      onSecondaryContainer: Color.lerp(onSecondaryContainer, other.onSecondaryContainer, t)!,
-      tertiaryContainer: Color.lerp(tertiaryContainer, other.tertiaryContainer, t)!,
+      onSecondaryContainer: Color.lerp(
+        onSecondaryContainer,
+        other.onSecondaryContainer,
+        t,
+      )!,
+      tertiaryContainer: Color.lerp(
+        tertiaryContainer,
+        other.tertiaryContainer,
+        t,
+      )!,
       onTertiary: Color.lerp(onTertiary, other.onTertiary, t)!,
-      onTertiaryContainer: Color.lerp(onTertiaryContainer, other.onTertiaryContainer, t)!,
+      onTertiaryContainer: Color.lerp(
+        onTertiaryContainer,
+        other.onTertiaryContainer,
+        t,
+      )!,
       textColor0: Color.lerp(textColor0, other.textColor0, t)!,
       textColor100: Color.lerp(textColor100, other.textColor100, t)!,
       onSurface: Color.lerp(onSurface, other.onSurface, t)!,
-      onSurfaceVariant: Color.lerp(onSurfaceVariant, other.onSurfaceVariant, t)!,
+      onSurfaceVariant: Color.lerp(
+        onSurfaceVariant,
+        other.onSurfaceVariant,
+        t,
+      )!,
       errorColor: Color.lerp(errorColor, other.errorColor, t)!,
       errorContainer: Color.lerp(errorContainer, other.errorContainer, t)!,
       onError: Color.lerp(onError, other.onError, t)!,
-      onErrorContainer: Color.lerp(onErrorContainer, other.onErrorContainer, t)!,
+      onErrorContainer: Color.lerp(
+        onErrorContainer,
+        other.onErrorContainer,
+        t,
+      )!,
       outline: Color.lerp(outline, other.outline, t)!,
       outlineVariant: Color.lerp(outlineVariant, other.outlineVariant, t)!,
     );

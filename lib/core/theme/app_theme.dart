@@ -45,7 +45,7 @@ class AppTheme {
       side: BorderSide(color: lightColors.primaryColor700),
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: lightColors.neutralColor100,
+      backgroundColor: lightColors.primaryColor700,
       foregroundColor: lightColors.textColor0,
       elevation: 0,
       scrolledUnderElevation: 2,
@@ -153,7 +153,7 @@ class AppTheme {
       side: BorderSide(color: darkColors.primaryColor300),
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: darkColors.neutralColor100,
+      backgroundColor: darkColors.neutralColor0,
       foregroundColor: darkColors.textColor0,
       elevation: 0,
       scrolledUnderElevation: 2,
