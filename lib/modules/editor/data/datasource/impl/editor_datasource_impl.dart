@@ -13,19 +13,19 @@ abstract class EditorDatasource implements IEditorDatasource {
       _EditorDatasource;
 
   @override
-  @POST('/updateName')
+  @POST('/user/name')
   @DioResponseType(ResponseType.plain)
   Future<HttpResponse> updateName(@Body() UpdateNameRequest request);
 
   @override
-  @POST('/updateDescription')
+  @POST('/user/description')
   @DioResponseType(ResponseType.plain)
   Future<HttpResponse> updateDescription(
     @Body() UpdateDescriptionRequest request,
   );
 
   @override
-  @POST('/updateAvatar')
+  @POST('/user/avatar')
   @DioResponseType(ResponseType.plain)
   Future<HttpResponse> updateAvatar(@Body() UpdateAvatarRequest request);
 }

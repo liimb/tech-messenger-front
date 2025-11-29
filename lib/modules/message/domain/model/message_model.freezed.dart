@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MessageModel {
 
-@JsonKey(name: 'id') String get id;@JsonKey(name: 'text') String get text;@JsonKey(name: 'sendtime') DateTime get sendTime;@JsonKey(name: 'author') UserModel get author;
+@JsonKey(name: 'id') String? get id;@JsonKey(name: 'senderName') String get senderName;@JsonKey(name: 'messageText') String get messageText;@JsonKey(name: 'sentTime')@DateTimeConverter() DateTime get sentTime;
 /// Create a copy of MessageModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $MessageModelCopyWith<MessageModel> get copyWith => _$MessageModelCopyWithImpl<M
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MessageModel&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.sendTime, sendTime) || other.sendTime == sendTime)&&(identical(other.author, author) || other.author == author));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MessageModel&&(identical(other.id, id) || other.id == id)&&(identical(other.senderName, senderName) || other.senderName == senderName)&&(identical(other.messageText, messageText) || other.messageText == messageText)&&(identical(other.sentTime, sentTime) || other.sentTime == sentTime));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,text,sendTime,author);
+int get hashCode => Object.hash(runtimeType,id,senderName,messageText,sentTime);
 
 @override
 String toString() {
-  return 'MessageModel(id: $id, text: $text, sendTime: $sendTime, author: $author)';
+  return 'MessageModel(id: $id, senderName: $senderName, messageText: $messageText, sentTime: $sentTime)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $MessageModelCopyWith<$Res>  {
   factory $MessageModelCopyWith(MessageModel value, $Res Function(MessageModel) _then) = _$MessageModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'id') String id,@JsonKey(name: 'text') String text,@JsonKey(name: 'sendtime') DateTime sendTime,@JsonKey(name: 'author') UserModel author
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'senderName') String senderName,@JsonKey(name: 'messageText') String messageText,@JsonKey(name: 'sentTime')@DateTimeConverter() DateTime sentTime
 });
 
 
-$UserModelCopyWith<$Res> get author;
+
 
 }
 /// @nodoc
@@ -65,25 +65,16 @@ class _$MessageModelCopyWithImpl<$Res>
 
 /// Create a copy of MessageModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? text = null,Object? sendTime = null,Object? author = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? senderName = null,Object? messageText = null,Object? sentTime = null,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
-as String,sendTime: null == sendTime ? _self.sendTime : sendTime // ignore: cast_nullable_to_non_nullable
-as DateTime,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
-as UserModel,
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,senderName: null == senderName ? _self.senderName : senderName // ignore: cast_nullable_to_non_nullable
+as String,messageText: null == messageText ? _self.messageText : messageText // ignore: cast_nullable_to_non_nullable
+as String,sentTime: null == sentTime ? _self.sentTime : sentTime // ignore: cast_nullable_to_non_nullable
+as DateTime,
   ));
 }
-/// Create a copy of MessageModel
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$UserModelCopyWith<$Res> get author {
-  
-  return $UserModelCopyWith<$Res>(_self.author, (value) {
-    return _then(_self.copyWith(author: value));
-  });
-}
+
 }
 
 
@@ -162,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String id, @JsonKey(name: 'text')  String text, @JsonKey(name: 'sendtime')  DateTime sendTime, @JsonKey(name: 'author')  UserModel author)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'senderName')  String senderName, @JsonKey(name: 'messageText')  String messageText, @JsonKey(name: 'sentTime')@DateTimeConverter()  DateTime sentTime)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MessageModel() when $default != null:
-return $default(_that.id,_that.text,_that.sendTime,_that.author);case _:
+return $default(_that.id,_that.senderName,_that.messageText,_that.sentTime);case _:
   return orElse();
 
 }
@@ -183,10 +174,10 @@ return $default(_that.id,_that.text,_that.sendTime,_that.author);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String id, @JsonKey(name: 'text')  String text, @JsonKey(name: 'sendtime')  DateTime sendTime, @JsonKey(name: 'author')  UserModel author)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'senderName')  String senderName, @JsonKey(name: 'messageText')  String messageText, @JsonKey(name: 'sentTime')@DateTimeConverter()  DateTime sentTime)  $default,) {final _that = this;
 switch (_that) {
 case _MessageModel():
-return $default(_that.id,_that.text,_that.sendTime,_that.author);}
+return $default(_that.id,_that.senderName,_that.messageText,_that.sentTime);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -200,10 +191,10 @@ return $default(_that.id,_that.text,_that.sendTime,_that.author);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String id, @JsonKey(name: 'text')  String text, @JsonKey(name: 'sendtime')  DateTime sendTime, @JsonKey(name: 'author')  UserModel author)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'senderName')  String senderName, @JsonKey(name: 'messageText')  String messageText, @JsonKey(name: 'sentTime')@DateTimeConverter()  DateTime sentTime)?  $default,) {final _that = this;
 switch (_that) {
 case _MessageModel() when $default != null:
-return $default(_that.id,_that.text,_that.sendTime,_that.author);case _:
+return $default(_that.id,_that.senderName,_that.messageText,_that.sentTime);case _:
   return null;
 
 }
@@ -215,13 +206,13 @@ return $default(_that.id,_that.text,_that.sendTime,_that.author);case _:
 @JsonSerializable()
 
 class _MessageModel implements MessageModel {
-  const _MessageModel({@JsonKey(name: 'id') required this.id, @JsonKey(name: 'text') required this.text, @JsonKey(name: 'sendtime') required this.sendTime, @JsonKey(name: 'author') required this.author});
+  const _MessageModel({@JsonKey(name: 'id') this.id, @JsonKey(name: 'senderName') this.senderName = 'Неизвестно', @JsonKey(name: 'messageText') this.messageText = '', @JsonKey(name: 'sentTime')@DateTimeConverter() required this.sentTime});
   factory _MessageModel.fromJson(Map<String, dynamic> json) => _$MessageModelFromJson(json);
 
-@override@JsonKey(name: 'id') final  String id;
-@override@JsonKey(name: 'text') final  String text;
-@override@JsonKey(name: 'sendtime') final  DateTime sendTime;
-@override@JsonKey(name: 'author') final  UserModel author;
+@override@JsonKey(name: 'id') final  String? id;
+@override@JsonKey(name: 'senderName') final  String senderName;
+@override@JsonKey(name: 'messageText') final  String messageText;
+@override@JsonKey(name: 'sentTime')@DateTimeConverter() final  DateTime sentTime;
 
 /// Create a copy of MessageModel
 /// with the given fields replaced by the non-null parameter values.
@@ -236,16 +227,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MessageModel&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.sendTime, sendTime) || other.sendTime == sendTime)&&(identical(other.author, author) || other.author == author));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MessageModel&&(identical(other.id, id) || other.id == id)&&(identical(other.senderName, senderName) || other.senderName == senderName)&&(identical(other.messageText, messageText) || other.messageText == messageText)&&(identical(other.sentTime, sentTime) || other.sentTime == sentTime));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,text,sendTime,author);
+int get hashCode => Object.hash(runtimeType,id,senderName,messageText,sentTime);
 
 @override
 String toString() {
-  return 'MessageModel(id: $id, text: $text, sendTime: $sendTime, author: $author)';
+  return 'MessageModel(id: $id, senderName: $senderName, messageText: $messageText, sentTime: $sentTime)';
 }
 
 
@@ -256,11 +247,11 @@ abstract mixin class _$MessageModelCopyWith<$Res> implements $MessageModelCopyWi
   factory _$MessageModelCopyWith(_MessageModel value, $Res Function(_MessageModel) _then) = __$MessageModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'id') String id,@JsonKey(name: 'text') String text,@JsonKey(name: 'sendtime') DateTime sendTime,@JsonKey(name: 'author') UserModel author
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'senderName') String senderName,@JsonKey(name: 'messageText') String messageText,@JsonKey(name: 'sentTime')@DateTimeConverter() DateTime sentTime
 });
 
 
-@override $UserModelCopyWith<$Res> get author;
+
 
 }
 /// @nodoc
@@ -273,26 +264,17 @@ class __$MessageModelCopyWithImpl<$Res>
 
 /// Create a copy of MessageModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? text = null,Object? sendTime = null,Object? author = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? senderName = null,Object? messageText = null,Object? sentTime = null,}) {
   return _then(_MessageModel(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
-as String,sendTime: null == sendTime ? _self.sendTime : sendTime // ignore: cast_nullable_to_non_nullable
-as DateTime,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
-as UserModel,
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,senderName: null == senderName ? _self.senderName : senderName // ignore: cast_nullable_to_non_nullable
+as String,messageText: null == messageText ? _self.messageText : messageText // ignore: cast_nullable_to_non_nullable
+as String,sentTime: null == sentTime ? _self.sentTime : sentTime // ignore: cast_nullable_to_non_nullable
+as DateTime,
   ));
 }
 
-/// Create a copy of MessageModel
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$UserModelCopyWith<$Res> get author {
-  
-  return $UserModelCopyWith<$Res>(_self.author, (value) {
-    return _then(_self.copyWith(author: value));
-  });
-}
+
 }
 
 // dart format on

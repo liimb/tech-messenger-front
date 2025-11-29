@@ -32,7 +32,7 @@ class _EditorDatasource implements EditorDatasource {
           )
           .compose(
             _dio.options,
-            '/updateName',
+            '/user/name',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -61,7 +61,7 @@ class _EditorDatasource implements EditorDatasource {
           )
           .compose(
             _dio.options,
-            '/updateDescription',
+            '/user/description',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -90,7 +90,7 @@ class _EditorDatasource implements EditorDatasource {
           )
           .compose(
             _dio.options,
-            '/updateAvatar',
+            '/user/avatar',
             queryParameters: queryParameters,
             data: _data,
           )

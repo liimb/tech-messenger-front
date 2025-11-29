@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tech_messenger/app/app_config.dart';
+import 'package:tech_messenger/core/network/stomp_service.dart';
 import 'package:tech_messenger/modules/auth/bloc/auth_bloc.dart';
-import 'package:tech_messenger/modules/avatar/presentation/bloc/avatar_bloc.dart';
+import 'package:tech_messenger/modules/chat/data/datasource/impl/chat_datasource_impl.dart';
+import 'package:tech_messenger/modules/chat/data/repository/chat_repository_impl.dart';
+import 'package:tech_messenger/modules/chat/domain/repository/chat_repository_interface.dart';
+import 'package:tech_messenger/modules/chat/presentation/bloc/chat_bloc.dart';
 import 'package:tech_messenger/modules/editor/data/datasource/impl/editor_datasource_impl.dart';
 import 'package:tech_messenger/modules/editor/data/repository/editor_repository_impl.dart';
 import 'package:tech_messenger/modules/editor/domain/repository/editor_repository_interface.dart';
-import 'package:tech_messenger/modules/editor/presentation/bloc/editor_bloc.dart';
 import 'package:tech_messenger/modules/jwt/data/datasource/impl/jwt_datasource_impl.dart';
 import 'package:tech_messenger/modules/jwt/data/repository/jwt_repository_impl.dart';
 import 'package:tech_messenger/modules/jwt/domain/repository/jwt_repository_interface.dart';
@@ -25,7 +28,6 @@ import 'package:tech_messenger/modules/search/presentation/bloc/search_bloc.dart
 import 'package:tech_messenger/modules/settings/bloc/settings_bloc.dart';
 import 'package:tech_messenger/modules/user/data/datasource/impl/user_datasource_impl.dart';
 import 'package:tech_messenger/modules/user/data/repository/user_repository_impl.dart';
-import 'package:tech_messenger/core/common/user_local_storage/user_local_storage.dart';
 import 'package:tech_messenger/modules/user/domain/repository/user_repository_interface.dart';
 import 'package:tech_messenger/modules/user/presentation/bloc/user_bloc.dart';
 
@@ -39,6 +41,7 @@ class AppProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<StompService>.value(value: config.stompService),
         RepositoryProvider<IRegistrationRepository>(
           create: (context) => RegistrationRepository(
             ds: RegistrationDatasource(config.dio, baseUrl: config.baseUrl),
@@ -68,6 +71,12 @@ class AppProviders extends StatelessWidget {
         RepositoryProvider<IEditorRepository>(
           create: (context) => EditorRepository(
             ds: EditorDatasource(config.dio, baseUrl: config.baseUrl),
+          ),
+        ),
+        RepositoryProvider<IChatRepository>(
+          create: (context) => ChatRepository(
+            stomp: config.stompService,
+            chatDatasource: ChatDatasource(config.dio, baseUrl: config.baseUrl),
           ),
         ),
       ],
@@ -100,10 +109,23 @@ class AppProviders extends StatelessWidget {
             create: (context) =>
                 SearchBloc(searchRepository: context.read<ISearchRepository>()),
           ),
+          BlocProvider(
+            create: (context) => ChatBloc(
+              chatRepository: context.read<IChatRepository>(),
+              userStorage: config.userLocalStorage,
+              secureStorage: config.secureStorage,
+            ),
+          ),
         ],
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthHasState) {
+              config.stompService.activate();
+              config.stompService.onConnectionStateChanged.listen((connected) {
+                if (connected && context.mounted) {
+                  context.read<ChatBloc>().add(const ChatEvent.started());
+                }
+              });
               context.read<UserBloc>().add(const UserEvent.fetchUser());
             }
           },

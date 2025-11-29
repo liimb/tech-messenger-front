@@ -4,12 +4,14 @@ import 'package:tech_messenger/core/constant/app_padding.dart';
 import 'package:tech_messenger/core/constant/avatar_size.dart';
 import 'package:tech_messenger/core/routing/app_routing.dart';
 import 'package:tech_messenger/core/util/extension/build_context_x.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat/chat_entry.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat/chat_model.dart';
 import 'package:tech_messenger/modules/user/domain/model/user_model.dart';
 import 'package:tech_messenger/modules/avatar/presentation/avatar_widget.dart';
 
 class ChatlistItem extends StatelessWidget {
-  final UserModel userData;
-  const ChatlistItem({super.key, required this.userData});
+  final ChatModel chatModel;
+  const ChatlistItem({super.key, required this.chatModel});
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +43,18 @@ class ChatlistItem extends StatelessWidget {
         );
       },
       child: ListTile(
-        title: Text(userData.name),
+        title: Text(chatModel.name),
         leading: UserAvatarWidget(
-          userData: userData,
+          userData: UserModel(nickname: 'nickname', name: 'name'),
           avatarSize: AvatarSize.small,
         ),
-        subtitle: Text(userData.nickname),
+        subtitle: Text(chatModel.lastMessage ?? ''),
         contentPadding: EdgeInsets.symmetric(vertical: p8, horizontal: p32),
         onTap: () {
+          final entry = ChatEntry.existing(chat: chatModel);
           context.go(
             AppRoutes.home.routePath + AppRoutes.chat.routePath,
-            extra: userData,
+            extra: entry,
           );
         },
         tileColor: context.appTheme.hoverColor,

@@ -6,8 +6,6 @@ class SecureStorage {
   static const _accessToken = 'access_token';
   static const _refreshToken = 'refresh_token';
 
-  static const _userIdKey = 'user_id';
-
   final FlutterSecureStorage _storage;
 
   Future<void> saveToken(JwtModel jwt) async {
@@ -20,10 +18,6 @@ class SecureStorage {
     final refreshToken = await _storage.read(key: _refreshToken);
 
     if (accessToken == null || refreshToken == null) {
-      // return JwtModel(
-      //   accessToken: 'accessToken',
-      //   refreshToken: 'refreshToken',
-      // ); //TODO: убрать, когда появится домен
       return null;
     }
 

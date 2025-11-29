@@ -33,6 +33,7 @@ dependencies:
   skeletonizer: ^2.1.0+1
   shared_preferences: ^2.3.2
   image_picker: ^1.1.1
+  stomp_dart_client: ^3.0.1
   
 dev_dependencies:
   flutter_test:
