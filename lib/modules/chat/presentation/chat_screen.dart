@@ -132,12 +132,14 @@ class _ChatScreenState extends State<ChatScreen> {
         companionUser = UserModel(
           nickname: interlocutor.nickname,
           name: interlocutor.name,
+          avatar: interlocutor.avatar,
         );
       },
       withUser: (u) {
         companionUser = UserModel(
-          nickname: (u as dynamic).nickname as String? ?? '',
-          name: (u as dynamic).name as String? ?? '',
+          nickname: u.nickname,
+          name: u.name,
+          avatar: u.avatar,
         );
       },
     );

@@ -18,7 +18,11 @@ class SearchResultItem extends StatelessWidget {
       child: ListTile(
         title: Text(userModel.name),
         leading: UserAvatarWidget(
-          userData: UserModel(nickname: 'nickname', name: 'name'),
+          userData: UserModel(
+            nickname: userModel.nickname,
+            name: userModel.name,
+            avatar: userModel.avatar,
+          ),
           avatarSize: AvatarSize.small,
         ),
         subtitle: Text(userModel.nickname),
