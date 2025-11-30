@@ -31,7 +31,7 @@ class _EditorScreenState extends State<EditorScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<UserBloc>().add(UserEvent.fetchUser());
+    context.read<UserBloc>().add(UserEvent.getCachedUser());
     nameController = TextEditingController();
     descriptionController = TextEditingController();
   }
@@ -104,7 +104,6 @@ class _EditorScreenState extends State<EditorScreen> {
 
                       if (userState is UserLoadedState) {
                         user = userState.user;
-
                         nameController.text = user.name;
                         descriptionController.text = user.description ?? "";
                       }
@@ -119,6 +118,7 @@ class _EditorScreenState extends State<EditorScreen> {
                               children: [
                                 GestureDetector(
                                   child: UserAvatarWidget(
+                                    key: ValueKey(user.avatar),
                                     userData: user,
                                     avatarSize: AvatarSize.big,
                                   ),
@@ -126,9 +126,6 @@ class _EditorScreenState extends State<EditorScreen> {
                                     String? newAvatar = await context
                                         .read<EditorBloc>()
                                         .pickImageAndEncode();
-                                    print(
-                                      "avatar length = ${newAvatar!.length}",
-                                    );
                                     if (newAvatar != null && context.mounted) {
                                       context.read<EditorBloc>().add(
                                         EditorEvent.avatarChanged(newAvatar),
@@ -219,40 +216,6 @@ class _EditorScreenState extends State<EditorScreen> {
                                             ),
                                           ],
                                         ),
-                                        // TextFormField(
-                                        //   decoration: InputDecoration(
-                                        //     errorBorder: OutlineInputBorder(
-                                        //       borderSide: BorderSide(
-                                        //         color: context
-                                        //             .appColors
-                                        //             .errorColor,
-                                        //       ),
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(p24),
-                                        //     ),
-                                        //     contentPadding: EdgeInsets.all(p16),
-                                        //     border: OutlineInputBorder(
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(p24),
-                                        //     ),
-                                        //     enabledBorder: OutlineInputBorder(
-                                        //       borderSide: BorderSide(
-                                        //         color: context
-                                        //             .appColors
-                                        //             .primaryColor700,
-                                        //       ),
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(p24),
-                                        //     ),
-                                        //   ),
-                                        //   maxLines: null,
-                                        //   controller: descriptionController,
-                                        //   validator: (value) =>
-                                        //       AppValidators.correctNameValidator(
-                                        //         value,
-                                        //         context,
-                                        //       ),
-                                        // ),
                                       ),
                                       ElevatedButton(
                                         onPressed:

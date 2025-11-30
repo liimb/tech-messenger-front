@@ -34,7 +34,6 @@ class _ChatScreenState extends State<ChatScreen> {
     String title = '';
     ChatModel? chatData;
     UserModel? companionUser;
-    print(context.read<ChatBloc>());
     widget.chatEntry.when(
       existing: (e) {
         final interlocutor = e.interlocutors.first;

@@ -33,7 +33,10 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     final mimeType =
         lookupMimeType(pickedFile.path, headerBytes: bytes) ?? 'image/jpeg';
 
-    return 'data:$mimeType;base64,${base64Encode(bytes)}';
+    return await compute(
+      (List<int> b) => 'data:$mimeType;base64,${base64Encode(b)}',
+      bytes,
+    );
   }
 
   EditorBloc({required IEditorRepository editorRepository})
@@ -107,12 +110,11 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
       final response = await _editorRepository.updateAvatar(
         UpdateAvatarRequest(avatar: event.newAvatar),
       );
-      // print(response.response.data);
       if (response.response.statusCode == 200) {
         emit(EditorState.success());
       } else {
-        // final error = ErrorModel.fromJson(response.response.data);
-        // emit(EditorState.error(error.message));
+        final error = ErrorModel.fromJson(response.response.data);
+        emit(EditorState.error(error.message));
         emit(EditorState.error("Ошибка"));
       }
     } catch (e) {

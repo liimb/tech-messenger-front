@@ -27,7 +27,6 @@ class EditorRepository implements IEditorRepository {
 
   @override
   Future<HttpResponse> updateAvatar(UpdateAvatarRequest updateAvatarRequest) {
-    print(updateAvatarRequest.toJson());
     return ds.updateAvatar(updateAvatarRequest);
   }
 }

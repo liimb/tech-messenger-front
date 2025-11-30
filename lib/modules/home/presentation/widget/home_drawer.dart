@@ -53,14 +53,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       builder: (context, state) {
                         final isLoading = state is UserLoadingState;
 
-                        // String name = '';
-                        // String nickname = '';
-
                         UserModel user = UserModel(nickname: '', name: '');
 
                         if (state is UserLoadedState) {
-                          // name = state.user.name;
-                          // nickname = state.user.nickname;
                           user = state.user;
                         }
 
@@ -103,6 +98,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               userData: user,
                               avatarSize: AvatarSize.middle,
                             ),
+
                             SizedBox(width: p16),
                             Expanded(child: textBlock),
                           ],
