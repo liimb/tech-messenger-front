@@ -55,7 +55,7 @@ extension ChatEventPatterns on ChatEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ChatStartedEvent value)?  started,TResult Function( ChatCreateEvent value)?  create,TResult Function( ChatSelectEvent value)?  select,TResult Function( ChatRefreshEvent value)?  refresh,TResult Function( ChatsUpdatedEvent value)?  chatsUpdated,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ChatStartedEvent value)?  started,TResult Function( ChatCreateEvent value)?  create,TResult Function( ChatSelectEvent value)?  select,TResult Function( ChatRefreshEvent value)?  refresh,TResult Function( ChatsUpdatedEvent value)?  chatsUpdated,TResult Function( ChatClearSelectionEvent value)?  clearSelection,TResult Function( ChatResetEvent value)?  reset,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case ChatStartedEvent() when started != null:
@@ -63,7 +63,9 @@ return started(_that);case ChatCreateEvent() when create != null:
 return create(_that);case ChatSelectEvent() when select != null:
 return select(_that);case ChatRefreshEvent() when refresh != null:
 return refresh(_that);case ChatsUpdatedEvent() when chatsUpdated != null:
-return chatsUpdated(_that);case _:
+return chatsUpdated(_that);case ChatClearSelectionEvent() when clearSelection != null:
+return clearSelection(_that);case ChatResetEvent() when reset != null:
+return reset(_that);case _:
   return orElse();
 
 }
@@ -81,7 +83,7 @@ return chatsUpdated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ChatStartedEvent value)  started,required TResult Function( ChatCreateEvent value)  create,required TResult Function( ChatSelectEvent value)  select,required TResult Function( ChatRefreshEvent value)  refresh,required TResult Function( ChatsUpdatedEvent value)  chatsUpdated,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ChatStartedEvent value)  started,required TResult Function( ChatCreateEvent value)  create,required TResult Function( ChatSelectEvent value)  select,required TResult Function( ChatRefreshEvent value)  refresh,required TResult Function( ChatsUpdatedEvent value)  chatsUpdated,required TResult Function( ChatClearSelectionEvent value)  clearSelection,required TResult Function( ChatResetEvent value)  reset,}){
 final _that = this;
 switch (_that) {
 case ChatStartedEvent():
@@ -89,7 +91,9 @@ return started(_that);case ChatCreateEvent():
 return create(_that);case ChatSelectEvent():
 return select(_that);case ChatRefreshEvent():
 return refresh(_that);case ChatsUpdatedEvent():
-return chatsUpdated(_that);case _:
+return chatsUpdated(_that);case ChatClearSelectionEvent():
+return clearSelection(_that);case ChatResetEvent():
+return reset(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -106,7 +110,7 @@ return chatsUpdated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ChatStartedEvent value)?  started,TResult? Function( ChatCreateEvent value)?  create,TResult? Function( ChatSelectEvent value)?  select,TResult? Function( ChatRefreshEvent value)?  refresh,TResult? Function( ChatsUpdatedEvent value)?  chatsUpdated,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ChatStartedEvent value)?  started,TResult? Function( ChatCreateEvent value)?  create,TResult? Function( ChatSelectEvent value)?  select,TResult? Function( ChatRefreshEvent value)?  refresh,TResult? Function( ChatsUpdatedEvent value)?  chatsUpdated,TResult? Function( ChatClearSelectionEvent value)?  clearSelection,TResult? Function( ChatResetEvent value)?  reset,}){
 final _that = this;
 switch (_that) {
 case ChatStartedEvent() when started != null:
@@ -114,7 +118,9 @@ return started(_that);case ChatCreateEvent() when create != null:
 return create(_that);case ChatSelectEvent() when select != null:
 return select(_that);case ChatRefreshEvent() when refresh != null:
 return refresh(_that);case ChatsUpdatedEvent() when chatsUpdated != null:
-return chatsUpdated(_that);case _:
+return chatsUpdated(_that);case ChatClearSelectionEvent() when clearSelection != null:
+return clearSelection(_that);case ChatResetEvent() when reset != null:
+return reset(_that);case _:
   return null;
 
 }
@@ -131,14 +137,16 @@ return chatsUpdated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( ChatCreateModel chatCreate)?  create,TResult Function( String chatId)?  select,TResult Function()?  refresh,TResult Function( List<ChatModel> chats)?  chatsUpdated,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( ChatCreateModel chatCreate)?  create,TResult Function( String chatId)?  select,TResult Function()?  refresh,TResult Function( List<ChatModel> chats)?  chatsUpdated,TResult Function()?  clearSelection,TResult Function()?  reset,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ChatStartedEvent() when started != null:
 return started();case ChatCreateEvent() when create != null:
 return create(_that.chatCreate);case ChatSelectEvent() when select != null:
 return select(_that.chatId);case ChatRefreshEvent() when refresh != null:
 return refresh();case ChatsUpdatedEvent() when chatsUpdated != null:
-return chatsUpdated(_that.chats);case _:
+return chatsUpdated(_that.chats);case ChatClearSelectionEvent() when clearSelection != null:
+return clearSelection();case ChatResetEvent() when reset != null:
+return reset();case _:
   return orElse();
 
 }
@@ -156,14 +164,16 @@ return chatsUpdated(_that.chats);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( ChatCreateModel chatCreate)  create,required TResult Function( String chatId)  select,required TResult Function()  refresh,required TResult Function( List<ChatModel> chats)  chatsUpdated,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( ChatCreateModel chatCreate)  create,required TResult Function( String chatId)  select,required TResult Function()  refresh,required TResult Function( List<ChatModel> chats)  chatsUpdated,required TResult Function()  clearSelection,required TResult Function()  reset,}) {final _that = this;
 switch (_that) {
 case ChatStartedEvent():
 return started();case ChatCreateEvent():
 return create(_that.chatCreate);case ChatSelectEvent():
 return select(_that.chatId);case ChatRefreshEvent():
 return refresh();case ChatsUpdatedEvent():
-return chatsUpdated(_that.chats);case _:
+return chatsUpdated(_that.chats);case ChatClearSelectionEvent():
+return clearSelection();case ChatResetEvent():
+return reset();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -180,14 +190,16 @@ return chatsUpdated(_that.chats);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( ChatCreateModel chatCreate)?  create,TResult? Function( String chatId)?  select,TResult? Function()?  refresh,TResult? Function( List<ChatModel> chats)?  chatsUpdated,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( ChatCreateModel chatCreate)?  create,TResult? Function( String chatId)?  select,TResult? Function()?  refresh,TResult? Function( List<ChatModel> chats)?  chatsUpdated,TResult? Function()?  clearSelection,TResult? Function()?  reset,}) {final _that = this;
 switch (_that) {
 case ChatStartedEvent() when started != null:
 return started();case ChatCreateEvent() when create != null:
 return create(_that.chatCreate);case ChatSelectEvent() when select != null:
 return select(_that.chatId);case ChatRefreshEvent() when refresh != null:
 return refresh();case ChatsUpdatedEvent() when chatsUpdated != null:
-return chatsUpdated(_that.chats);case _:
+return chatsUpdated(_that.chats);case ChatClearSelectionEvent() when clearSelection != null:
+return clearSelection();case ChatResetEvent() when reset != null:
+return reset();case _:
   return null;
 
 }
@@ -471,6 +483,70 @@ as List<ChatModel>,
 
 
 }
+
+/// @nodoc
+
+
+class ChatClearSelectionEvent implements ChatEvent {
+  const ChatClearSelectionEvent();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatClearSelectionEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'ChatEvent.clearSelection()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class ChatResetEvent implements ChatEvent {
+  const ChatResetEvent();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatResetEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'ChatEvent.reset()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 mixin _$ChatState {

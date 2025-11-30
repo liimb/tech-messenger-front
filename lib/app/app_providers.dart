@@ -142,6 +142,14 @@ class AppProviders extends StatelessWidget {
                 }
               });
               context.read<UserBloc>().add(const UserEvent.fetchUser());
+            } else if (state is AuthNotState) {
+              // Очищаем чаты при выходе из аккаунта
+              if (context.mounted) {
+                context.read<ChatBloc>().add(const ChatEvent.reset());
+              }
+              // Деактивируем вебсокет и очищаем все подписки
+              config.stompService.deactivate();
+              config.stompService.clearAllSubscriptions();
             }
           },
           child: child,

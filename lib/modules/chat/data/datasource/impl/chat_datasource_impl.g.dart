@@ -19,7 +19,7 @@ class _ChatDatasource implements ChatDatasource {
 
   @override
   Future<HttpResponse<dynamic>> createChat(ChatCreateModel chatCreate) async {
-    final _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{'requiresAuth': true};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = chatCreate;

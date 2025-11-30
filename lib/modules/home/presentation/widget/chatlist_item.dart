@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tech_messenger/core/common/user_local_storage/user_local_storage.dart';
 import 'package:tech_messenger/core/constant/app_padding.dart';
 import 'package:tech_messenger/core/constant/avatar_size.dart';
 import 'package:tech_messenger/core/routing/app_routing.dart';
@@ -8,6 +10,7 @@ import 'package:tech_messenger/modules/chat/domain/model/chat/chat_entry.dart';
 import 'package:tech_messenger/modules/chat/domain/model/chat/chat_model.dart';
 import 'package:tech_messenger/modules/user/domain/model/user_model.dart';
 import 'package:tech_messenger/modules/avatar/presentation/avatar_widget.dart';
+import 'package:tech_messenger/modules/user/presentation/bloc/user_bloc.dart';
 
 class ChatlistItem extends StatelessWidget {
   final ChatModel chatModel;
@@ -15,51 +18,72 @@ class ChatlistItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onLongPress: () async {
-        final RenderBox overlay =
-            Overlay.of(context).context.findRenderObject() as RenderBox;
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, userState) {
+        final myUser = userState.whenOrNull(loaded: (user) => user);
 
-        final RenderBox itemBox = context.findRenderObject() as RenderBox;
-        final Offset position = itemBox.localToGlobal(Offset.zero);
+        if (myUser == null) {
+          return const SizedBox.shrink();
+        }
 
-        await showMenu(
-          context: context,
-          position: RelativeRect.fromLTRB(
-            overlay.size.width - position.dx + itemBox.size.width,
-            position.dy,
-            position.dx,
-            overlay.size.height - position.dy - itemBox.size.height,
-          ),
-          items: [
-            PopupMenuItem(
-              value: 'delete',
-              child: ListTile(
-                title: Text(context.l10n.delete),
-                leading: Icon(Icons.delete_rounded),
+        final interlocutor = chatModel.interlocutors.firstWhere(
+          (i) => i.nickname != myUser.nickname,
+          orElse: () => chatModel.interlocutors.first,
+        );
+
+        return GestureDetector(
+          onLongPress: () async {
+            final RenderBox overlay =
+                Overlay.of(context).context.findRenderObject() as RenderBox;
+
+            final RenderBox itemBox = context.findRenderObject() as RenderBox;
+            final Offset position = itemBox.localToGlobal(Offset.zero);
+
+            await showMenu(
+              context: context,
+              position: RelativeRect.fromLTRB(
+                overlay.size.width - position.dx + itemBox.size.width,
+                position.dy,
+                position.dx,
+                overlay.size.height - position.dy - itemBox.size.height,
               ),
+              items: [
+                PopupMenuItem(
+                  value: 'delete',
+                  child: ListTile(
+                    title: Text(context.l10n.delete),
+                    leading: const Icon(Icons.delete_rounded),
+                  ),
+                ),
+              ],
+            );
+          },
+          child: ListTile(
+            title: Text(interlocutor.name),
+            leading: UserAvatarWidget(
+              userData: UserModel(
+                nickname: interlocutor.nickname,
+                name: interlocutor.name,
+              ),
+              avatarSize: AvatarSize.small,
             ),
-          ],
+            subtitle: Text(chatModel.lastMessage ?? ''),
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: p8,
+              horizontal: p32,
+            ),
+            onTap: () {
+              final entry = ChatEntry.existing(chat: chatModel);
+              context.go(
+                AppRoutes.home.routePath + AppRoutes.chat.routePath,
+                extra: entry,
+              );
+            },
+            tileColor: context.appTheme.hoverColor,
+            splashColor: context.appTheme.highlightColor,
+          ),
         );
       },
-      child: ListTile(
-        title: Text(chatModel.name),
-        leading: UserAvatarWidget(
-          userData: UserModel(nickname: 'nickname', name: 'name'),
-          avatarSize: AvatarSize.small,
-        ),
-        subtitle: Text(chatModel.lastMessage ?? ''),
-        contentPadding: EdgeInsets.symmetric(vertical: p8, horizontal: p32),
-        onTap: () {
-          final entry = ChatEntry.existing(chat: chatModel);
-          context.go(
-            AppRoutes.home.routePath + AppRoutes.chat.routePath,
-            extra: entry,
-          );
-        },
-        tileColor: context.appTheme.hoverColor,
-        splashColor: context.appTheme.highlightColor,
-      ),
     );
   }
 }

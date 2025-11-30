@@ -29,42 +29,64 @@ class _ChatScreenState extends State<ChatScreen> {
 
   String? _companionId;
   String? _companionNickname;
+  ChatBloc? _chatBloc;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _chatBloc ??= context.read<ChatBloc>();
+  }
 
   @override
   void initState() {
     super.initState();
 
-    context.read<ChatBloc>().add(const ChatStartedEvent());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final chatBloc = _chatBloc ?? context.read<ChatBloc>();
+      chatBloc.add(const ChatStartedEvent());
 
-    widget.chatEntry.when(
-      existing: (e) {
-        context.read<ChatBloc>().add(ChatSelectEvent(e.id));
-        final interlocutor = e.interlocutors.first;
-        _companionNickname = interlocutor.nickname;
-      },
-      withUser: (u) {
-        _companionId = (u as dynamic).id as String?;
-        _companionNickname =
-            (u as dynamic).nickname as String? ??
-            (u as dynamic).name as String?;
-        () async {
-          final myUser = context.read<UserBloc>().state.when(
-            loading: () {},
+      widget.chatEntry.when(
+        existing: (e) {
+          chatBloc.add(ChatSelectEvent(e.id));
+          final myUser = context.read<UserBloc>().state.whenOrNull(
             loaded: (user) => user,
           );
-          if (myUser == null || _companionId == null) return;
-          final createModel = ChatCreateModel(
-            userIdOne: myUser.id ?? "",
-            userIdTwo: _companionId!,
+          final interlocutor = e.interlocutors.firstWhere(
+            (i) => i.nickname != (myUser?.nickname ?? ''),
+            orElse: () => e.interlocutors.first,
           );
-          context.read<ChatBloc>().add(ChatCreateEvent(createModel));
-        }();
-      },
-    );
+          _companionNickname = interlocutor.nickname;
+        },
+        withUser: (u) {
+          _companionId = (u as dynamic).id as String?;
+          _companionNickname =
+              (u as dynamic).nickname as String? ??
+              (u as dynamic).name as String?;
+          Future.microtask(() async {
+            if (!mounted) return;
+            final myUser = context.read<UserBloc>().state.whenOrNull(
+              loaded: (user) => user,
+            );
+            if (myUser == null || _companionId == null) return;
+
+            final createModel = ChatCreateModel(
+              userIdOne: myUser.id ?? "",
+              userIdTwo: _companionId!,
+            );
+
+            (_chatBloc ?? context.read<ChatBloc>()).add(
+              ChatCreateEvent(createModel),
+            );
+          });
+        },
+      );
+    });
   }
 
   @override
   void dispose() {
+    _chatBloc?.add(const ChatEvent.clearSelection());
     _messageController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -95,20 +117,24 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String title = '';
     UserModel? companionUser;
+
+    final myUser = context.read<UserBloc>().state.whenOrNull(
+      loaded: (user) => user,
+    );
 
     widget.chatEntry.when(
       existing: (e) {
-        final interlocutor = e.interlocutors.first;
-        title = interlocutor.name;
+        final interlocutor = e.interlocutors.firstWhere(
+          (i) => i.nickname != (myUser?.nickname ?? ''),
+          orElse: () => e.interlocutors.first,
+        );
         companionUser = UserModel(
           nickname: interlocutor.nickname,
           name: interlocutor.name,
         );
       },
       withUser: (u) {
-        title = (u as dynamic).name as String? ?? '';
         companionUser = UserModel(
           nickname: (u as dynamic).nickname as String? ?? '',
           name: (u as dynamic).name as String? ?? '',
@@ -128,7 +154,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   avatarSize: AvatarSize.small,
                 ),
               const SizedBox(width: 12),
-              Text(title, style: context.appTextTheme.heading1),
+              Text(
+                companionUser?.name ?? '',
+                style: context.appTextTheme.heading1,
+              ),
             ],
           ),
           leading: BackButton(
@@ -183,13 +212,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   },
                 ),
               ),
-
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SafeArea(
                   child: MessageInput(
                     controller: _messageController,
-                    onSend: () async {
+                    onSend: () {
                       final text = _messageController.text.trim();
                       if (text.isEmpty) return;
 
@@ -197,23 +225,17 @@ class _ChatScreenState extends State<ChatScreen> {
                       final currentChatId = _selectedChatIdFromState(state);
                       if (currentChatId == null) return;
 
-                      final myUser = context.read<UserBloc>().state.when(
-                        loading: () {},
-                        loaded: (user) => user,
-                      );
                       final senderName = myUser?.nickname ?? 'me';
 
-                      if (context.mounted) {
-                        context.read<MessageBloc>().add(
-                          MessageSendEvent(
-                            MessageSendModel(
-                              chatId: currentChatId,
-                              senderName: senderName,
-                              messageText: text,
-                            ),
+                      context.read<MessageBloc>().add(
+                        MessageSendEvent(
+                          MessageSendModel(
+                            chatId: currentChatId,
+                            senderName: senderName,
+                            messageText: text,
                           ),
-                        );
-                      }
+                        ),
+                      );
 
                       _messageController.clear();
                     },

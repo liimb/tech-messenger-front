@@ -8,4 +8,6 @@ class ChatEvent with _$ChatEvent {
   const factory ChatEvent.refresh() = ChatRefreshEvent;
   const factory ChatEvent.chatsUpdated(List<ChatModel> chats) =
       ChatsUpdatedEvent;
+  const factory ChatEvent.clearSelection() = ChatClearSelectionEvent;
+  const factory ChatEvent.reset() = ChatResetEvent;
 }

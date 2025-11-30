@@ -19,6 +19,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final SecureStorage _secureStorage;
   final UserLocalStorage _userStorage;
   StreamSubscription<List<ChatModel>>? _sub;
+  String? _pendingChatId;
+  bool _isSubscriptionActive = false;
+  String? _currentUserId;
 
   ChatBloc({
     required IChatRepository chatRepository,
@@ -33,6 +36,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<ChatRefreshEvent>(_onRefresh);
     on<ChatsUpdatedEvent>(_onChatsUpdated);
     on<ChatSelectEvent>(_onSelect);
+    on<ChatClearSelectionEvent>(_onClearSelection);
+    on<ChatResetEvent>(_onReset);
   }
 
   void _onSelect(ChatSelectEvent event, Emitter<ChatState> emit) {
@@ -44,20 +49,66 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     emit(ChatState.loaded(chats: currentChats, selectedChatId: event.chatId));
   }
 
+  void _onClearSelection(
+    ChatClearSelectionEvent event,
+    Emitter<ChatState> emit,
+  ) {
+    final currentChats = state.maybeWhen(
+      loaded: (chats, _) => List<ChatModel>.from(chats),
+      orElse: () => <ChatModel>[],
+    );
+
+    emit(ChatState.loaded(chats: currentChats, selectedChatId: null));
+  }
+
+  void _onReset(ChatResetEvent event, Emitter<ChatState> emit) {
+    _sub?.cancel();
+    _sub = null;
+    _isSubscriptionActive = false;
+    _pendingChatId = null;
+    _currentUserId = null;
+    // Очищаем контроллеры в репозитории, чтобы старые подписки не использовались
+    _chatRepository.dispose();
+    emit(const ChatState.initial());
+  }
+
   Future<void> _onCreate(ChatCreateEvent event, Emitter<ChatState> emit) async {
     try {
+      AppLogger.info(
+        'Creating chat with users: ${event.chatCreate.userIdOne} and ${event.chatCreate.userIdTwo} with body ${event.chatCreate.toJson()}',
+      );
       final response = await _chatRepository.createChat(event.chatCreate);
 
       if (response.response.statusCode == 200) {
         final createResp = ChatCreateResponse.fromJson(response.response.data);
         final newChatId = createResp.chatId;
+        AppLogger.info('Chat created successfully with ID: $newChatId');
 
-        add(ChatSelectEvent(newChatId));
+        // Сохраняем ID чата, который нужно выбрать после появления в списке
+        _pendingChatId = newChatId;
+
+        // Обновляем список чатов, чтобы новый чат появился
+        add(const ChatEvent.refresh());
+
+        // Также сразу выбираем чат, если он уже есть в текущем состоянии
+        final currentChats = state.maybeWhen(
+          loaded: (chats, _) => chats,
+          orElse: () => <ChatModel>[],
+        );
+        final chatExists = currentChats.any((chat) => chat.id == newChatId);
+        if (chatExists) {
+          add(ChatSelectEvent(newChatId));
+          _pendingChatId = null;
+        }
+      } else {
+        AppLogger.error(
+          'Create chat failed with status: ${response.response.statusCode} ${response.response.data}',
+        );
+        add(const ChatEvent.refresh());
       }
-
-      add(const ChatEvent.refresh());
     } catch (e) {
       AppLogger.error('Create chat error', e);
+      _pendingChatId = null;
     }
   }
 
@@ -70,9 +121,33 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     if (userId == null) return;
 
-    emit(const ChatState.loading());
+    // Если подписка уже активна для того же пользователя, не перезапускаем её
+    if (_isSubscriptionActive && _sub != null && _currentUserId == userId) {
+      // Просто обновляем список чатов, не меняя состояние на loading
+      add(const ChatEvent.refresh());
+      return;
+    }
+
+    // Если userId изменился, отменяем старую подписку
+    if (_currentUserId != null && _currentUserId != userId) {
+      _sub?.cancel();
+      _sub = null;
+      _isSubscriptionActive = false;
+      _chatRepository.dispose();
+    }
+
+    // Сохраняем текущее состояние, чтобы не скрывать список чатов
+    final currentState = state;
+    final shouldEmitLoading = currentState is ChatInitialState;
+
+    if (shouldEmitLoading) {
+      emit(const ChatState.loading());
+    }
+
     try {
       _sub?.cancel();
+      _currentUserId = userId;
+      _isSubscriptionActive = true;
       _sub = _chatRepository
           .watchChats(userId)
           .listen(
@@ -81,11 +156,17 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             },
             onError: (e) {
               AppLogger.error('ChatOnStartedEvent error', e);
+              _isSubscriptionActive = false;
+            },
+            onDone: () {
+              _isSubscriptionActive = false;
             },
           );
 
-      add(ChatEvent.refresh());
+      add(const ChatEvent.refresh());
     } catch (e) {
+      _isSubscriptionActive = false;
+      _currentUserId = null;
       emit(ChatState.failure(message: e.toString()));
     }
   }
@@ -103,17 +184,22 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   void _onChatsUpdated(ChatsUpdatedEvent event, Emitter<ChatState> emit) {
+    // Если приходит пустой список, устанавливаем состояние loaded с пустым списком
+    if (event.chats.isEmpty) {
+      emit(ChatState.loaded(chats: <ChatModel>[], selectedChatId: null));
+      _pendingChatId = null;
+      return;
+    }
+
     final currentChats = state.maybeWhen(
       loaded: (chats, selected) => List<ChatModel>.from(chats),
       orElse: () => <ChatModel>[],
     );
 
-    final String? prevSelected = state.maybeWhen(
+    String? prevSelected = state.maybeWhen(
       loaded: (chats, selected) => selected,
       orElse: () => null,
     );
-
-    if (event.chats.isEmpty) return;
 
     final Map<String, ChatModel> map = {for (final c in currentChats) c.id: c};
 
@@ -129,12 +215,32 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       return b.lastMessageTime!.compareTo(a.lastMessageTime!);
     });
 
+    // Если есть ожидающий чат для выбора и он появился в списке, выбираем его
+    if (_pendingChatId != null) {
+      final chatExists = merged.any((chat) => chat.id == _pendingChatId);
+      if (chatExists) {
+        AppLogger.info(
+          'Pending chat found in list, selecting: $_pendingChatId',
+        );
+        prevSelected = _pendingChatId;
+        _pendingChatId = null;
+      } else {
+        AppLogger.info(
+          'Pending chat $_pendingChatId not yet in list, waiting...',
+        );
+      }
+    }
+
+    AppLogger.info(
+      'Emitting loaded state with ${merged.length} chats, selected: $prevSelected',
+    );
     emit(ChatState.loaded(chats: merged, selectedChatId: prevSelected));
   }
 
   @override
   Future<void> close() {
     _sub?.cancel();
+    _isSubscriptionActive = false;
     _chatRepository.dispose();
     return super.close();
   }
