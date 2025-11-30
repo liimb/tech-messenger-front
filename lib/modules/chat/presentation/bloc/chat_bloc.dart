@@ -62,6 +62,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   void _onReset(ChatResetEvent event, Emitter<ChatState> emit) {
+    AppLogger.info('ChatResetEvent: resetting chat state, currentUserId: $_currentUserId');
     _sub?.cancel();
     _sub = null;
     _isSubscriptionActive = false;
@@ -70,6 +71,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     // Очищаем контроллеры в репозитории, чтобы старые подписки не использовались
     _chatRepository.dispose();
     emit(const ChatState.initial());
+    AppLogger.info('ChatResetEvent: reset complete');
   }
 
   Future<void> _onCreate(ChatCreateEvent event, Emitter<ChatState> emit) async {
@@ -119,10 +121,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     final user = await _userStorage.getUser();
     final userId = user?.id;
 
-    if (userId == null) return;
+    if (userId == null) {
+      AppLogger.warning('ChatStartedEvent: userId is null, cannot start');
+      return;
+    }
+
+    AppLogger.info('ChatStartedEvent: starting for userId: $userId, currentUserId: $_currentUserId');
 
     // Если подписка уже активна для того же пользователя, не перезапускаем её
     if (_isSubscriptionActive && _sub != null && _currentUserId == userId) {
+      AppLogger.info('ChatStartedEvent: subscription already active for same user, refreshing');
       // Просто обновляем список чатов, не меняя состояние на loading
       add(const ChatEvent.refresh());
       return;
@@ -130,6 +138,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     // Если userId изменился, отменяем старую подписку
     if (_currentUserId != null && _currentUserId != userId) {
+      AppLogger.info('ChatStartedEvent: userId changed from $_currentUserId to $userId, resetting subscription');
       _sub?.cancel();
       _sub = null;
       _isSubscriptionActive = false;
@@ -148,23 +157,30 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       _sub?.cancel();
       _currentUserId = userId;
       _isSubscriptionActive = true;
+      AppLogger.info('ChatStartedEvent: creating subscription for userId: $userId');
       _sub = _chatRepository
           .watchChats(userId)
           .listen(
             (chats) {
+              AppLogger.info('ChatStartedEvent: received ${chats.length} chats from stream');
               add(ChatEvent.chatsUpdated(chats));
             },
             onError: (e) {
               AppLogger.error('ChatOnStartedEvent error', e);
               _isSubscriptionActive = false;
+              _currentUserId = null;
             },
             onDone: () {
+              AppLogger.info('ChatStartedEvent: stream done');
               _isSubscriptionActive = false;
             },
+            cancelOnError: false,
           );
 
+      AppLogger.info('ChatStartedEvent: requesting chats refresh');
       add(const ChatEvent.refresh());
     } catch (e) {
+      AppLogger.error('ChatStartedEvent: exception during setup', e);
       _isSubscriptionActive = false;
       _currentUserId = null;
       emit(ChatState.failure(message: e.toString()));

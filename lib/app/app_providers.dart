@@ -132,26 +132,66 @@ class AppProviders extends StatelessWidget {
             )..add(MessageEvent.create()),
           ),
         ],
-        child: BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is AuthHasState) {
-              config.stompService.activate();
-              config.stompService.onConnectionStateChanged.listen((connected) {
-                if (connected && context.mounted) {
-                  context.read<ChatBloc>().add(const ChatEvent.started());
+        child: MultiBlocListener(
+          listeners: [
+            BlocListener<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is AuthHasState) {
+                  // Активируем вебсокет (не ждем, так как это может занять время)
+                  config.stompService.activate().then((_) {
+                    // После активации проверяем mounted и запускаем чаты если пользователь загружен
+                    if (context.mounted) {
+                      final userState = context.read<UserBloc>().state;
+                      if (userState is UserLoadedState) {
+                        context.read<ChatBloc>().add(const ChatEvent.started());
+                      }
+                    }
+                  }).catchError((e) {
+                    // Если активация не удалась, продолжаем
+                  });
+                  
+                  // Подписываемся на изменения состояния подключения для будущих переподключений
+                  // Это broadcast stream, поэтому можно подписываться несколько раз
+                  config.stompService.onConnectionStateChanged.listen((connected) {
+                    if (connected && context.mounted) {
+                      // Проверяем, что пользователь загружен перед запуском чатов
+                      final userState = context.read<UserBloc>().state;
+                      if (userState is UserLoadedState) {
+                        context.read<ChatBloc>().add(const ChatEvent.started());
+                      }
+                    }
+                  });
+                  
+                  // Загружаем пользователя
+                  context.read<UserBloc>().add(const UserEvent.fetchUser());
+                } else if (state is AuthNotState) {
+                  // Очищаем чаты при выходе из аккаунта
+                  if (context.mounted) {
+                    context.read<ChatBloc>().add(const ChatEvent.reset());
+                  }
+                  // Деактивируем вебсокет и очищаем все подписки
+                  config.stompService.deactivate();
+                  config.stompService.clearAllSubscriptions();
                 }
-              });
-              context.read<UserBloc>().add(const UserEvent.fetchUser());
-            } else if (state is AuthNotState) {
-              // Очищаем чаты при выходе из аккаунта
-              if (context.mounted) {
-                context.read<ChatBloc>().add(const ChatEvent.reset());
-              }
-              // Деактивируем вебсокет и очищаем все подписки
-              config.stompService.deactivate();
-              config.stompService.clearAllSubscriptions();
-            }
-          },
+              },
+            ),
+            BlocListener<UserBloc, UserState>(
+              listener: (context, state) {
+                // Когда пользователь загружен, запускаем загрузку чатов
+                if (state is UserLoadedState) {
+                  // Активируем вебсокет если еще не активирован
+                  if (!config.stompService.isActive) {
+                    config.stompService.activate();
+                  }
+                  
+                  // Если вебсокет уже подключен, сразу запускаем загрузку чатов
+                  if (config.stompService.isActive && context.mounted) {
+                    context.read<ChatBloc>().add(const ChatEvent.started());
+                  }
+                }
+              },
+            ),
+          ],
           child: child,
         ),
       ),
