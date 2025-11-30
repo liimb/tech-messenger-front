@@ -115,7 +115,6 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
       } else {
         final error = ErrorModel.fromJson(response.response.data);
         emit(EditorState.error(error.message));
-        emit(EditorState.error("Ошибка"));
       }
     } catch (e) {
       emit(EditorState.error('Неизвестная ошибка'));

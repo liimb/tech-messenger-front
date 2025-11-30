@@ -98,7 +98,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               userData: user,
                               avatarSize: AvatarSize.middle,
                             ),
-
                             SizedBox(width: p16),
                             Expanded(child: textBlock),
                           ],

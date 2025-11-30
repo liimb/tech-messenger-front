@@ -15,7 +15,7 @@ const AppPalette lightColors = AppPalette(
 
   // Primary colors
   primaryColor300: Color(0xffffb5a0),
-  primaryColor700: Color(0xff8f4c38),
+  primaryColor700: Color.fromARGB(255, 99, 56, 43),
   primaryContainer: Color(0xffffdbd1),
   onPrimary: Color(0xffffffff),
   onPrimaryContainer: Color(0xff723523),
