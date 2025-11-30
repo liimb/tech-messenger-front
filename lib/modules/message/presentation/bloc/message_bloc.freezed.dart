@@ -55,11 +55,12 @@ extension MessageEventPatterns on MessageEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( CreateEvent value)?  create,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( MessageCreateEvent value)?  create,TResult Function( MessageSendEvent value)?  sendMessage,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case CreateEvent() when create != null:
-return create(_that);case _:
+case MessageCreateEvent() when create != null:
+return create(_that);case MessageSendEvent() when sendMessage != null:
+return sendMessage(_that);case _:
   return orElse();
 
 }
@@ -77,11 +78,12 @@ return create(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( CreateEvent value)  create,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( MessageCreateEvent value)  create,required TResult Function( MessageSendEvent value)  sendMessage,}){
 final _that = this;
 switch (_that) {
-case CreateEvent():
-return create(_that);case _:
+case MessageCreateEvent():
+return create(_that);case MessageSendEvent():
+return sendMessage(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -98,11 +100,12 @@ return create(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( CreateEvent value)?  create,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( MessageCreateEvent value)?  create,TResult? Function( MessageSendEvent value)?  sendMessage,}){
 final _that = this;
 switch (_that) {
-case CreateEvent() when create != null:
-return create(_that);case _:
+case MessageCreateEvent() when create != null:
+return create(_that);case MessageSendEvent() when sendMessage != null:
+return sendMessage(_that);case _:
   return null;
 
 }
@@ -119,10 +122,11 @@ return create(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  create,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  create,TResult Function( MessageSendModel sendModel)?  sendMessage,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case CreateEvent() when create != null:
-return create();case _:
+case MessageCreateEvent() when create != null:
+return create();case MessageSendEvent() when sendMessage != null:
+return sendMessage(_that.sendModel);case _:
   return orElse();
 
 }
@@ -140,10 +144,11 @@ return create();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  create,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  create,required TResult Function( MessageSendModel sendModel)  sendMessage,}) {final _that = this;
 switch (_that) {
-case CreateEvent():
-return create();case _:
+case MessageCreateEvent():
+return create();case MessageSendEvent():
+return sendMessage(_that.sendModel);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -160,10 +165,11 @@ return create();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  create,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  create,TResult? Function( MessageSendModel sendModel)?  sendMessage,}) {final _that = this;
 switch (_that) {
-case CreateEvent() when create != null:
-return create();case _:
+case MessageCreateEvent() when create != null:
+return create();case MessageSendEvent() when sendMessage != null:
+return sendMessage(_that.sendModel);case _:
   return null;
 
 }
@@ -174,8 +180,8 @@ return create();case _:
 /// @nodoc
 
 
-class CreateEvent implements MessageEvent {
-  const CreateEvent();
+class MessageCreateEvent implements MessageEvent {
+  const MessageCreateEvent();
   
 
 
@@ -185,7 +191,7 @@ class CreateEvent implements MessageEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateEvent);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MessageCreateEvent);
 }
 
 
@@ -204,9 +210,84 @@ String toString() {
 
 
 /// @nodoc
+
+
+class MessageSendEvent implements MessageEvent {
+  const MessageSendEvent(this.sendModel);
+  
+
+ final  MessageSendModel sendModel;
+
+/// Create a copy of MessageEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$MessageSendEventCopyWith<MessageSendEvent> get copyWith => _$MessageSendEventCopyWithImpl<MessageSendEvent>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MessageSendEvent&&(identical(other.sendModel, sendModel) || other.sendModel == sendModel));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,sendModel);
+
+@override
+String toString() {
+  return 'MessageEvent.sendMessage(sendModel: $sendModel)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $MessageSendEventCopyWith<$Res> implements $MessageEventCopyWith<$Res> {
+  factory $MessageSendEventCopyWith(MessageSendEvent value, $Res Function(MessageSendEvent) _then) = _$MessageSendEventCopyWithImpl;
+@useResult
+$Res call({
+ MessageSendModel sendModel
+});
+
+
+$MessageSendModelCopyWith<$Res> get sendModel;
+
+}
+/// @nodoc
+class _$MessageSendEventCopyWithImpl<$Res>
+    implements $MessageSendEventCopyWith<$Res> {
+  _$MessageSendEventCopyWithImpl(this._self, this._then);
+
+  final MessageSendEvent _self;
+  final $Res Function(MessageSendEvent) _then;
+
+/// Create a copy of MessageEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? sendModel = null,}) {
+  return _then(MessageSendEvent(
+null == sendModel ? _self.sendModel : sendModel // ignore: cast_nullable_to_non_nullable
+as MessageSendModel,
+  ));
+}
+
+/// Create a copy of MessageEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MessageSendModelCopyWith<$Res> get sendModel {
+  
+  return $MessageSendModelCopyWith<$Res>(_self.sendModel, (value) {
+    return _then(_self.copyWith(sendModel: value));
+  });
+}
+}
+
+/// @nodoc
 mixin _$MessageState {
 
- bool get isMine;
+ String? get myNickname; bool? get lastSendSuccess;
 /// Create a copy of MessageState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -217,16 +298,16 @@ $MessageStateCopyWith<MessageState> get copyWith => _$MessageStateCopyWithImpl<M
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MessageState&&(identical(other.isMine, isMine) || other.isMine == isMine));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MessageState&&(identical(other.myNickname, myNickname) || other.myNickname == myNickname)&&(identical(other.lastSendSuccess, lastSendSuccess) || other.lastSendSuccess == lastSendSuccess));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isMine);
+int get hashCode => Object.hash(runtimeType,myNickname,lastSendSuccess);
 
 @override
 String toString() {
-  return 'MessageState(isMine: $isMine)';
+  return 'MessageState(myNickname: $myNickname, lastSendSuccess: $lastSendSuccess)';
 }
 
 
@@ -237,7 +318,7 @@ abstract mixin class $MessageStateCopyWith<$Res>  {
   factory $MessageStateCopyWith(MessageState value, $Res Function(MessageState) _then) = _$MessageStateCopyWithImpl;
 @useResult
 $Res call({
- bool isMine
+ String? myNickname, bool? lastSendSuccess
 });
 
 
@@ -254,10 +335,11 @@ class _$MessageStateCopyWithImpl<$Res>
 
 /// Create a copy of MessageState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isMine = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? myNickname = freezed,Object? lastSendSuccess = freezed,}) {
   return _then(_self.copyWith(
-isMine: null == isMine ? _self.isMine : isMine // ignore: cast_nullable_to_non_nullable
-as bool,
+myNickname: freezed == myNickname ? _self.myNickname : myNickname // ignore: cast_nullable_to_non_nullable
+as String?,lastSendSuccess: freezed == lastSendSuccess ? _self.lastSendSuccess : lastSendSuccess // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 
@@ -342,10 +424,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isMine)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? myNickname,  bool? lastSendSuccess)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MessageState() when $default != null:
-return $default(_that.isMine);case _:
+return $default(_that.myNickname,_that.lastSendSuccess);case _:
   return orElse();
 
 }
@@ -363,10 +445,10 @@ return $default(_that.isMine);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isMine)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? myNickname,  bool? lastSendSuccess)  $default,) {final _that = this;
 switch (_that) {
 case _MessageState():
-return $default(_that.isMine);case _:
+return $default(_that.myNickname,_that.lastSendSuccess);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -383,10 +465,10 @@ return $default(_that.isMine);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isMine)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? myNickname,  bool? lastSendSuccess)?  $default,) {final _that = this;
 switch (_that) {
 case _MessageState() when $default != null:
-return $default(_that.isMine);case _:
+return $default(_that.myNickname,_that.lastSendSuccess);case _:
   return null;
 
 }
@@ -398,10 +480,11 @@ return $default(_that.isMine);case _:
 
 
 class _MessageState implements MessageState {
-  const _MessageState({required this.isMine});
+  const _MessageState({this.myNickname, this.lastSendSuccess});
   
 
-@override final  bool isMine;
+@override final  String? myNickname;
+@override final  bool? lastSendSuccess;
 
 /// Create a copy of MessageState
 /// with the given fields replaced by the non-null parameter values.
@@ -413,16 +496,16 @@ _$MessageStateCopyWith<_MessageState> get copyWith => __$MessageStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MessageState&&(identical(other.isMine, isMine) || other.isMine == isMine));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MessageState&&(identical(other.myNickname, myNickname) || other.myNickname == myNickname)&&(identical(other.lastSendSuccess, lastSendSuccess) || other.lastSendSuccess == lastSendSuccess));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isMine);
+int get hashCode => Object.hash(runtimeType,myNickname,lastSendSuccess);
 
 @override
 String toString() {
-  return 'MessageState(isMine: $isMine)';
+  return 'MessageState(myNickname: $myNickname, lastSendSuccess: $lastSendSuccess)';
 }
 
 
@@ -433,7 +516,7 @@ abstract mixin class _$MessageStateCopyWith<$Res> implements $MessageStateCopyWi
   factory _$MessageStateCopyWith(_MessageState value, $Res Function(_MessageState) _then) = __$MessageStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isMine
+ String? myNickname, bool? lastSendSuccess
 });
 
 
@@ -450,10 +533,11 @@ class __$MessageStateCopyWithImpl<$Res>
 
 /// Create a copy of MessageState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isMine = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? myNickname = freezed,Object? lastSendSuccess = freezed,}) {
   return _then(_MessageState(
-isMine: null == isMine ? _self.isMine : isMine // ignore: cast_nullable_to_non_nullable
-as bool,
+myNickname: freezed == myNickname ? _self.myNickname : myNickname // ignore: cast_nullable_to_non_nullable
+as String?,lastSendSuccess: freezed == lastSendSuccess ? _self.lastSendSuccess : lastSendSuccess // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 

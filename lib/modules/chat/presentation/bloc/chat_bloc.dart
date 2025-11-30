@@ -6,6 +6,8 @@ import 'package:tech_messenger/app/app_logger.dart';
 import 'package:tech_messenger/core/common/secure_storage/secure_storage.dart';
 import 'package:tech_messenger/core/common/user_local_storage/user_local_storage.dart';
 import 'package:tech_messenger/modules/chat/domain/model/chat/chat_model.dart';
+import 'package:tech_messenger/modules/chat/domain/model/chat_create_response/chat_create_response.dart';
+import 'package:tech_messenger/modules/chat/domain/model/create/chat_create_model.dart';
 import 'package:tech_messenger/modules/chat/domain/repository/chat_repository_interface.dart';
 
 part 'chat_event.dart';
@@ -27,8 +29,36 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
        _secureStorage = secureStorage,
        super(ChatState.initial()) {
     on<ChatStartedEvent>(_onStarted);
+    on<ChatCreateEvent>(_onCreate);
     on<ChatRefreshEvent>(_onRefresh);
     on<ChatsUpdatedEvent>(_onChatsUpdated);
+    on<ChatSelectEvent>(_onSelect);
+  }
+
+  void _onSelect(ChatSelectEvent event, Emitter<ChatState> emit) {
+    final currentChats = state.maybeWhen(
+      loaded: (chats, _) => List<ChatModel>.from(chats),
+      orElse: () => <ChatModel>[],
+    );
+
+    emit(ChatState.loaded(chats: currentChats, selectedChatId: event.chatId));
+  }
+
+  Future<void> _onCreate(ChatCreateEvent event, Emitter<ChatState> emit) async {
+    try {
+      final response = await _chatRepository.createChat(event.chatCreate);
+
+      if (response.response.statusCode == 200) {
+        final createResp = ChatCreateResponse.fromJson(response.response.data);
+        final newChatId = createResp.chatId;
+
+        add(ChatSelectEvent(newChatId));
+      }
+
+      add(const ChatEvent.refresh());
+    } catch (e) {
+      AppLogger.error('Create chat error', e);
+    }
   }
 
   Future<void> _onStarted(
@@ -74,13 +104,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   void _onChatsUpdated(ChatsUpdatedEvent event, Emitter<ChatState> emit) {
     final currentChats = state.maybeWhen(
-      loaded: (chats) => List<ChatModel>.from(chats),
+      loaded: (chats, selected) => List<ChatModel>.from(chats),
       orElse: () => <ChatModel>[],
     );
 
-    if (event.chats.isEmpty) {
-      return;
-    }
+    final String? prevSelected = state.maybeWhen(
+      loaded: (chats, selected) => selected,
+      orElse: () => null,
+    );
+
+    if (event.chats.isEmpty) return;
 
     final Map<String, ChatModel> map = {for (final c in currentChats) c.id: c};
 
@@ -96,7 +129,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       return b.lastMessageTime!.compareTo(a.lastMessageTime!);
     });
 
-    emit(ChatState.loaded(chats: merged));
+    emit(ChatState.loaded(chats: merged, selectedChatId: prevSelected));
   }
 
   @override

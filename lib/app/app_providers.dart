@@ -17,6 +17,10 @@ import 'package:tech_messenger/modules/login/data/datasource/impl/login_datasour
 import 'package:tech_messenger/modules/login/data/repository/login_repository_impl.dart';
 import 'package:tech_messenger/modules/login/domain/repository/login_repository_interface.dart';
 import 'package:tech_messenger/modules/login/presentation/bloc/login_bloc.dart';
+import 'package:tech_messenger/modules/message/data/datasource/impl/message_datasource_impl.dart';
+import 'package:tech_messenger/modules/message/data/repository/message_repository_impl.dart';
+import 'package:tech_messenger/modules/message/domain/repository/message_repository_interface.dart';
+import 'package:tech_messenger/modules/message/presentation/bloc/message_bloc.dart';
 import 'package:tech_messenger/modules/registration/data/datasource/impl/registration_datasource_impl.dart';
 import 'package:tech_messenger/modules/registration/data/repository/registration_repository_impl.dart';
 import 'package:tech_messenger/modules/registration/domain/repository/registration_repository_interface.dart';
@@ -79,6 +83,11 @@ class AppProviders extends StatelessWidget {
             chatDatasource: ChatDatasource(config.dio, baseUrl: config.baseUrl),
           ),
         ),
+        RepositoryProvider<IMessageRepository>(
+          create: (context) => MessagesRepository(
+            ds: MessageDatasource(config.dio, baseUrl: config.baseUrl),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -115,6 +124,12 @@ class AppProviders extends StatelessWidget {
               userStorage: config.userLocalStorage,
               secureStorage: config.secureStorage,
             ),
+          ),
+          BlocProvider(
+            create: (context) => MessageBloc(
+              userRepository: context.read<IUserRepository>(),
+              messageRepository: context.read<IMessageRepository>(),
+            )..add(MessageEvent.create()),
           ),
         ],
         child: BlocListener<AuthBloc, AuthState>(

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tech_messenger/modules/chat/domain/model/interlocutor/chat_interlocutor_model.dart';
-import 'package:tech_messenger/modules/message/domain/model/message_model.dart';
+import 'package:tech_messenger/modules/message/domain/model/message/message_model.dart';
 import 'package:tech_messenger/modules/user/domain/model/user_model.dart';
 
 part 'chat_model.freezed.dart';

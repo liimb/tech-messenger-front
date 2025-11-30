@@ -17,7 +17,7 @@ class Chatlist extends StatelessWidget {
             child: Center(child: CircularProgressIndicator()),
           ),
           failure: (String message) => Text(message),
-          loaded: (List<ChatModel> chats) {
+          loaded: (List<ChatModel> chats, _) {
             return SliverList.separated(
               itemCount: chats.length,
               separatorBuilder: (context, i) => const Divider(height: 0),
