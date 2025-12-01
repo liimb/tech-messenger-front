@@ -27,7 +27,7 @@ class ChatlistItem extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
-        final myNickname = (myUser.nickname ?? '').trim().toLowerCase();
+        final myNickname = (myUser.nickname).trim().toLowerCase();
 
         AppLogger.info(
           'ChatlistItem: myNickname="$myNickname" (original: "${myUser.nickname}"), interlocutors=${chatModel.interlocutors.map((i) => '"${i.nickname}"').toList()}',
@@ -136,7 +136,11 @@ class ChatlistItem extends StatelessWidget {
               ),
               avatarSize: AvatarSize.small,
             ),
-            subtitle: Text(chatModel.lastMessage ?? ''),
+            subtitle: Text(
+              chatModel.lastMessage ?? '',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
             contentPadding: const EdgeInsets.symmetric(
               vertical: p8,
               horizontal: p32,
