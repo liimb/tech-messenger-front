@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chat_datasource_impl.dart';
+part of 'message_datasource_impl.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'chat_datasource_impl.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
-class _ChatDatasource implements ChatDatasource {
-  _ChatDatasource(this._dio, {this.baseUrl, this.errorLogger});
+class _MessageDatasource implements MessageDatasource {
+  _MessageDatasource(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -18,11 +18,11 @@ class _ChatDatasource implements ChatDatasource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<dynamic>> createChat(ChatCreateModel chatCreate) async {
+  Future<HttpResponse<dynamic>> sendMessage(MessageSendModel sendModel) async {
     final _extra = <String, dynamic>{'requiresAuth': true};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = chatCreate;
+    final _data = sendModel;
     final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(
             method: 'POST',
@@ -32,7 +32,7 @@ class _ChatDatasource implements ChatDatasource {
           )
           .compose(
             _dio.options,
-            '/create-chat',
+            '/send-message',
             queryParameters: queryParameters,
             data: _data,
           )

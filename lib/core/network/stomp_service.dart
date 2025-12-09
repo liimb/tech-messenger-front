@@ -226,6 +226,17 @@ class StompService {
     _unsubscribes.clear();
   }
 
+  /// Очищает все контроллеры и подписки, используется при выходе из аккаунта
+  void clearAllSubscriptions() {
+    _unsubscribeAll();
+    _controllers.forEach((_, c) {
+      try {
+        if (!c.isClosed) c.close();
+      } catch (_) {}
+    });
+    _controllers.clear();
+  }
+
   void send({
     required String destination,
     String? body,

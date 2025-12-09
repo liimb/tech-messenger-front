@@ -12,5 +12,6 @@ abstract class ChatDatasource implements IChatDatasource {
   @override
   @POST('/create-chat')
   @DioResponseType(ResponseType.plain)
+  @Extra({'requiresAuth': true})
   Future<HttpResponse> createChat(@Body() ChatCreateModel chatCreate);
 }

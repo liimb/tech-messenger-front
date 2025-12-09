@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:retrofit/dio.dart';
 import 'package:tech_messenger/app/app_logger.dart';
 import 'package:tech_messenger/core/network/stomp_service.dart';
@@ -26,7 +27,7 @@ class ChatRepository implements IChatRepository {
       () => StreamController<List<ChatModel>>.broadcast(),
     );
 
-    stomp.subscribe(topic, headers: {}).listen((frame) {
+    stomp.subscribe(topic, headers: {}).listen((frame) async {
       if (frame.body == null) {
         AppLogger.info('frame.body watchChats null');
         return;
@@ -36,9 +37,11 @@ class ChatRepository implements IChatRepository {
         final decoded = jsonDecode(frame.body!);
         if (decoded is List) {
           AppLogger.info('Попытка декодирования чатов');
-          final chats = decoded
-              .map((e) => ChatModel.fromJson(Map<String, dynamic>.from(e)))
-              .toList();
+          // Парсинг в фоновом потоке для предотвращения зависания UI
+          final chats = await compute(
+            _parseChats,
+            decoded.map((e) => Map<String, dynamic>.from(e as Map)).toList(),
+          );
           if (!controller.isClosed) controller.add(chats);
         }
       } catch (e) {
@@ -71,4 +74,11 @@ class ChatRepository implements IChatRepository {
   Future<HttpResponse> createChat(ChatCreateModel chatCreate) {
     return _chatDatasource.createChat(chatCreate);
   }
+}
+
+// Функция для парсинга чатов в фоновом потоке
+List<ChatModel> _parseChats(List<Map<String, dynamic>> decoded) {
+  return decoded
+      .map((e) => ChatModel.fromJson(Map<String, dynamic>.from(e)))
+      .toList();
 }
